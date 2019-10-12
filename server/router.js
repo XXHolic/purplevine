@@ -12,9 +12,8 @@ module.exports = {
 
 
     var sql = 'select * from note_list';
-    db(sql,[], (data,fields) => {
+    db(sql,[], (data) => {
       console.log('data',data);
-      console.log('fields',fields);
       res.writeHead(200, "ok");
       res.write("Hello Node Server");
       res.end();
