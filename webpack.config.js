@@ -27,9 +27,7 @@ module.exports = {
     ]
   },
   node: {
-    fs: "empty",
-    // net: "empty",
-    // tls: "empty"
+    fs: "empty"
   },
   devServer: {
     contentBase: './dist',
