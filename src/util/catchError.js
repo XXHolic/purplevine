@@ -36,32 +36,34 @@ class CatchError {
   }
 
   // 获取行为信息
-  getActionData() {
-    let defaultData = {
+  getActionData({errData}) {
+    const {path=null,target=null} = errData;
+    let data = {
       action: null,
-      path: null,
+      path: path,
       data: null,
       dataSources: null,
-      targetElement: null,
+      targetElement: target,
       targetDOMPath: null,
       targetCSS: {},
       targetAttrs: {}
     };
 
-    return {...defaultData};
+    return {...data};
   }
 
   // 获取异常信息
   getErrorData({errData}) {
-    let defaultData = {
-      errorType: null,
+    const {type,timeStamp,lineno=null,colno=null,message=null,error=null,filename=null} = errData;
+    let data = {
+      errorType: type,
       errorLevel: null,
-      errorStack: null,
-      errorFilename: null,
-      errorLineNo: null,
-      errorColNo: null,
-      errorMessage: null,
-      errorTimeStamp: null,
+      errorStack: error,
+      errorFilename: filename,
+      errorLineNo: lineno,
+      errorColNo: colno,
+      errorMessage: message,
+      errorTimeStamp: timeStamp,
       eventType: null,
       pageX: null,
       pageY: null,
@@ -70,23 +72,27 @@ class CatchError {
       eventKey: null,
     };
 
-    return {...defaultData};
+
+
+
+    return {...data};
 
   }
 
   // 获取环境信息
   getEnvironmentData() {
+    const {innerWidth,innerHeight,screen,navigator} = window;
+    const {appName,appVersion,userAgent,platform} = navigator;
     let defaultData = {
-      pageW: null,
-      pageH: null,
-      screenW: null,
-      screenH: null,
+      pageW: innerWidth,
+      pageH: innerHeight,
+      screenW: screen.width,
+      screenH: screen.height,
       network: null,
-      userAgent: null,
-      device: null,
-      system: null,
-      appVersion: null,
-      apiVersion: null,
+      userAgent: userAgent,
+      appName: appName,
+      system: platform,
+      appVersion: appVersion,
     };
 
     return {...defaultData};
@@ -95,8 +101,8 @@ class CatchError {
   // 组装数据
   combineData({errData}) {
     let userData = this.getUserData();
-    let actionData = this.getActionData();
-    let errorData = this.getErrorData({errData});d
+    let actionData = this.getActionData({errData});
+    let errorData = this.getErrorData({errData});
     let environData = this.getEnvironmentData();
     return {
       ...userData,
