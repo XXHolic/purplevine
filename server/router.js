@@ -1,5 +1,5 @@
 var formidable = require('formidable');
-var util = require('util');
+// var util = require('util');
 var db = require('./db');
 // import client from './db';
 
@@ -11,9 +11,9 @@ module.exports = {
     // res.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
 
 
-    var sql = 'select * from note_list';
+    var sql = 'select * from log';
     db(sql,[], (data) => {
-      console.log('data',data);
+      // console.log('data',data);
       res.writeHead(200, "ok");
       res.write("Hello Node Server");
       res.end();

@@ -23,4 +23,4 @@ var server = http.createServer(function(req, res) {
 });
 
 server.listen(port);
-console.log("The node server can run: http://localhost:9001");
+console.log("The node server is running: http://localhost:9001");
