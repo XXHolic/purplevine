@@ -11,16 +11,15 @@
     "formidable": "^1.2.2",
     "mysql": "^2.18.1",
     "normalize.css": "^8.0.1",
+    "customize-react-scripts": "1.0.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-dom": "^16.13.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "server": "node './server/server.js'"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
