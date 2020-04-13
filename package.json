@@ -23,7 +23,85 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "eqeqeq": "always",
+      "no-caller": "error",
+      "no-new": "error",
+      "no-new-func": "error",
+      "no-new-wrappers": "error",
+      "no-array-constructor": "error",
+      "no-iterator": "error",
+      "no-proto": "error",
+      "no-use-before-define": "error",
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "indent": [
+        "error",
+        2
+      ],
+      "no-multi-spaces": "error",
+      "array-bracket-spacing": [
+        "error",
+        "always"
+      ],
+      "block-spacing": "error",
+      "comma-spacing": [
+        "error",
+        {
+          "before": false,
+          "after": true
+        }
+      ],
+      "func-call-spacing": [
+        "error",
+        "never"
+      ],
+      "key-spacing": [
+        "error",
+        {
+          "beforeColon": false,
+          "afterColon": true
+        }
+      ],
+      "space-before-blocks": "error",
+      "space-infix-ops": "error",
+      "arrow-spacing": "error",
+      "space-before-function-paren": [
+        "error",
+        "never"
+      ],
+      "space-in-parens": [
+        "error",
+        "never"
+      ],
+      "curly": "all",
+      "brace-style": "error",
+      "multiline-comment-style": [
+        "error",
+        "starred-block"
+      ],
+      "object-curly-newline": [
+        "error",
+        {
+          "multiline": true
+        }
+      ],
+      "eol-last": [
+        "error",
+        "always"
+      ],
+      "spaced-comment": [
+        "error",
+        "always"
+      ],
+      "comma-style": [
+        "error",
+        "last"
+      ]
+    }
   },
   "browserslist": {
     "production": [
@@ -36,5 +114,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+   "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "husky": "^4.2.5",
+    "stylelint": "^13.3.2",
+    "stylelint-config-recommended": "^3.0.0"
   }
 }
