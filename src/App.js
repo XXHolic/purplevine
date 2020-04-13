@@ -1,22 +1,12 @@
 import React from 'react';
-import { Layout } from 'antd';
-
-import Menu from './components/menu/index';
-
-import styles from './App.module.css';
-
-const { Sider } = Layout;
+import Container from 'components/container';
+import Router from 'components/router';
 
 function App() {
   return (
-    <Layout>
-      <Sider>
-        <Menu></Menu>
-      </Sider>
-      <Layout className={styles.layout}>
-      dsa
-      </Layout>
-    </Layout>
+    <Container>
+      <Router></Router>
+    </Container>
   );
 }
 
