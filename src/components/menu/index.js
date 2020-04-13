@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Menu as AntMenu } from 'antd';
 import {
   ProjectOutlined,
@@ -12,12 +13,14 @@ function Menu() {
       <div className={styles.logo}>User Tom</div>
       <AntMenu theme="dark" mode="inline" defaultSelectedKeys={['2']}>
         <AntMenu.Item key="1">
-          <ProjectOutlined />
-          <span className="nav-text">Projects</span>
+          <Link to="/project">
+            <ProjectOutlined />Projects
+          </Link>
         </AntMenu.Item>
         <AntMenu.Item key="2">
-          <ContainerOutlined />
-          <span className="nav-text">Issues</span>
+          <Link to="/">
+            <ContainerOutlined />Issues
+          </Link>
         </AntMenu.Item>
       </AntMenu>
     </>
