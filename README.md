@@ -1,7 +1,10 @@
 # Purplevine
 
 ## 概述
-这个是一个带有示范性和实验性的项目。
+这个是一个带有实验性的项目。主要使用了：
+- React、react-router-dom
+- Ant Design
+- axios
 
 ## 基本配置说明
 ### 构建工具
