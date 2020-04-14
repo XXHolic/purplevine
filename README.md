@@ -10,14 +10,17 @@
 ### 构建工具
 使用了 [create-react-app][url-github-1] ，基于原项目 fork 后可以自定义配置，自定义配置项目见[这里][url-github-1]。
 
-### JavaScript 规则
+### JavaScript 配置
 create-react-app 自带自定义的配置项，为 package.json 的 eslintConfig 字段。个人配置见[这里][url-github-3] 。
 
-### CSS 规则
+### CSS 配置
 使用了 [stylelint][url-github-4]，个人配置见[这里][url-github-5] 。
 
-### Git 提交规则
+### Git 提交配置
 使用了 [commitlint][url-github-6] 。
+
+### 编辑器 EditorConfig 配置
+根据 [EditorConfig][url-website-1] 说明，进行了基本的配置。
 
 
 ## 规范
@@ -39,3 +42,6 @@ create-react-app 自带自定义的配置项，为 package.json 的 eslintConfig
 [url-github-8]:https://github.com/XXHolic/blog/issues/52
 [url-github-9]:https://github.com/XXHolic/blog/issues/43
 [url-github-10]:https://github.com/XXHolic/blog/issues/30
+
+[url-website-1]:https://editorconfig.org
+
