@@ -22,6 +22,7 @@ create-react-app 自带自定义的配置项，为 package.json 的 eslintConfig
 ### 编辑器 EditorConfig 配置
 根据 [EditorConfig][url-website-1] 说明，进行了基本的配置。
 
+注意：如果需要让这个文件生效，需要在自己的编辑器中安装对应的插件，官网上有列出。基本上主流的编辑器都有相应的插件。
 
 ## 规范
 - 工作流规范见 [Git 工作流规范参考][url-github-8]。
