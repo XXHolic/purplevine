@@ -1,4 +1,5 @@
 var formidable = require('formidable');
+const https = require('https');
 // var util = require('util');
 var db = require('./db');
 // import client from './db';
@@ -18,6 +19,27 @@ module.exports = {
       res.write("Hello Node Server");
       res.end();
     })
+
+    const options = {
+      hostname: 'api.bilibili.com',
+      port: 443,
+      path: '/x/player/playurl?bvid=BV1y7411Q7Eq&cid=171776208&qn=112',
+      method: 'GET',
+      headers: {
+        "content-type": "application/json",
+        "origin":"https://www.bilibili.com",
+        "referer":"https://www.bilibili.com",
+      }
+    };
+
+    https.request(options, function(res) {
+      console.log('res:', res);
+      console.log('状态码:', res.statusCode);
+      console.log('请求头:', res.headers);
+    }).on('error', (e) => {
+      console.error('error',e);
+    });
+
   },
   simpleCrossOriginRequest: function(req, res) {
     var data = JSON.stringify({
