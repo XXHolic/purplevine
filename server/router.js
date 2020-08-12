@@ -6,8 +6,7 @@ var formidable = require('formidable');
 
 module.exports = {
   index: (ctx) => {
-    console.info('dfsfd')
-    ctx.body = 'Hello Koadd';
+    ctx.body = 'Hello Koa';
     // res.setHeader("Access-Control-Allow-Headers","Content-Type,Content-Length,Authorization,Accept,X-Requested-With");
     // res.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
 

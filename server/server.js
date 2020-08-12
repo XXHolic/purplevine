@@ -2,7 +2,7 @@ const Koa = require('koa');
 const app = new Koa();
 var http = require('http').createServer(app.callback());
 const router = require("./router");
-const port = 9001;
+const {port} = require('../server/constants');
 
 app.use(async ctx => {
   const {request,response} = ctx;
@@ -20,7 +20,7 @@ app.use(async ctx => {
   let pathname = request.URL.pathname; //得到请求的路径
   pathname = pathname.replace(/\//, ""); //替换掉前面的 /
   pathname = pathname?pathname:'index';
-  console.log('pathname',pathname);
+  // console.log('pathname',pathname);
   router[pathname](ctx);
 });
 
@@ -28,7 +28,6 @@ http.listen(port);
 
 
 const io = require('socket.io')(http);
-
 io.on('connection', (socketServer) => {
   // console.info('connection ready~~')
   socketServer.on('npmStop', (data) => {
@@ -36,4 +35,5 @@ io.on('connection', (socketServer) => {
   });
 });
 
-console.log(`The node server is running: http://localhost:${port}`);
+const msg = `The node server is running: http://localhost:${port}`;
+console.log(msg);

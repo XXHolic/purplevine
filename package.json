@@ -22,9 +22,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "watch": "node './script/watch.js'",
-    "stop": "node './script/stop.js'",
-    "server": "node './server/server.js'"
+    "watch": "node script/watch.js",
+    "stop": "node script/stop.js",
+    "server": "node server/server.js"
   },
   "eslintConfig": {
     "extends": "react-app",
