@@ -1,26 +1,39 @@
-var http = require("http");
-var url = require("url");
-var router = require("./router");
-const querystring = require("querystring");
-var port = 9001;
+const Koa = require('koa');
+const app = new Koa();
+var http = require('http').createServer(app.callback());
+const router = require("./router");
+const port = 9001;
 
-var server = http.createServer(function(req, res) {
-  if (req.url !== "/favicon.ico") {
-    var urlObj = url.parse(req.url);
-    var pathname = urlObj.pathname; //得到请求的路径
-    pathname = pathname.replace(/\//, ""); //替换掉前面的 /
-    pathname = pathname?pathname:'index';
-
-    var queryObj = querystring.parse(req.url.split("?")[1]);
-    // console.log('pathname',pathname);
-    router[pathname](req, res, queryObj);
-  } else {
-      res.writeHead(302, {
-        Location: "http://www.xholic.cn/favicon.ico"
-      });
-      res.end();
+app.use(async ctx => {
+  const {request,response} = ctx;
+  // console.info('url',request.url)
+  if (request.url === "/favicon.ico") {
+    response.redirect("https://xxholic.github.io/lab/icon.ico");
+    return;
   }
+
+  // console.info('request.url',request.url)
+  if (request.url.indexOf('socket.io') > -1) {
+    return;
+  }
+
+  let pathname = request.URL.pathname; //得到请求的路径
+  pathname = pathname.replace(/\//, ""); //替换掉前面的 /
+  pathname = pathname?pathname:'index';
+  console.log('pathname',pathname);
+  router[pathname](ctx);
 });
 
-server.listen(port);
-console.log("The node server is running: http://localhost:9001");
+http.listen(port);
+
+
+const io = require('socket.io')(http);
+
+io.on('connection', (socketServer) => {
+  // console.info('connection ready~~')
+  socketServer.on('npmStop', (data) => {
+    process.exit(0);
+  });
+});
+
+console.log(`The node server is running: http://localhost:${port}`);

@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "customize-react-scripts": "1.0.1",
     "formidable": "^1.2.2",
+    "koa": "^2.13.0",
     "mysql": "^2.18.1",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
@@ -21,6 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "watch": "node './script/watch.js'",
+    "stop": "node './script/stop.js'",
     "server": "node './server/server.js'"
   },
   "eslintConfig": {
@@ -114,7 +117,7 @@
       "last 1 safari version"
     ]
   },
-   "husky": {
+  "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
@@ -123,6 +126,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "husky": "^4.2.5",
+    "socket.io": "^2.3.0",
     "stylelint": "^13.3.2",
     "stylelint-config-recommended": "^3.0.0"
   }
