@@ -5,9 +5,9 @@ import styles from './index.module.css';
 function Home() {
 
   useEffect(() => {
-    fetch("http://localhost:9001/index").then(res => {
-      console.info("res", res);
-    })
+    // fetch("http://localhost:9001/index").then(res => {
+    //   console.info("res", res);
+    // })
     // .catch(error => {
     //   console.log("Request Error", error);
     // });
