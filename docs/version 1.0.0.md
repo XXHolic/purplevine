@@ -56,6 +56,8 @@ password | VARCHAR |  密码 | 否 | 是
 email | CHAR | 邮箱 | 否 | 是
 createTime | DATETIME | 创建时间 | 否 | 是
 
+name、email 需要建=检验唯一性，目前可作为登录的用户名。
+
 ### project
 
 字段 | 数据类型 | 功能描述 | 主键 | 非空
@@ -69,7 +71,7 @@ updateTime | DATETIME | 更新时间 | 否 | 是
 
 其中 ownerId 为外键
 
-### issues
+### issue
 
 字段 | 数据类型 | 功能描述 | 主键 | 非空
 --- | --- | --- | --- | ---
