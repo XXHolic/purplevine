@@ -24,6 +24,10 @@ app.use(async ctx => {
   router[pathname](ctx);
 });
 
+app.on('error', err => {
+  console.log('server error', err)
+});
+
 http.listen(port);
 
 
