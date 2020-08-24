@@ -118,3 +118,9 @@ class CatchError {
   }
 
 }
+
+const init = (options={}) => {
+
+};
+
+export {init}
