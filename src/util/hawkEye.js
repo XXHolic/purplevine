@@ -1,58 +1,62 @@
 import { func } from "prop-types";
 
-class CatchError {
+// 获取客户端基础信息，提供主动捕获发送请求一些公用的方法
+class BaseClient {
   constructor() {
 
   }
 
-  // 监听事件
-  initErrorEvent() {
+  // 主动捕获
+  capture() {
 
-    // window.onerror = function(message, source, lineno, colno, error) {
-    //   this.send({errData:{message, source, lineno, colno, error}});
-    // }
+  }
 
-    // 资源加载异常
-    window.addEventListener('error', (error) => {
-      this.send({errData:error});
-    }, true);
+  createFetch() {
 
-    // promise 异常
-    window.addEventListener("unhandledrejection", function(error){
-      this.send({errData:error});
-    });
+  }
+
+  createXHR() {
+
+  }
+
+  combineRequestBody() {
+
+  }
+
+  send() {
+
   }
 
   /**
    * 获取用户信息
    */
-  getUserData() {
-    let defaultData = {
-      userId: null, // 默认是 0
-      userStatus: null, //  默认是 1 ，表示可用
-      userGroups:[],
-      userLicenses:[],
-    };
+  // getUserData() {
+  //   let defaultData = {
+  //     userId: null, // 默认是 0
+  //     userStatus: null, //  默认是 1 ，表示可用
+  //     userGroups:[],
+  //     userLicenses:[],
+  //   };
 
-    return {...defaultData};
-  }
+  //   return {...defaultData};
+  // }
 
   // 获取行为信息
-  getActionData({errData}) {
-    const {path=null,target=null} = errData;
-    let data = {
-      action: null,
-      path: path,
-      data: null,
-      dataSources: null,
-      targetElement: target,
-      targetDOMPath: null,
-      targetCSS: {},
-      targetAttrs: {}
-    };
+  // getActionData({errData}) {
+  //   const {path=null,target=null} = errData;
+  //   let data = {
+  //     action: null,
+  //     path: path,
+  //     data: null,
+  //     dataSources: null,
+  //     targetElement: target,
+  //     targetDOMPath: null,
+  //     targetCSS: {},
+  //     targetAttrs: {}
+  //   };
 
-    return {...data};
-  }
+  //   return {...data};
+  // }
 
   // 获取异常信息
   getErrorData({errData}) {
@@ -73,12 +77,7 @@ class CatchError {
       screenY: null,
       eventKey: null,
     };
-
-
-
-
     return {...data};
-
   }
 
   // 获取环境信息
@@ -100,19 +99,19 @@ class CatchError {
     return {...defaultData};
   }
 
-  // 组装数据
-  combineData({errData}) {
-    let userData = this.getUserData();
-    let actionData = this.getActionData({errData});
-    let errorData = this.getErrorData({errData});
-    let environData = this.getEnvironmentData();
-    return {
-      ...userData,
-      ...actionData,
-      ...errorData,
-      ...environData,
-    }
-  }
+  // 组装基础数据
+  // combineBaseData({errData}) {
+  //   let userData = this.getUserData();
+  //   let actionData = this.getActionData({errData});
+  //   let errorData = this.getErrorData({errData});
+  //   let environData = this.getEnvironmentData();
+  //   return {
+  //     ...userData,
+  //     ...actionData,
+  //     ...errorData,
+  //     ...environData,
+  //   }
+  // }
 
   // 发送数据
   send({errData}) {
@@ -121,6 +120,10 @@ class CatchError {
 
 }
 
+
+// 以下为新的思路
+
+
 const handlers ={}
 function addHandler(handler) {
   if (!handler || typeof handler.type !== 'string' ) {
@@ -128,16 +131,31 @@ function addHandler(handler) {
   }
   handlers[handler.type] = handlers[handler.type] || [];
   handlers[handler.type].push(handler.fn);
-  instrument(handler.type);
+}
+
+function triggerHandler(type, data) {
+  if (!type || !handlers[type]) {
+      return;
+  }
+  for (const handler of handlers[type] || []) {
+      try {
+          handler(data);
+      }
+      catch (e) {
+        console.error('Error while triggering handler')
+      }
+  }
 }
 
 
 const fallbackGlobalObject = {};
 
+// 获取全局属性
 function getGlobalObject() {
   typeof window !== 'undefined' ? window : fallbackGlobalObject;
 }
 
+// 扩展属性
 function fill(source, name, replacement) {
   if (!(name in source)) {
       return;
@@ -178,12 +196,13 @@ class GlobalHandlers {
     // 有可能已有被重写了，所以要暂存下来
     const oldOnError = global.onerror;
 
-    addHandler({type:'error',fn:{
-      // 获取一些本地信息等上报
-    }})
+    addHandler({
+      type:'error',
+      fn:()=>{}
+    })
 
     global.onerror = function(msg, url, line, column, error) {
-      triggerHandlers('error', {
+      triggerHandler('error', {
           column,
           error,
           line,
@@ -196,18 +215,25 @@ class GlobalHandlers {
       return false;
     }
 
+  }
 
+  wrapOnunhandledrejection() {
+    const global = this.global;
+    // 有可能已有被重写了，所以要暂存下来
+    const oldOnError = global.onunhandledrejection;
 
-    fill(global,'onerror',function(original){
-      return function(eventName,fn,options) {
-        // 添加重写的标志
-        Object.defineProperty(fn, '__wrapped__', {
-            enumerable: false,
-            value: true,
-        });
-        original.call(this,eventName,fn,options);
+    addHandler({type:'unhandledrejection',fn:{
+      // 获取一些本地信息等上报
+    }})
+
+    global.onunhandledrejection = function(e) {
+      triggerHandlers('unhandledrejection', e);
+      if (oldOnError) {
+        return oldOnError.apply(this, arguments);
       }
-    });
+      return true;
+    }
+
   }
 
   wrapEventTarget() {
@@ -248,7 +274,7 @@ const init = (options={}) => {
   const defaultOptions = {
     url:'' // 上报的请求
   }
-
+  const client = new BaseClient();
   new GlobalHandlers();
 };
 
