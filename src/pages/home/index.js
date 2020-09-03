@@ -11,6 +11,7 @@ function Home() {
     // .catch(error => {
     //   console.log("Request Error", error);
     // });
+    // throw '32'
   },[])
 
   return (
