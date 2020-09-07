@@ -13,8 +13,8 @@ function Router() {
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>
             <Route exact path="/project" component={Project}/>
-            <Route exact path="/" component={Home}/>
             <Route exact path="/login" component={Login}/>
+            <Route exact path="/" component={Home}/>
           </Switch>
         </Suspense>
       </Container>

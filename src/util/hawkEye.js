@@ -1,6 +1,3 @@
-
-import { func } from "prop-types";
-
 // 获取客户端基础信息
 class BaseClient {
   constructor() {
@@ -143,12 +140,40 @@ function fill(source, name, replacement) {
   source[name] = wrapped;
 }
 
+// const debounceDuration = 1000;
+// let debounceTimer = 0;
+// let lastCapturedEvent;
+// function domEventHandler(name, handler, debounce = false) {
+//   return (event) => {
+
+//       // It's possible this handler might trigger multiple times for the same
+//       // event (e.g. event propagation through node ancestors). Ignore if we've
+//       // already captured the event.
+//       if (!event || lastCapturedEvent === event) {
+//           return;
+//       }
+//       lastCapturedEvent = event;
+//       if (debounceTimer) {
+//           clearTimeout(debounceTimer);
+//       }
+//       if (debounce) {
+//           debounceTimer = setTimeout(() => {
+//               handler({ event, name });
+//           });
+//       }
+//       else {
+//           handler({ event, name });
+//       }
+//   };
+// }
+
+
 // 重写原生的一些异常相关的方法
 class GlobalHandlers {
   constructor() {
     // 重写的一些默认方法
     this.defaultOptions = {
-      onerror:true,onunhandledrejection:true,eventTarget: true,
+      onerrorMark:true,onunhandledrejectionMark:true,eventTargetMark: true,
     };
     this.global = getGlobalObject();
 
@@ -161,14 +186,14 @@ class GlobalHandlers {
 
   init() {
     // const global = getGlobalObject();
-    const {onerror,eventTarget} = this.options;
-    if (onerror) {
+    const {onerrorMark,onunhandledrejectionMark,eventTargetMark} = this.options;
+    if (onerrorMark) {
       this.wrapOnerror()
     }
-    if (eventTarget) {
+    if (onunhandledrejectionMark) {
       this.wrapOnunhandledrejection()
     }
-    if (eventTarget) {
+    if (eventTargetMark) {
       this.wrapEventTarget()
     }
   }
@@ -207,8 +232,8 @@ class GlobalHandlers {
     // 有可能已有被重写了，所以要暂存下来
     const oldOnError = global.onunhandledrejection;
 
-    addHandler({type:'unhandledrejection',fn:{
-      // 获取一些本地信息等上报
+    addHandler({type:'unhandledrejection',fn:(data) => {
+      baseClient.send(data);
     }})
 
     global.onunhandledrejection = function(e) {
@@ -223,32 +248,38 @@ class GlobalHandlers {
 
   wrapEventTarget() {
     const global = this.global;
+
+    if (!('document' in global)) {
+      return;
+    }
+    // addHandler({type:'dom',fn:(data) => {
+      // console.info('dom data',data)
+      // baseClient.send(data);
+    // }})
+
+    // global.document.addEventListener('click', domEventHandler('click', triggerHandler.bind(null, 'dom')), true);
+
+
     const proto = global.EventTarget && global.EventTarget.prototype;
     if(!proto) {
       return;
     }
 
-    fill(global,'addEventListener',function(original){
-      return function(eventName,fn,options) {
-        // 添加重写的标志
-        Object.defineProperty(fn, '__wrapped__', {
-            enumerable: false,
-            value: true,
-        });
-        original.call(this,eventName,fn,options);
-      }
-    });
+    // react 中不能这么做，会中止渲染
+      // fill(proto,'addEventListener',function(original){
+      //   return function(eventName,fn,options) {
 
-    fill(global,'removeEventListener',function(original){
-      return function(eventName,fn,options) {
-        // 添加重写的标志
-        Object.defineProperty(fn, '__wrapped__', {
-            enumerable: false,
-            value: true,
-        });
-        original.call(this,eventName,fn,options);
-      }
-    });
+      //     const wrapFn= (...args) => {
+      //       try {
+      //         fn.apply(this,args);
+      //       } catch (error) {
+      //         console.info('error1',error)
+      //         // throw error;
+      //       }
+      //     }
+      //     original.call(this,eventName,wrapFn,options);
+      //   }
+      // });
 
   }
 

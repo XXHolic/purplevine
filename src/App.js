@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     HawkEye.init()
-    HawkEye.captureMessage({message:'error data'})
+    // HawkEye.captureMessage({message:'error data'})
   },[])
 
   return (

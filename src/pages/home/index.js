@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import Table from 'components/table';
+import ErrorBoundary from 'components/error-boundary';
 import styles from './index.module.css';
 
 function Home() {
@@ -12,12 +13,15 @@ function Home() {
     //   console.log("Request Error", error);
     // });
     // throw '32'
+
   },[])
 
   return (
-    <div className={styles.page}>
-      <Table></Table>
-    </div>
+    <ErrorBoundary>
+      <div className={styles.page}>
+        <Table></Table>
+      </div>
+    </ErrorBoundary>
   );
 }
 
