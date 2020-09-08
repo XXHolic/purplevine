@@ -16,9 +16,14 @@ function Home() {
 
   },[])
 
+  const test = () => {
+    console.info('ddd')
+    throw 'ee';
+  }
+
   return (
     <ErrorBoundary>
-      <div className={styles.page}>
+      <div className={styles.page} onClick={test}>
         <Table></Table>
       </div>
     </ErrorBoundary>

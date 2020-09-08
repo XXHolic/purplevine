@@ -1,3 +1,5 @@
+const sourceMap = require("source-map");
+
 // 获取客户端基础信息
 class BaseClient {
   constructor() {
@@ -141,31 +143,31 @@ function fill(source, name, replacement) {
 }
 
 // const debounceDuration = 1000;
-// let debounceTimer = 0;
-// let lastCapturedEvent;
-// function domEventHandler(name, handler, debounce = false) {
-//   return (event) => {
+let debounceTimer = 0;
+let lastCapturedEvent;
+function domEventHandler(name, handler, debounce = false) {
+  return (event) => {
 
-//       // It's possible this handler might trigger multiple times for the same
-//       // event (e.g. event propagation through node ancestors). Ignore if we've
-//       // already captured the event.
-//       if (!event || lastCapturedEvent === event) {
-//           return;
-//       }
-//       lastCapturedEvent = event;
-//       if (debounceTimer) {
-//           clearTimeout(debounceTimer);
-//       }
-//       if (debounce) {
-//           debounceTimer = setTimeout(() => {
-//               handler({ event, name });
-//           });
-//       }
-//       else {
-//           handler({ event, name });
-//       }
-//   };
-// }
+      // It's possible this handler might trigger multiple times for the same
+      // event (e.g. event propagation through node ancestors). Ignore if we've
+      // already captured the event.
+      if (!event || lastCapturedEvent === event) {
+          return;
+      }
+      lastCapturedEvent = event;
+      if (debounceTimer) {
+          clearTimeout(debounceTimer);
+      }
+      if (debounce) {
+          debounceTimer = setTimeout(() => {
+              handler({ event, name });
+          });
+      }
+      else {
+          handler({ event, name });
+      }
+  };
+}
 
 
 // 重写原生的一些异常相关的方法
@@ -194,7 +196,7 @@ class GlobalHandlers {
       this.wrapOnunhandledrejection()
     }
     if (eventTargetMark) {
-      this.wrapEventTarget()
+      // this.wrapEventTarget()
     }
   }
 
@@ -206,12 +208,13 @@ class GlobalHandlers {
     addHandler({
       type:'error',
       fn:(data)=>{
-        // console.info('catch error',data);
-        baseClient.send(data);
+        console.info('error',data);
+        // baseClient.send(data);
       }
     })
 
     global.onerror = function(msg, url, line, column, error) {
+      console.info({msg, url, line, column, error})
       triggerHandler('error', {
           column,
           error,
@@ -233,7 +236,8 @@ class GlobalHandlers {
     const oldOnError = global.onunhandledrejection;
 
     addHandler({type:'unhandledrejection',fn:(data) => {
-      baseClient.send(data);
+      console.info('unhandledrejection',data);
+      // baseClient.send(data);
     }})
 
     global.onunhandledrejection = function(e) {
@@ -252,12 +256,12 @@ class GlobalHandlers {
     if (!('document' in global)) {
       return;
     }
-    // addHandler({type:'dom',fn:(data) => {
-      // console.info('dom data',data)
+    addHandler({type:'dom',fn:(data) => {
+      console.info('dom data',data)
       // baseClient.send(data);
-    // }})
+    }})
 
-    // global.document.addEventListener('click', domEventHandler('click', triggerHandler.bind(null, 'dom')), true);
+    global.document.addEventListener('click', domEventHandler('click', triggerHandler.bind(null, 'dom')), true);
 
 
     const proto = global.EventTarget && global.EventTarget.prototype;
@@ -265,21 +269,21 @@ class GlobalHandlers {
       return;
     }
 
-    // react 中不能这么做，会中止渲染
-      // fill(proto,'addEventListener',function(original){
-      //   return function(eventName,fn,options) {
+    // react 中不能放到生命周期中，会中止渲染
+      fill(proto,'addEventListener',function(original){
+        return function(eventName,fn,options) {
 
-      //     const wrapFn= (...args) => {
-      //       try {
-      //         fn.apply(this,args);
-      //       } catch (error) {
-      //         console.info('error1',error)
-      //         // throw error;
-      //       }
-      //     }
-      //     original.call(this,eventName,wrapFn,options);
-      //   }
-      // });
+          const wrapFn= (...args) => {
+            try {
+              fn.apply(this,args);
+            } catch (error) {
+              console.info('addEventListener error',error)
+              // throw error;
+            }
+          }
+          return original.call(this,eventName,wrapFn,options);
+        }
+      });
 
   }
 

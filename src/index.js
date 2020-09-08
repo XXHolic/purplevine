@@ -4,7 +4,12 @@ import 'normalize.css';
 import 'antd/dist/antd.css';
 import './index.css';
 import App from './App';
+import * as HawkEye from 'util/hawkEye';
+import * as Sentry from "@sentry/react";
 import * as serviceWorker from './serviceWorker';
+    // HawkEye.init({})
+    // HawkEye.captureMessage({message:'error data'})
+    Sentry.init({ dsn: "https://1ea46c0309124094908fa0eb69e21afb@o366923.ingest.sentry.io/5169726",debug:true })
 
 ReactDOM.render(
     <App />,
