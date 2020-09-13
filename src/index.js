@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 import App from './App';
 import * as HawkEye from 'util/hawkEye';
-import * as Sentry from "@sentry/react";
+// import * as Sentry from "@sentry/react";
 // import Sentry from "./bundle.es6.js";
 import * as serviceWorker from './serviceWorker';
 // const Sentry = require('./bundle.es6.js')

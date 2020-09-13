@@ -4,7 +4,7 @@ import Container from 'components/container'
 
 const Login = lazy(() => import('pages/login'));
 const Home = lazy(() => import('pages/home'));
-const Project = lazy(() => import('pages/project'));
+// const Project = lazy(() => import('pages/project'));
 
 function Router() {
   return (
@@ -12,7 +12,7 @@ function Router() {
       <Container>
         <Suspense fallback={<div>Loading...</div>}>
           <Switch>
-            <Route exact path="/project" component={Project}/>
+            {/* <Route exact path="/project" component={Project}/> */}
             <Route exact path="/login" component={Login}/>
             <Route exact path="/" component={Home}/>
           </Switch>

@@ -3,39 +3,33 @@ const bodyParser = require('koa-bodyparser');
 const Koa = require('koa');
 const app = new Koa();
 var http = require('http').createServer(app.callback());
-const router = require("./router");
+const routes = require("./routes/index");
 const {port} = require('../server/constants');
 
 app.use(cors())
 app.use(bodyParser());
 
-app.use(async ctx => {
-  const {request,response} = ctx;
-  // console.info('url',request.url)
-  if (request.url === "/favicon.ico") {
-    response.redirect("https://xxholic.github.io/lab/icon.ico");
-    return;
-  }
+app.use(routes.routes(), routes.allowedMethods())
 
-  // console.info('request.url',request.url)
-  if (request.url.indexOf('socket.io') > -1) {
-    return;
-  }
+// app.use(async ctx => {
+//   const {request,response} = ctx;
+//   console.info('url',request.url)
+//   if (request.url === "/favicon.ico") {
+//     response.redirect("https://xxholic.github.io/lab/icon.ico");
+//     return;
+//   }
 
-  if (request.url === "/error.png") {
-    router['error'](ctx);
-    return;
-  }
+//   // console.info('request.url',request.url)
+//   if (request.url.indexOf('socket.io') > -1) {
+//     return;
+//   }
 
-  let pathname = request.URL.pathname; //得到请求的路径
-  pathname = pathname.replace(/\//, ""); //替换掉前面的 /
-  pathname = pathname?pathname:'index';
-  // console.log('pathname',pathname);
-  if (router[pathname]) {
-    router[pathname](ctx);
-  }
+//   if (request.url === "/error.png") {
+//     // router['error'](ctx);
+//     return;
+//   }
 
-});
+// });
 
 app.on('error', err => {
   console.log('server error', err)
@@ -54,3 +48,5 @@ io.on('connection', (socketServer) => {
 
 const msg = `The node server is running: http://localhost:${port}`;
 console.log(msg);
+
+
