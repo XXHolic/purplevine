@@ -1,3 +1,4 @@
+/* eslint-disable */
 const sourceMap = require("source-map");
 
 // 获取客户端基础信息
@@ -81,6 +82,10 @@ class BaseClient {
 
   // 发送数据
   send(data) {
+    const environment = this.getUserAgent()
+    if (data.environment) {
+      data.environment = environment;
+    }
     if(supportsFetch()) {
       this.createFetch(data);
       return;
@@ -92,7 +97,6 @@ class BaseClient {
 
 const baseClient = new BaseClient();
 
-// 创建请求
 function supportsFetch() {
   if (!('fetch' in getGlobalObject())) {
       return false;
@@ -102,6 +106,7 @@ function supportsFetch() {
 
 // 事件统一发布订阅
 const handlers ={}
+
 function addHandler(handler) {
   if (!handler || typeof handler.type !== 'string' ) {
     return;
@@ -209,12 +214,12 @@ class GlobalHandlers {
       type:'error',
       fn:(data)=>{
         console.info('error',data);
-        // baseClient.send(data);
+        baseClient.send({type:'error',exception:data});
       }
     })
 
     global.onerror = function(msg, url, line, column, error) {
-      console.info({msg, url, line, column, error})
+      // console.info({msg, url, line, column, error})
       triggerHandler('error', {
           column,
           error,

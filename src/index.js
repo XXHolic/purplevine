@@ -6,10 +6,14 @@ import './index.css';
 import App from './App';
 import * as HawkEye from 'util/hawkEye';
 import * as Sentry from "@sentry/react";
+// import Sentry from "./bundle.es6.js";
 import * as serviceWorker from './serviceWorker';
-    // HawkEye.init({})
+// const Sentry = require('./bundle.es6.js')
+    HawkEye.init({})
     // HawkEye.captureMessage({message:'error data'})
-    Sentry.init({ dsn: "https://1ea46c0309124094908fa0eb69e21afb@o366923.ingest.sentry.io/5169726",debug:true })
+    // debugger
+    // console.info('Sentry',Sentry)
+    Sentry.init({ dsn: "https://1ea46c0309124094908fa0eb69e21afb@o366923.ingest.sentry.io/5169726" })
 
 ReactDOM.render(
     <App />,

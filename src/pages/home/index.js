@@ -14,11 +14,14 @@ function Home() {
     // });
     // throw '32'
 
+    // const a = null;
+    // var b = a.test;
+
   },[])
 
   const test = () => {
-    console.info('ddd')
-    throw 'ee';
+    const a = null;
+    var b = a.test;
   }
 
   return (
