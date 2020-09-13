@@ -1,8 +1,13 @@
+const cors = require('koa-cors');
+const bodyParser = require('koa-bodyparser');
 const Koa = require('koa');
 const app = new Koa();
 var http = require('http').createServer(app.callback());
 const router = require("./router");
 const {port} = require('../server/constants');
+
+app.use(cors())
+app.use(bodyParser());
 
 app.use(async ctx => {
   const {request,response} = ctx;
@@ -17,11 +22,19 @@ app.use(async ctx => {
     return;
   }
 
+  if (request.url === "/error.png") {
+    router['error'](ctx);
+    return;
+  }
+
   let pathname = request.URL.pathname; //得到请求的路径
   pathname = pathname.replace(/\//, ""); //替换掉前面的 /
   pathname = pathname?pathname:'index';
   // console.log('pathname',pathname);
-  router[pathname](ctx);
+  if (router[pathname]) {
+    router[pathname](ctx);
+  }
+
 });
 
 app.on('error', err => {

@@ -27,7 +27,8 @@ const dbAdd = (name='', options={}) => {
       }
       // 在已有表中插入新的数据
       db.collection(name).insertMany(data, function(err, res) {
-        if (err) reject({message:'insert err',err:err});;
+        if (err) reject({message:'insert err',err:err});
+        console.log('add success')
         resolve({code: 200,data:null,message:'添加数据成功'})
         client.close();
       });
@@ -80,7 +81,8 @@ const dbDelete = (name='', options={}) => {
       }
       const whereStr = query;
       db.collection(name).deleteMany(whereStr, function(err, res) {
-        if (err) reject({message:'delete err',err:err});;
+        if (err) reject({message:'delete err',err:err});
+        console.log('delete success')
         resolve({code: 200,data:null,message:'删除数据成功'})
         client.close();
       });
@@ -119,6 +121,7 @@ const dbQuery = (name='', options={}) => {
             reject({message:'query err',err:err});
             return;
           }
+          console.log('query success')
           resolve({code:200,data:result,message:'查询成功'});
           client.close();
       });

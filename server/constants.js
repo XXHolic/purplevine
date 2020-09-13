@@ -3,5 +3,9 @@ module.exports = {
   listenPath: 'server',
   serverEntry: 'server.js',
   dbConnectUrl: 'mongodb://localhost:27017',
-  dbName: 'purplevine'
+  dbName: 'purplevine',
+  tableNameMap:{
+    issue:'issue',
+    issueDetail:'issueDetail',
+  }
 }

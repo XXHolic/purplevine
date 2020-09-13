@@ -13,7 +13,7 @@ import * as serviceWorker from './serviceWorker';
     // HawkEye.captureMessage({message:'error data'})
     // debugger
     // console.info('Sentry',Sentry)
-    Sentry.init({ dsn: "https://1ea46c0309124094908fa0eb69e21afb@o366923.ingest.sentry.io/5169726" })
+    // Sentry.init({ dsn: "https://1ea46c0309124094908fa0eb69e21afb@o366923.ingest.sentry.io/5169726" })
 
 ReactDOM.render(
     <App />,
