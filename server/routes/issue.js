@@ -8,8 +8,8 @@ router.get('/', function (ctx, next) {
   ctx.body = 'all'
 })
 router.get('/list', async function (ctx, next) {
-  let reqBody = ctx.request.body;
-  const {eventId,type} = reqBody;
+  // let reqBody = ctx.request.body;
+  // const {eventId,type} = reqBody;
   const list = await dbQuery(tableNameMap.issue,{query:{}});
 
   ctx.body = list;

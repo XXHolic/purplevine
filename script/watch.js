@@ -28,7 +28,7 @@ console.log(`正在监听 ${filePath}`);
 
 let fsWait = null;
 
-fs.watch(filePath,(event,filename)=>{
+fs.watch(filePath,{recursive: true},(event,filename)=>{
   if (filename){
     fsWait && clearTimeout(fsWait);
     fsWait = setTimeout(() => {
