@@ -45,15 +45,15 @@ function Home() {
     });
   },[])
 
-  // const test = () => {
-  //   const a = null;
-  //   var b = a.test;
-  // }
-  // onClick={test}
+  const test = () => {
+    const a = null;
+    var b = a.name;
+  }
+  //
 
   return (
     <ErrorBoundary>
-      <div className={styles.page} >
+      <div className={styles.page} onClick={test} >
         <Table rowKey='eventId' dataSource={state.list} columns={columns}></Table>
       </div>
     </ErrorBoundary>

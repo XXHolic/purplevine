@@ -339,7 +339,7 @@ const globalHandlers = new GlobalHandlers();
 
 const init = (options={}) => {
   const defaultOptions = {
-    url:'http://localhost:9001/error' // 上报的请求
+    url:'http://localhost:9001/api/error' // 上报的请求
   }
   const combineOptions = {...defaultOptions,...options}
   globalHandlers.bindOptions(combineOptions);
