@@ -103,7 +103,7 @@ const dbQuery = (name='', options={}) => {
     const client = new MongoClient(dbConnectUrl, {useNewUrlParser: true, useUnifiedTopology:true});
     client.connect(function(err) {
       if (err) {
-        reject({message:'connect err',err:err});
+        reject({code: 500,message:'connect err',err:err});
         return;
       }
 
@@ -118,7 +118,7 @@ const dbQuery = (name='', options={}) => {
       const whereStr = query;  // 查询条件
       db.collection(name).find(whereStr).toArray(function(err, result) {
           if (err) {
-            reject({message:'query err',err:err});
+            reject({code: 500,message:'query err',err:err});
             return;
           }
           console.log('query success')
