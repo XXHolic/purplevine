@@ -8,7 +8,7 @@
 
 ## 基本配置说明
 ### 构建工具
-使用了 [create-react-app][url-github-1] ，基于原项目 fork 后可以自定义配置，自定义配置项目见[这里][url-github-1]。
+使用了 [create-react-app][url-github-1] ，基于原项目 fork 后可以自定义配置，自定义配置项目见[这里][url-github-2]。
 
 ### JavaScript 配置
 create-react-app 自带自定义的配置项，为 package.json 的 eslintConfig 字段。个人配置见[这里][url-github-3] 。
