@@ -1,7 +1,8 @@
 import React, {useEffect,useReducer} from 'react';
 import { Table } from 'antd';
 import ErrorBoundary from 'components/error-boundary';
-import request from 'util/request';
+// import request from 'util/request';
+// import Test from './test';
 import styles from './index.module.css';
 
 const columns = [
@@ -36,20 +37,22 @@ function reducer(state, action) {
 }
 
 function Home() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // dispatch
+  const [state] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    request({type: 'get', url: "/api/issue/list"}).then((data) =>{
+    // console.info('Test',Test)
+    // request({type: 'get', url: "/api/issue/list"}).then((data) =>{
       // console.info('run success1',data);
-      dispatch({type:'list',data:data})
-    });
+      // dispatch({type:'list',data:data})
+    // });
   },[])
 
   const test = () => {
-    const a = null;
-    var b = a.name;
+    // const a = null;
+    // var b = a.name;
   }
-  //
+  // //
 
   return (
     <ErrorBoundary>
