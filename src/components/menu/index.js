@@ -11,7 +11,7 @@ function Menu() {
   return (
     <>
       <div className={styles.logo}>User Tom</div>
-      <AntMenu theme="dark" mode="inline" defaultSelectedKeys={['2']}>
+      <AntMenu theme="dark" mode="inline" defaultSelectedKeys={[ '2' ]}>
         {/* <AntMenu.Item key="1">
           <Link to="/project">
             <ProjectOutlined />Projects

@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Table as AntTable } from 'antd';
 // import styles from './index.module.css';
 
@@ -54,15 +54,15 @@ const columns = [
 ];
 
 function Table() {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [pagination, setPagination] = useState({});
+  const [ loading, setLoading ] = useState(false);
+  const [ data, setData ] = useState([]);
+  const [ pagination, setPagination ] = useState({});
 
 
   useEffect(() => {
     const fetch = () => {
       setLoading(true);
-      const paginationCopy = {current:1,pageSize: 10,showSizeChanger:true};
+      const paginationCopy = {current: 1, pageSize: 10, showSizeChanger: true};
       paginationCopy.total = 100;
       setData(testData);
       setPagination(paginationCopy);
@@ -70,7 +70,7 @@ function Table() {
     }
 
     fetch()
-  },[]);
+  }, []);
 
   return (
     <>

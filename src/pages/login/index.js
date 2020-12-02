@@ -4,7 +4,7 @@ import styles from './index.module.css';
 function Login() {
 
   useEffect(() => {
-  },[])
+  }, [])
 
   return (
     <div className={styles.page}>

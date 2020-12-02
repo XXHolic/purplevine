@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@thynpm/argos": "^1.0.4",
     "antd": "^4.5.4",
     "axios": "^0.19.2",
     "customize-react-scripts": "1.0.1",
@@ -32,86 +31,9 @@
     "eject": "react-scripts eject",
     "watch": "node script/watch.js",
     "stop": "node script/stop.js",
-    "server": "node server/server.js"
-  },
-  "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "no-caller": "error",
-      "no-new": "error",
-      "no-new-func": "error",
-      "no-new-wrappers": "error",
-      "no-array-constructor": "error",
-      "no-iterator": "error",
-      "no-proto": "error",
-      "no-use-before-define": "error",
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "indent": [
-        "error",
-        2
-      ],
-      "no-multi-spaces": "error",
-      "array-bracket-spacing": [
-        "error",
-        "always"
-      ],
-      "block-spacing": "error",
-      "comma-spacing": [
-        "error",
-        {
-          "before": false,
-          "after": true
-        }
-      ],
-      "func-call-spacing": [
-        "error",
-        "never"
-      ],
-      "key-spacing": [
-        "error",
-        {
-          "beforeColon": false,
-          "afterColon": true
-        }
-      ],
-      "space-before-blocks": "error",
-      "space-infix-ops": "error",
-      "arrow-spacing": "error",
-      "space-before-function-paren": [
-        "error",
-        "never"
-      ],
-      "space-in-parens": [
-        "error",
-        "never"
-      ],
-      "brace-style": "error",
-      "multiline-comment-style": [
-        "error",
-        "starred-block"
-      ],
-      "object-curly-newline": [
-        "error",
-        {
-          "multiline": true
-        }
-      ],
-      "eol-last": [
-        "error",
-        "always"
-      ],
-      "spaced-comment": [
-        "error",
-        "always"
-      ],
-      "comma-style": [
-        "error",
-        "last"
-      ]
-    }
+    "server": "node server/server.js",
+    "eslint": "eslint src/**/**",
+    "eslint:fix": "eslint --fix src/**/**"
   },
   "browserslist": {
     "production": [
@@ -127,12 +49,15 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "npm run eslint:fix",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "eslint": "^7.14.0",
+    "eslint-plugin-react": "^7.21.5",
     "husky": "^4.2.5",
     "socket.io": "^2.3.0",
     "stylelint": "^13.3.2",

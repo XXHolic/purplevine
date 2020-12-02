@@ -1,8 +1,10 @@
-import React, {useEffect,useReducer} from 'react';
+import React, {useEffect, useReducer} from 'react';
 import { Table } from 'antd';
 import ErrorBoundary from 'components/error-boundary';
-// import request from 'util/request';
-// import Test from './test';
+/*
+ * import request from 'util/request';
+ * import Test from './test';
+ */
 import styles from './index.module.css';
 
 const columns = [
@@ -16,7 +18,7 @@ const columns = [
     title: '信息',
     dataIndex: 'msg',
     key: 'msg',
-    render: (text,row) => {
+    render: (text, row) => {
       if(row.exception) {
         return row.exception.msg
       }
@@ -29,28 +31,33 @@ const initialState = {list: []};
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'list':
-      return {list: action.data.data};
-    default:
-      throw new Error();
+  case 'list':
+    return {list: action.data.data};
+  default:
+    throw new Error();
   }
 }
 
 function Home() {
   // dispatch
-  const [state] = useReducer(reducer, initialState);
+  const [ state ] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    // console.info('Test',Test)
-    // request({type: 'get', url: "/api/issue/list"}).then((data) =>{
-      // console.info('run success1',data);
-      // dispatch({type:'list',data:data})
-    // });
-  },[])
+    /*
+     * console.info('Test',Test)
+     * request({type: 'get', url: "/api/issue/list"}).then((data) =>{
+     * console.info('run success1',data);
+     * dispatch({type:'list',data:data})
+     * });
+     */
+  }, [])
 
   const test = () => {
-    // const a = null;
-    // var b = a.name;
+    // aa
+    /*
+     * const a = null;
+     * var b = a.name;
+     */
   }
   // //
 
