@@ -3,26 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@sentry/react": "^5.22.3",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "antd": "^4.5.4",
     "axios": "^0.19.2",
     "customize-react-scripts": "1.0.1",
-    "formidable": "^1.2.2",
     "http-proxy-middleware": "^1.0.5",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-cors": "0.0.16",
     "koa-router": "^9.4.0",
     "mongodb": "^3.6.0",
-    "mysql": "^2.18.1",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "source-map": "^0.7.3"
+    "source-map": "^0.7.3",
+    "source-map-support": "^0.5.19"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -56,6 +51,9 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.5.0",
     "eslint": "^7.14.0",
     "eslint-plugin-react": "^7.21.5",
     "husky": "^4.2.5",
