@@ -6,7 +6,6 @@
 ### project
 项目表
 
-
 字段 | 数据类型 | 功能描述 | 主键 | 非空
 --- | --- | --- | --- | ---
 id | INT | 序号 | 是 | 是
@@ -24,6 +23,7 @@ updateTime | DATETIME | 更新时间 | 否 | 是
 字段 | 数据类型 | 功能描述 | 主键 | 非空
 --- | --- | --- | --- | ---
 id | INT | 序号 | 是 | 是
+eventId | String | 前端自己生成的 uuid | 否 | 否
 message | CHAR |  主要错误信息 | 否 | 是
 projectId | INT | 所属项目 id | 否 | 是
 ownerId | INT | 处理人 id | 否 | 否
