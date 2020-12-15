@@ -5,20 +5,26 @@
 
 ### project
 项目表
+- 里面关系的有用户表，考虑到后续增加设置表，设置中可能有很多项。
+- apiKey 是上报时候必需的字段，包含了项目标识和对应的用户信息，根据这两个信息确定唯一的项目表，生成的方式用 md5 加密和解密。
+
 
 字段 | 数据类型 | 功能描述 | 主键 | 非空
 --- | --- | --- | --- | ---
 id | INT | 序号 | 是 | 是
 name | CHAR | 项目名称 | 否 | 是
-createTime | DATETIME | 创建时间 | 否 | 是
 creatorId | INT | 创建人 id | 否 | 否
-platform | INTEXT | 平台 | 否 | 是
+apiKey | String | 上报的 key | 否 | 是
+platform | TEXT | 平台 | 否 | 是
+createTime | DATETIME | 创建时间 | 否 | 是
 updateTime | DATETIME | 更新时间 | 否 | 是
 
 其中 creatorId 为外键
 
 ### issue
-异常表
+异常表：
+- 可能会出现频繁写的情况，暂时不考虑拆分
+- 其中 projectId 关联项目表，ownerId 考虑到可能会分派的情况，暂时指向创建项目的用户，
 
 字段 | 数据类型 | 功能描述 | 主键 | 非空
 --- | --- | --- | --- | ---
@@ -28,19 +34,6 @@ message | CHAR |  主要错误信息 | 否 | 是
 projectId | INT | 所属项目 id | 否 | 是
 ownerId | INT | 处理人 id | 否 | 否
 status | CHAR |  异常状态 | 否 | 是
-count | INT |  事件总数 | 否 | 否
-createTime | DATETIME | 创建时间 | 否 | 是
-updateTime | DATETIME | 更新时间 | 否 | 是
-
-其中 projectId、ownerId 为外键
-
-### issueDetail
-异常详情表
-
-字段 | 数据类型 | 功能描述 | 主键 | 非空
---- | --- | --- | --- | ---
-id | INT | 序号 | 是 | 是
-eventId | String | 前端自己生成的 uuid | 否 | 否
 exception | String | 异常所有信息 | 否 | 否
 location | Object | 页面位置信息 | 否 | 否
 timeStamp | Arr | 前端传的时间戳 | 否 | 否
@@ -50,6 +43,8 @@ networkType | Object | （小程序）请求相关信息 | 否 | 否
 currentPage | Object | （小程序）当前页面路径信息 | 否 | 否
 lifeCycle | Arr | 生命周期 | 否 | 否
 createTime | DATETIME | 创建时间 | 否 | 是
+updateTime | DATETIME | 更新时间 | 否 | 是
+
 
 
 ## v1.1.0 数据库设计
