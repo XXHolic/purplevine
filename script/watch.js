@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {listenPath,serverEntry} = require('../server/constants');
+const { listenPath, serverEntry } = require('../server/mysql/constants');
 var currentPath = process.cwd(); // 获取当前执行路径
 const filePath = path.join(currentPath,listenPath);
 const childProcess = require('child_process');

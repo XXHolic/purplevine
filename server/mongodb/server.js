@@ -4,7 +4,7 @@ const Koa = require('koa');
 const app = new Koa();
 var http = require('http').createServer(app.callback());
 const routes = require("./routes/index");
-const {port} = require('../server/constants');
+const { port } = require('./constants');
 
 app.use(cors())
 app.use(bodyParser());

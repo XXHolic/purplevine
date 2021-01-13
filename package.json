@@ -12,6 +12,7 @@
     "koa-cors": "0.0.16",
     "koa-router": "^9.4.0",
     "mongodb": "^3.6.0",
+    "mysql": "^2.18.1",
     "normalize.css": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -26,7 +27,6 @@
     "eject": "react-scripts eject",
     "watch": "node script/watch.js",
     "stop": "node script/stop.js",
-    "server": "node server/server.js",
     "eslint": "eslint src/**/**",
     "eslint:fix": "eslint --fix src/**/**"
   },
@@ -54,7 +54,6 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
-    "eslint": "^7.14.0",
     "eslint-plugin-react": "^7.21.5",
     "husky": "^4.2.5",
     "socket.io": "^2.3.0",
