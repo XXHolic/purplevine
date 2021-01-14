@@ -1,4 +1,4 @@
-const cors = require('koa-cors');
+const cors = require('@koa/cors');
 const bodyParser = require('koa-bodyparser');
 const Koa = require('koa');
 const app = new Koa();
@@ -6,10 +6,8 @@ var http = require('http').createServer(app.callback());
 const routes = require("./routes/index");
 const { serverPort } = require('./constants');
 
-
 app.use(cors())
 app.use(bodyParser());
-
 app.use(routes.routes(), routes.allowedMethods())
 
 app.on('error', err => {
@@ -17,7 +15,6 @@ app.on('error', err => {
 });
 
 http.listen(serverPort);
-
 
 const io = require('socket.io')(http);
 io.on('connection', (socketServer) => {

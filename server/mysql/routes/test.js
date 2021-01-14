@@ -8,12 +8,10 @@ router.get('/', function (ctx, next) {
   ctx.body = 'all'
 })
 router.get('/list', async function (ctx, next) {
-  // let reqBody = ctx.request.body;
-  // const {eventId,type} = reqBody;
-  const list = await sqlConnect(tableNameMap.issue, { query: {} });
-
+  const sql = 'SELECT * FROM note_list';
+  const list = await sqlConnect(sql);
+  console.info('list', list)
   ctx.body = list;
-
 })
 
 

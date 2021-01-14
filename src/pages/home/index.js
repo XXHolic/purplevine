@@ -50,6 +50,9 @@ function Home() {
      * dispatch({type:'list',data:data})
      * });
      */
+    fetch('http://localhost:9001/api/test/list').then((res) => {
+      console.info('res', res)
+    })
   }, [])
 
   const test = () => {
