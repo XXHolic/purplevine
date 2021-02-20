@@ -3,32 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@koa/cors": "^3.1.0",
-    "antd": "^4.5.4",
-    "axios": "^0.19.2",
-    "customize-react-scripts": "1.0.1",
-    "http-proxy-middleware": "^1.0.5",
-    "koa": "^2.13.0",
-    "koa-bodyparser": "^4.3.0",
-    "koa-router": "^9.4.0",
-    "mongodb": "^3.6.0",
-    "mysql": "^2.18.1",
-    "normalize.css": "^8.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2",
-    "source-map": "^0.7.3",
-    "source-map-support": "^0.5.19"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.2",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "watch": "node script/watch.js",
-    "stop": "node script/stop.js",
-    "eslint": "eslint src/**/**",
-    "eslint:fix": "eslint --fix src/**/**"
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -41,22 +34,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
-    "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/user-event": "^12.5.0",
-    "eslint-plugin-react": "^7.21.5",
-    "husky": "^4.2.5",
-    "socket.io": "^2.3.0",
-    "stylelint": "^13.3.2",
-    "stylelint-config-recommended": "^3.0.0"
   }
 }

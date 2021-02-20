@@ -1,48 +1,70 @@
-# Purplevine
+# Getting Started with Create React App
 
-## 概述
-这个是一个带有实验性的项目。主要使用了：
-- React、react-router-dom
-- Ant Design
-- axios
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## 基本配置说明
-### 构建工具
-使用了 [create-react-app][url-github-1] ，基于原项目 fork 后可以自定义配置，自定义配置项目见[这里][url-github-2]。
+## Available Scripts
 
-### JavaScript 配置
-create-react-app 自带自定义的配置项，为 package.json 的 eslintConfig 字段。个人配置见[这里][url-github-3] 。
+In the project directory, you can run:
 
-### CSS 配置
-使用了 [stylelint][url-github-4]，个人配置见[这里][url-github-5] 。
+### `yarn start`
 
-### Git 提交配置
-使用了 [commitlint][url-github-6] 。
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### 编辑器 EditorConfig 配置
-根据 [EditorConfig][url-website-1] 说明，进行了基本的配置。
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-注意：如果需要让这个文件生效，需要在自己的编辑器中安装对应的插件，官网上有列出。基本上主流的编辑器都有相应的插件。
+### `yarn test`
 
-## 规范
-- 工作流规范见 [Git 工作流规范参考][url-github-8]。
-- 提交流规范见 [Git Commit 规范参考][url-github-7]。
-- JavaScript 规范见 [JavaScript 工作流规范参考][url-github-9]。
-- CSS 规范见 [CSS 工作流规范参考][url-github-10]。
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `yarn build`
 
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-[url-github-1]:https://github.com/facebook/create-react-app
-[url-github-2]:https://github.com/XXHolic/create-react-app
-[url-github-3]:https://github.com/XXHolic/blog/issues/43#config
-[url-github-4]:https://github.com/stylelint/stylelint
-[url-github-5]:https://github.com/XXHolic/blog/issues/30#config
-[url-github-6]:https://github.com/conventional-changelog/commitlint
-[url-github-7]:https://github.com/XXHolic/blog/issues/16
-[url-github-8]:https://github.com/XXHolic/blog/issues/52
-[url-github-9]:https://github.com/XXHolic/blog/issues/43
-[url-github-10]:https://github.com/XXHolic/blog/issues/30
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-[url-website-1]:https://editorconfig.org
+### `yarn eject`
 
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `yarn build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
