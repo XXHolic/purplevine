@@ -1,0 +1,21 @@
+.lmp-main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lmp-body {
+  flex: 1;
+}
+
+.lmp-header,
+.lmp-footer {
+  height: 70px;
+  background-color: #242424;
+}
+
+.lmp-header-search {
+  width: 300px;
+  height: 30px;
+  margin: 0 auto;
+}
