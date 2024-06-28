@@ -1,3 +1,16 @@
+.lmp-flex-center,
+.lmp-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lmp-cursor-pointer {
+  cursor: pointer;
+}
+.lmp-dn {
+  display: none;
+}
+
 .lmp-main {
   display: flex;
   flex-direction: column;
@@ -15,7 +28,166 @@
 }
 
 .lmp-header-search {
+  display: flex;
+  align-items: center;
   width: 300px;
   height: 30px;
-  margin: 0 auto;
+  background-color: aliceblue;
+}
+
+.lmp-search-input {
+  width: 284px;
+  height: 26px;
+  border: 0;
+  padding: 2px;
+}
+
+.lmp-search-icon {
+  width: 10px;
+  height: 30px;
+}
+
+.lmp-body {
+  display: flex;
+}
+
+.lmp-body-left {
+  overflow: hidden;
+  width: 200px;
+  background-color: #ededed;
+  height: 100%;
+}
+
+.lmp-meun-item {
+  line-height: 60px;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.lmp-meun-active,
+.lmp-meun-item:hover {
+  background-color: #e4e4e4;
+}
+
+.lmp-body-right {
+  flex: 1;
+  padding: 30px;
+  background-color: #fff;
+}
+
+.lmp-my-sheet {
+  width: 170px;
+  height: 170px;
+  border-radius: 4px;
+  background-color: #e4e4e4;
+  cursor: pointer;
+}
+
+.lmp-singer-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.lmp-singer-name:hover {
+  color: blue;
+}
+
+.lmp-song-header {
+  display: flex;
+  font-weight: bolder;
+}
+
+.lmp-song-row {
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+
+.lmp-song-name,
+.lmp-song-singer {
+  width: 300px;
+  padding-right: 10px;
+}
+
+.lmp-song-odd {
+  background-color: #e4e4e4;
+}
+
+.lmp-song-span:hover {
+  color: blue;
+}
+
+.lmp-song-footer {
+  display: flex;
+  gap: 0 20px;
+}
+
+.lmp-song-page {
+  display: flex;
+  gap: 0 10px;
+}
+
+.lmp-song-num {
+  width: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.lmp-song-num:hover,
+.lmp-song-next:hover,
+.lmp-song-pre:hover {
+  color: blue;
+}
+
+.lmp-song-tbody {
+  margin: 10px 0 20px 0;
+}
+
+.lmp-footer {
+  color: #fff;
+  gap: 30px;
+}
+
+.lmp-player-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+}
+
+.lmp-player-pre,
+.lmp-player-play,
+.lmp-player-next,
+.lmp-player-model,
+.lmp-player-list,
+.lmp-player-add {
+  opacity: 0.7;
+}
+.lmp-player-pre:hover,
+.lmp-player-play:hover,
+.lmp-player-next:hover,
+.lmp-player-model:hover,
+.lmp-player-list:hover,
+.lmp-player-add:hover {
+  opacity: 1;
+}
+
+.lmp-player-msg {
+  width: 600px;
+}
+.lmp-player-song {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lmp-player-progress {
+  flex: 1;
+  margin-right: 20px;
+}
+.lmp-player-operate {
+  gap: 20px;
 }
