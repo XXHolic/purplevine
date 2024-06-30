@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>音乐播放器</title>
+  <link rel="shortcut icon" href="./asset/favicon.ico" />
   <link rel="stylesheet" href="./asset/css/fontawesome.css" />
   <link rel="stylesheet" href="./asset/css/solid.css" />
   <link rel="stylesheet" href="./css/reset.css">
@@ -19,17 +20,34 @@
     </div>
     <div class="lmp-body">
       <div class="lmp-body-left">
-        <div class="lmp-meun-item lmp-meun-active">我的</div>
+        <div class="lmp-meun-item lmp-meun-active">歌单</div>
         <div class="lmp-meun-item">歌手</div>
         <div class="lmp-meun-item">歌曲</div>
       </div>
       <div class="lmp-body-right">
-        <!-- 我的 -->
+        <!-- 歌单 -->
          <div class="lmp-my">
-          <div class="lmp-my-sheet lmp-flex-center">当前播放</div>
+          <div>
+            <span class="lmp-sheet-add lmp-cursor-pointer" title="新建"><i class="fa-solid fa-plus fa-lg"></i></span>
+          </div>
+          <div class="lmp-my-sheet">
+            <div class="lmp-sheet-header">
+              <div class="lmp-sheet-name">歌单名</div>
+              <div class="lmp-sheet-add">操作</div>
+            </div>
+            <div class="lmp-sheet-body">
+              <div class="lmp-sheet-row lmp-sheet-odd">
+                <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer">当前播放</span></div>
+                <div class="lmp-sheet-operate">
+                  <div class="lmp-sheet-dele lmp-cursor-pointer" title="删除"><i class="fa-solid fa-trash-can fa-lg"></i></div>
+                  <div class="lmp-sheet-drag lmp-cursor-pointer" title="排序"><i class="fa-solid fa-bars fa-lg"></i></div>
+                </div>
+              </div>
+            </div>
+          </div>
          </div>
         <!-- 歌手 -->
-         <div class="lmp-singer">
+         <div class="lmp-singer lmp-dn">
           <div class="lmp-singer-row">
             <div>A</div>
             <div class="lmp-singer-list">
@@ -40,7 +58,7 @@
           </div>
          </div>
         <!-- 歌曲 -->
-         <div class="lmp-song">
+         <div class="lmp-song lmp-dn">
           <div class="lmp-song-header">
             <div class="lmp-song-name">歌曲</div>
             <div class="lmp-song-singer">歌手</div>

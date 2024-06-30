@@ -29,6 +29,7 @@
 .lmp-footer {
   height: 70px;
   background-color: #242424;
+  flex-shrink: 0;
 }
 
 .lmp-header-search {
@@ -50,7 +51,6 @@
 }
 
 .lmp-search-icon {
-  /* width: 10px; */
   line-height: 30px;
 }
 
@@ -77,17 +77,22 @@
 }
 
 .lmp-body-right {
+  position: relative;
   flex: 1;
   padding: 30px;
   background-color: #fff;
 }
 
-.lmp-my-sheet {
-  width: 170px;
-  height: 170px;
-  border-radius: 4px;
-  background-color: #e4e4e4;
-  cursor: pointer;
+.lmp-sheet-header {
+  margin-top: 10px;
+}
+.lmp-sheet-body {
+  position: absolute;
+  left: 30px;
+  top: 115px;
+  right: 30px;
+  bottom: 30px;
+  overflow: auto;
 }
 
 .lmp-singer-list {
@@ -97,42 +102,48 @@
   margin-bottom: 10px;
 }
 
-.lmp-singer-name:hover {
-  color: blue;
-}
-
-.lmp-song-header {
+.lmp-song-header,
+.lmp-sheet-header {
   display: flex;
   font-weight: bolder;
 }
 
-.lmp-song-row {
+.lmp-song-row,
+.lmp-sheet-row {
   display: flex;
   align-items: center;
   height: 70px;
 }
 
 .lmp-song-name,
-.lmp-song-singer {
+.lmp-song-singer,
+.lmp-sheet-name {
   width: 300px;
   padding-right: 10px;
 }
-.lmp-song-operate {
+.lmp-song-operate,
+.lmp-sheet-operate {
   display: flex;
   gap: 20px;
 }
+.lmp-sheet-drag:hover,
+.lmp-sheet-dele:hover,
+.lmp-sheet-add:hover,
+.lmp-sheet-desc:hover,
 .lmp-operate-play:hover,
 .lmp-operate-drag:hover,
-.lmp-operate-add:hover {
+.lmp-operate-add:hover,
+.lmp-singer-name:hover,
+.lmp-song-span:hover,
+.lmp-song-num:hover,
+.lmp-song-next:hover,
+.lmp-song-pre:hover {
   color: blue;
 }
 
-.lmp-song-odd {
+.lmp-song-odd,
+.lmp-sheet-odd {
   background-color: #e4e4e4;
-}
-
-.lmp-song-span:hover {
-  color: blue;
 }
 
 .lmp-song-footer {
@@ -151,12 +162,6 @@
   text-align: center;
   border: 1px solid #000;
   cursor: pointer;
-}
-
-.lmp-song-num:hover,
-.lmp-song-next:hover,
-.lmp-song-pre:hover {
-  color: blue;
 }
 
 .lmp-song-tbody {
