@@ -1,5 +1,4 @@
-.lmp-flex-center,
-.lmp-header {
+.lmp-flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +16,11 @@
   height: 100%;
 }
 
+.lmp-header {
+  display: flex;
+  align-items: center;
+}
+
 .lmp-body {
   flex: 1;
 }
@@ -32,13 +36,14 @@
   display: flex;
   align-items: center;
   border-radius: 2px;
-  width: 300px;
+  width: 140px;
   height: 30px;
+  margin-left: 30px;
   background-color: #fff;
 }
 
 .lmp-search-input {
-  width: 270px;
+  width: 110px;
   height: 26px;
   border: 0;
   padding: 2px;
@@ -203,14 +208,32 @@
 .lmp-player-operate {
   gap: 20px;
 }
-
+.lmp-player-pop {
+  position: relative;
+  width: 1px;
+  height: 28px;
+  color: #24292e;
+}
 .lmp-pop-list {
   overflow-y: auto;
   position: absolute;
-  bottom: 70px;
-  right: 0px;
+  top: -740px;
+  left: -420px;
   z-index: 100;
   width: 800px;
   height: 700px;
-  box-shadow: -4px -4px 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.lmp-player-triangle {
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 20px solid #242424;
 }
