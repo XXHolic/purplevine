@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs'
 // 歌单：
 // - 所有列表：/api/sheet
 // - 新增：/api/sheet/add
@@ -29,12 +30,19 @@ const apiList = {
   musicMove: '/api/music/move',
 }
 
-const route = (req) => {
+const route = (req,res) => {
   console.log("About to route a request for " + req.url);
   const {url} = req
   switch (url) {
     case apiList.sheet : {
+      readFile('../json/allList.json',(err,data)=> {
+        if(err) {
+          throw err;
+        }
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end(data);
 
+      })
     }
   }
 
