@@ -253,3 +253,15 @@
   color: red;
   padding-left: 70px;
 }
+
+.lmp-spin {
+  position: absolute;
+  left: 200px;
+  top: 70px;
+  bottom: 70px;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.lmp-info {}

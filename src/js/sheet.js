@@ -1,5 +1,6 @@
 import axios from "../asset/js/axios.min.js";
 import { api } from "./api.js";
+import { spin } from "./util.js";
 
 const getSheetList = () => {
   return axios.get(api.sheet).then((response) => {
@@ -25,14 +26,16 @@ const getSheetList = () => {
 }
 
 const deleSheet = async (params) => {
+  spin.show();
   try {
     const { status } = await axios.post(api.sheetDel, params);
     if (status === 200) {
       getSheetList();
     }
-
   } catch (error) {
     console.error(error)
+  } finally {
+    spin.hide();
   }
 }
 
