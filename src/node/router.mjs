@@ -1,4 +1,3 @@
-import { readFile } from 'node:fs'
 // 歌单：
 // - 所有列表：/api/sheet
 // - 新增：/api/sheet/add
@@ -15,8 +14,10 @@ import { readFile } from 'node:fs'
 // 歌曲：
 // - 列表：/api/music
 // - 所有歌曲公用转移到歌单：/api/music/move，通过传参区分是单独收藏还是从一个歌单转移到另外一个歌单
+import { sheetList, sheetAdd, sheetDele } from "./sheet.mjs";
 
-const apiList = {
+
+const api = {
   sheet: '/api/sheet',
   sheetAdd: '/api/sheet/add',
   sheetDel: '/api/sheet/del',
@@ -34,15 +35,21 @@ const route = (req,res) => {
   console.log("About to route a request for " + req.url);
   const {url} = req
   switch (url) {
-    case apiList.sheet : {
-      readFile('../json/allList.json',(err,data)=> {
-        if(err) {
-          throw err;
-        }
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(data);
-
-      })
+    case api.sheet: {
+      sheetList(res);
+      break;
+    }
+    case api.sheetAdd: {
+      sheetAdd(req, res);
+      break;
+    }
+    case api.sheetDel: {
+      sheetDele(req, res);
+      break;
+    }
+    default: {
+      res.writeHead(404, { "Content-Type": "application/json" });
+      res.end("No Match Url");
     }
   }
 

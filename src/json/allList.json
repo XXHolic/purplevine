@@ -1,6 +1,1 @@
-[
-  {
-    "listId": "1",
-    "listName": "当前播放"
-  }
-]
+[{"listId":1,"listName":"当前播放"},{"listName":"4","listId":3},{"listName":"5","listId":4}]

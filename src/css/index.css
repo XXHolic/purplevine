@@ -242,3 +242,14 @@
   border-right: 10px solid transparent;
   border-top: 20px solid #242424;
 }
+
+.lmp-dia-btn {
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  padding-top: 20px;
+}
+.lmp-err-msg {
+  color: red;
+  padding-left: 70px;
+}

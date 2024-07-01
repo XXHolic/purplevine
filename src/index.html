@@ -28,21 +28,15 @@
         <!-- 歌单 -->
          <div class="lmp-my">
           <div>
-            <span class="lmp-sheet-add lmp-cursor-pointer" title="新建"><i class="fa-solid fa-plus fa-lg"></i></span>
+            <span class="lmp-sheet-add lmp-cursor-pointer" title="新建" id="sheetAdd"><i class="fa-solid fa-plus fa-lg"></i></span>
           </div>
           <div class="lmp-my-sheet">
             <div class="lmp-sheet-header">
               <div class="lmp-sheet-name">歌单名</div>
               <div class="lmp-sheet-add">操作</div>
             </div>
-            <div class="lmp-sheet-body">
-              <div class="lmp-sheet-row lmp-sheet-odd">
-                <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer">当前播放</span></div>
-                <div class="lmp-sheet-operate">
-                  <div class="lmp-sheet-dele lmp-cursor-pointer" title="删除"><i class="fa-solid fa-trash-can fa-lg"></i></div>
-                  <div class="lmp-sheet-drag lmp-cursor-pointer" title="排序"><i class="fa-solid fa-bars fa-lg"></i></div>
-                </div>
-              </div>
+            <div class="lmp-sheet-body" id="sheetList">
+              暂无数据
             </div>
           </div>
          </div>
@@ -127,6 +121,14 @@
       </div>
     </div>
   </div>
+  <dialog id="sheetAddDia">
+      <label>名称：<input type="text" id="sheetName"></label>
+      <div class="lmp-err-msg" id="sheetDiaErr"></div>
+      <div class="lmp-dia-btn">
+        <button id="sheetAddCancel">取消</button>
+        <button id="sheetAddConfirm">确定<i style="display: none;" class="fa-solid fa-spinner fa-spin" id="sheetDiaSpin"></i></button>
+      </div>
+  </dialog>
   <script type="module">
     import { init } from './js/index.js'
     window.onload = () => {
