@@ -1,6 +1,7 @@
 import axios from "../asset/js/axios.min.js";
+import Sortable from '../asset/js/sortable.esm.js';
 import { api } from "./api.js";
-import { spin } from "./util.js";
+import { spin, info } from "./util.js";
 
 const getSheetList = () => {
   return axios.get(api.sheet).then((response) => {
@@ -9,7 +10,7 @@ const getSheetList = () => {
       const listStr = data.reduce((acc, cur, index) => {
         const { listId, listName } = cur;
         const rowCls = index % 2 ? "" : "lmp-sheet-odd";
-        acc += `<div class="lmp-sheet-row ${rowCls}">
+        acc += `<div class="lmp-sheet-row ${rowCls}" data-id=${listId} data-name=${listName}>
                   <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer" data-id=${listId} data-type="jump">${listName}</span></div>
                   <div class="lmp-sheet-operate">
                     <div class="lmp-sheet-dele lmp-cursor-pointer" title="删除"><i class="fa-solid fa-trash-can fa-lg" data-id=${listId} data-type="dele"></i></div>
@@ -21,21 +22,51 @@ const getSheetList = () => {
 
       const sheetListObj = document.querySelector("#sheetList");
       sheetListObj.innerHTML = listStr;
+      setTimeout(() => {
+        const hasInstance = Sortable.get(sheetListObj);
+        if (!hasInstance) {
+          Sortable.create(sheetListObj, {
+            handle: ".lmp-sheet-drag",
+            animation: 150,
+            draggable: ".lmp-sheet-row",
+            onEnd: (evt) => {
+              const newNodeList =
+                sheetListObj.querySelectorAll(".lmp-sheet-row");
+              const newList = [];
+              for (let i = 0; i < newNodeList.length; i++) {
+                const listId = Number(newNodeList[i].getAttribute("data-id"));
+                const listName = newNodeList[i].getAttribute("data-name");
+                newList.push({ listId, listName });
+              }
+              axios.post(api.sheetSort, newList).then(() => {
+                getSheetList();
+              });
+            },
+          });
+        }
+      },1000)
     }
   });
 }
 
 const deleSheet = async (params) => {
-  spin.show();
-  try {
-    const { status } = await axios.post(api.sheetDel, params);
-    if (status === 200) {
-      getSheetList();
+  if (params.listId == 1) {
+    info.err('默认歌单不能删除');
+    return;
+  }
+  if (window.confirm("确定要删除此歌单吗?")) {
+    spin.show();
+    try {
+      const { status } = await axios.post(api.sheetDel, params);
+      if (status === 200) {
+        info.show();
+        getSheetList();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      spin.hide();
     }
-  } catch (error) {
-    console.error(error)
-  } finally {
-    spin.hide();
   }
 }
 
@@ -66,19 +97,20 @@ const sheetEventInit = () => {
     sheetDiaErrObj.innerHTML = '';
     const formData = { listName: sheetName };
     sheetDiaSpinObj.style.display = 'inline-block';
-    addDiaConfirm.setAttribute("disabled", true);
+    addDiaConfirm.disabled = true;
     axios
       .post(api.sheetAdd, formData)
-      .then(function (response) {
+      .then((response) => {
         const { status } = response;
         if (status === 200) {
+          addDiaConfirm.disabled = false;
           addDia.close();
+          info.show();
           getSheetList();
         }
       })
       .finally(() => {
         sheetDiaSpinObj.style.display = "none";
-        addDiaConfirm.setAttribute("disabled", false);
       });
   });
 
@@ -95,7 +127,6 @@ const sheetEventInit = () => {
     const ele = e.target
     const eleType = ele.getAttribute('data-type');
     const eleId = ele.getAttribute('data-id');
-    console.log('eleType',eleType)
     switch(eleType) {
       case 'jump':{
         break;
@@ -104,7 +135,7 @@ const sheetEventInit = () => {
         deleSheet({ listId: eleId });
         break;
       }
-      case 'sory':{
+      case 'sort':{
         break;
       }
     }
