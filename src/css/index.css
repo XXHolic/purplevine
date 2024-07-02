@@ -94,6 +94,10 @@
   bottom: 30px;
   overflow: auto;
 }
+.lmp-sheet-default {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .lmp-singer-list {
   display: flex;
@@ -128,6 +132,7 @@
 }
 .lmp-sheet-drag:hover,
 .lmp-sheet-dele:hover,
+.lmp-sheet-edit:hover,
 .lmp-sheet-add:hover,
 .lmp-sheet-desc:hover,
 .lmp-operate-play:hover,

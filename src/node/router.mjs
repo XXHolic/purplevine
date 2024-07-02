@@ -1,6 +1,7 @@
 // 歌单：
 // - 所有列表：/api/sheet
 // - 新增：/api/sheet/add
+// - 重命名：/api/sheet/edit
 // - 删除：/api/sheet/del
 // - 排序：/api/sheet/sort
 // - 单个歌单详情：/api/sheet/detail
@@ -14,22 +15,23 @@
 // 歌曲：
 // - 列表：/api/music
 // - 所有歌曲公用转移到歌单：/api/music/move，通过传参区分是单独收藏还是从一个歌单转移到另外一个歌单
-import { sheetList, sheetAdd, sheetDele, sheetSort } from "./sheet.mjs";
+import { sheetList, sheetAdd, sheetEdit, sheetDele, sheetSort } from "./sheet.mjs";
 
 
 const api = {
-  sheet: '/api/sheet',
-  sheetAdd: '/api/sheet/add',
-  sheetDel: '/api/sheet/del',
-  sheetSort: '/api/sheet/sort',
-  sheetDetail: '/api/sheet/detail',
-  sheetDetailSort: '/api/sheet/detail/sort',
-  sheetDetailDel: '/api/sheet/detail/del',
-  singer: '/api/singer',
-  singerMusic: '/api/sheet/music',
-  music: '/api/music',
-  musicMove: '/api/music/move',
-}
+  sheet: "/api/sheet",
+  sheetAdd: "/api/sheet/add",
+  sheetEdit: "/api/sheet/edit",
+  sheetDel: "/api/sheet/del",
+  sheetSort: "/api/sheet/sort",
+  sheetDetail: "/api/sheet/detail",
+  sheetDetailSort: "/api/sheet/detail/sort",
+  sheetDetailDel: "/api/sheet/detail/del",
+  singer: "/api/singer",
+  singerMusic: "/api/sheet/music",
+  music: "/api/music",
+  musicMove: "/api/music/move",
+};
 
 const route = (req,res) => {
   console.log("About to route a request for " + req.url);
@@ -41,6 +43,10 @@ const route = (req,res) => {
     }
     case api.sheetAdd: {
       sheetAdd(req, res);
+      break;
+    }
+    case api.sheetEdit: {
+      sheetEdit(req, res);
       break;
     }
     case api.sheetDel: {

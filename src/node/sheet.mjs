@@ -39,7 +39,7 @@ const sheetDele = async (req, res) => {
   const contents = await readFile(allListPath, { encoding: "utf-8" });
   const contentsObj = JSON.parse(contents);
   dealPost(req, (params) => {
-    const newArr = contentsObj.filter((ele) => ele.listId !== Number(params.listId));
+    const newArr = contentsObj.filter((ele) => ele.listId !== params.listId);
     writeFile(allListPath, JSON.stringify(newArr)).then(() => {
       unlink(`${sheetPathPrefix}${params.listId}.json`).then(() => {
         backOkMsg(res);
@@ -56,5 +56,30 @@ const sheetSort = (req, res) => {
   });
 };
 
+const sheetEdit = async (req, res) => {
+  const contents = await readFile(allListPath, { encoding: "utf-8" });
+  const contentsObj = JSON.parse(contents);
+  dealPost(req, async (params) => {
+    const { listId, listName } = params;
+    const singleFilePath = `${sheetPathPrefix}${listId}.json`;
+    const singleFile = await readFile(singleFilePath, {
+      encoding: "utf-8",
+    });
+    const singleFileObj = JSON.parse(singleFile);
+    const newContents = contentsObj.map((ele) => {
+      if (ele.listId === listId) {
+        ele.listName = listName;
+      }
+      return ele;
+    });
+    const updateFile = {...singleFileObj, listName: listName};
+    writeFile(allListPath, JSON.stringify(newContents)).then(() => {
+      writeFile(singleFilePath, JSON.stringify(updateFile)).then(() => {
+        backOkMsg(res);
+      });
+    });
+  });
+};
 
-export { sheetList, sheetAdd, sheetDele, sheetSort };
+
+export { sheetList, sheetAdd, sheetDele, sheetSort, sheetEdit };

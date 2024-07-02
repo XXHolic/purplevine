@@ -1,6 +1,7 @@
 const api = {
   sheet: "/api/sheet",
   sheetAdd: "/api/sheet/add",
+  sheetEdit: "/api/sheet/edit",
   sheetDel: "/api/sheet/del",
   sheetSort: "/api/sheet/sort",
   sheetDetail: "/api/sheet/detail",

@@ -9,11 +9,19 @@ const getSheetList = () => {
     if (status === 200) {
       const listStr = data.reduce((acc, cur, index) => {
         const { listId, listName } = cur;
+        const isDefault = listId == 1; // 默认的不能操作和删除
+        const editClassName = isDefault
+          ? "lmp-sheet-default"
+          : "lmp-sheet-edit lmp-cursor-pointer";
+        const deleClassName = isDefault
+          ? "lmp-sheet-default"
+          : "lmp-sheet-dele lmp-cursor-pointer";
         const rowCls = index % 2 ? "" : "lmp-sheet-odd";
         acc += `<div class="lmp-sheet-row ${rowCls}" data-id=${listId} data-name=${listName}>
                   <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer" data-id=${listId} data-type="jump">${listName}</span></div>
                   <div class="lmp-sheet-operate">
-                    <div class="lmp-sheet-dele lmp-cursor-pointer" title="删除"><i class="fa-solid fa-trash-can fa-lg" data-id=${listId} data-type="dele"></i></div>
+                  <div class="${editClassName}" title="编辑"><i class="fa-solid fa-pencil fa-lg" data-id=${listId} data-type="edit"></i></div>
+                    <div class="${deleClassName}" title="删除"><i class="fa-solid fa-trash-can fa-lg" data-id=${listId} data-type="dele"></i></div>
                     <div class="lmp-sheet-drag lmp-cursor-pointer" title="排序"><i class="fa-solid fa-bars fa-lg" data-id=${listId} data-type="sort"></i></div>
                   </div>
                 </div>`;
@@ -70,6 +78,7 @@ const deleSheet = async (params) => {
   }
 }
 
+
 const sheetEventInit = () => {
   const sheetListEle = document.querySelector("#sheetList");
   const addBtn = document.querySelector("#sheetAdd");
@@ -85,7 +94,8 @@ const sheetEventInit = () => {
   });
 
   addDiaConfirm.addEventListener("click", () => {
-    const sheetName = sheetNameObj.value;
+    const nameValue = sheetNameObj.value;
+    const sheetName = nameValue.trim();
     if (!sheetName) {
       sheetDiaErrObj.innerHTML="必填";
       return;
@@ -98,12 +108,18 @@ const sheetEventInit = () => {
     const formData = { listName: sheetName };
     sheetDiaSpinObj.style.display = 'inline-block';
     addDiaConfirm.disabled = true;
+    const dataType = addDiaConfirm.getAttribute("data-type");
+    const dataId = addDiaConfirm.getAttribute("data-id");
+    const isEdit = dataType === 'edit'
+    let apiUse = isEdit ? api.sheetEdit : api.sheetAdd;
+    if (isEdit) {
+      formData.listId = Number(dataId);
+    }
     axios
-      .post(api.sheetAdd, formData)
+      .post(apiUse, formData)
       .then((response) => {
         const { status } = response;
         if (status === 200) {
-          addDiaConfirm.disabled = false;
           addDia.close();
           info.show();
           getSheetList();
@@ -119,16 +135,30 @@ const sheetEventInit = () => {
   });
 
   addDia.addEventListener("close", () => {
+    addDiaConfirm.disabled = false;
+    addDiaConfirm.setAttribute("data-type", "");
+    addDiaConfirm.setAttribute("data-id", "");
     sheetNameObj.value = "";
     sheetDiaErrObj.innerHTML = "";
   });
 
+  const editSheet = (params) => {
+    addDia.showModal();
+    // 这个是为了公用新建弹窗，添加标识区分
+    addDiaConfirm.setAttribute('data-type', 'edit');
+    addDiaConfirm.setAttribute("data-id", params.listId);
+  };
+
   sheetListEle.addEventListener('click', (e) => {
     const ele = e.target
     const eleType = ele.getAttribute('data-type');
-    const eleId = ele.getAttribute('data-id');
+    const eleId = Number(ele.getAttribute('data-id'));
     switch(eleType) {
       case 'jump':{
+        break;
+      }
+      case 'edit':{
+        editSheet({ listId: eleId });
         break;
       }
       case 'dele':{
