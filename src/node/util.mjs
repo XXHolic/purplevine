@@ -17,4 +17,9 @@ const backOkMsg = (res) => {
   res.end(JSON.stringify({ code: 200, data: "" }));
 };
 
-export { dealPost, backOkMsg };
+const backErrMsg = (res, msg) => {
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({ code: 500, data: msg }));
+};
+
+export { dealPost, backOkMsg, backErrMsg };

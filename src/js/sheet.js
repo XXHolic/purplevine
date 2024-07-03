@@ -3,10 +3,13 @@ import Sortable from '../asset/js/sortable.esm.js';
 import { api } from "./api.js";
 import { spin, info } from "./util.js";
 
+let allListOrigin = [] // 主要用来判断 新建和修改时 是否重名
+
 const getSheetList = () => {
   return axios.get(api.sheet).then((response) => {
     const { data, status } = response;
     if (status === 200) {
+      allListOrigin = data;
       const listStr = data.reduce((acc, cur, index) => {
         const { listId, listName } = cur;
         const isDefault = listId == 1; // 默认的不能操作和删除
@@ -20,9 +23,9 @@ const getSheetList = () => {
         acc += `<div class="lmp-sheet-row ${rowCls}" data-id=${listId} data-name=${listName}>
                   <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer" data-id=${listId} data-type="jump">${listName}</span></div>
                   <div class="lmp-sheet-operate">
-                  <div class="${editClassName}" title="编辑"><i class="fa-solid fa-pencil fa-lg" data-id=${listId} data-type="edit"></i></div>
+                  <div class="${editClassName}" title="编辑"><i class="fa-solid fa-pencil fa-lg" data-name=${listName} data-id=${listId} data-type="edit"></i></div>
                     <div class="${deleClassName}" title="删除"><i class="fa-solid fa-trash-can fa-lg" data-id=${listId} data-type="dele"></i></div>
-                    <div class="lmp-sheet-drag lmp-cursor-pointer" title="排序"><i class="fa-solid fa-bars fa-lg" data-id=${listId} data-type="sort"></i></div>
+                    <div class="lmp-sheet-drag lmp-cursor-pointer" title="拖动排序"><i class="fa-solid fa-bars fa-lg" data-id=${listId} data-type="sort"></i></div>
                   </div>
                 </div>`;
         return acc;
@@ -88,6 +91,7 @@ const sheetEventInit = () => {
   const sheetNameObj = document.querySelector("#sheetName");
   const sheetDiaErrObj = document.querySelector("#sheetDiaErr");
   const sheetDiaSpinObj = document.querySelector("#sheetDiaSpin");
+  const sheetDiaNameObj = document.querySelector("#sheetDiaName");
 
   addBtn.addEventListener("click", () => {
     addDia.showModal();
@@ -104,17 +108,26 @@ const sheetEventInit = () => {
       sheetDiaErrObj.innerHTML="名称长度最大 20";
       return;
     }
+    const dataType = addDiaConfirm.getAttribute("data-type");
+    const dataId = addDiaConfirm.getAttribute("data-id");
+    let isRepeat = allListOrigin.find((ele) => ele.listName === sheetName);
+    const isEdit = dataType === 'edit'
+    let apiUse = isEdit ? api.sheetEdit : api.sheetAdd;
+    if (isEdit) {
+      isRepeat = allListOrigin.find(
+        (ele) => ele.listName === sheetName && dataId != ele.listId
+      );
+      formData.listId = Number(dataId);
+    }
+    if (isRepeat) {
+      info.err('歌单名称已存在');
+      return;
+    }
+
     sheetDiaErrObj.innerHTML = '';
     const formData = { listName: sheetName };
     sheetDiaSpinObj.style.display = 'inline-block';
     addDiaConfirm.disabled = true;
-    const dataType = addDiaConfirm.getAttribute("data-type");
-    const dataId = addDiaConfirm.getAttribute("data-id");
-    const isEdit = dataType === 'edit'
-    let apiUse = isEdit ? api.sheetEdit : api.sheetAdd;
-    if (isEdit) {
-      formData.listId = Number(dataId);
-    }
     axios
       .post(apiUse, formData)
       .then((response) => {
@@ -140,10 +153,13 @@ const sheetEventInit = () => {
     addDiaConfirm.setAttribute("data-id", "");
     sheetNameObj.value = "";
     sheetDiaErrObj.innerHTML = "";
+    sheetDiaNameObj.innerHTML = '新建歌单';
   });
 
   const editSheet = (params) => {
     addDia.showModal();
+    sheetDiaNameObj.innerHTML = '歌单重命名';
+    sheetNameObj.value = params.listName;
     // 这个是为了公用新建弹窗，添加标识区分
     addDiaConfirm.setAttribute('data-type', 'edit');
     addDiaConfirm.setAttribute("data-id", params.listId);
@@ -152,13 +168,14 @@ const sheetEventInit = () => {
   sheetListEle.addEventListener('click', (e) => {
     const ele = e.target
     const eleType = ele.getAttribute('data-type');
+    const eleName = ele.getAttribute('data-name');
     const eleId = Number(ele.getAttribute('data-id'));
     switch(eleType) {
       case 'jump':{
         break;
       }
       case 'edit':{
-        editSheet({ listId: eleId });
+        editSheet({ listId: eleId, listName: eleName });
         break;
       }
       case 'dele':{

@@ -1,5 +1,5 @@
 import { readFile, writeFile, unlink } from "node:fs/promises";
-import { dealPost, backOkMsg } from "./util.mjs";
+import { dealPost, backOkMsg, backErrMsg } from "./util.mjs";
 
 const sheetPathPrefix = "../json/list";
 const allListPath = "../json/allList.json"
@@ -18,6 +18,11 @@ const sheetAdd = async (req, res) => {
   const newId = maxId + 1;
   dealPost(req, (params) => {
     params.listId = newId;
+    const isRepeat = contentsObj.find((ele) => ele.listName === params.listName);
+    if (isRepeat) {
+      backErrMsg(res, '歌单名称已存在');
+      return;
+    }
     contentsObj.push(params);
     const newFile = {
       listId: newId,
@@ -61,6 +66,14 @@ const sheetEdit = async (req, res) => {
   const contentsObj = JSON.parse(contents);
   dealPost(req, async (params) => {
     const { listId, listName } = params;
+    const isRepeat = contentsObj.find(
+      (ele) => ele.listId != listId && ele.listName === listName
+    );
+    if (isRepeat) {
+      backErrMsg(res, "歌单名称已存在");
+      return;
+    }
+
     const singleFilePath = `${sheetPathPrefix}${listId}.json`;
     const singleFile = await readFile(singleFilePath, {
       encoding: "utf-8",
