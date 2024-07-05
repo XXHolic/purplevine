@@ -98,6 +98,10 @@
   opacity: 0;
   pointer-events: none;
 }
+.lmp-sheet-detail,
+.lmp-detail-name {
+  margin-bottom: 10px;
+}
 
 .lmp-singer-list {
   display: flex;
@@ -138,6 +142,7 @@
 .lmp-operate-play:hover,
 .lmp-operate-drag:hover,
 .lmp-operate-add:hover,
+.lmp-operate-dele:hover,
 .lmp-singer-name:hover,
 .lmp-song-span:hover,
 .lmp-song-num:hover,

@@ -18,8 +18,8 @@ const backOkMsg = (res) => {
 };
 
 const backErrMsg = (res, msg) => {
-  res.writeHead(200, { "Content-Type": "application/json" });
-  res.end(JSON.stringify({ code: 500, data: msg }));
+  res.writeHead(500, { "Content-Type": "application/json" });
+  res.end(msg);
 };
 
 export { dealPost, backOkMsg, backErrMsg };

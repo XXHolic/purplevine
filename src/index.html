@@ -1,146 +1,206 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>音乐播放器</title>
-  <link rel="shortcut icon" href="./asset/favicon.ico" />
-  <link rel="stylesheet" href="./asset/css/fontawesome.css" />
-  <link rel="stylesheet" href="./asset/css/solid.css" />
-  <link rel="stylesheet" href="./css/reset.css">
-  <link rel="stylesheet" href="./css/index.css">
-</head>
-<body>
-  <div class="lmp-main">
-    <div class="lmp-header">
-      <div class="lmp-header-search">
-        <input type="search" title="搜索" class="lmp-search-input">
-        <div class="lmp-search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>音乐播放器</title>
+    <link rel="shortcut icon" href="./asset/favicon.ico" />
+    <link rel="stylesheet" href="./asset/css/fontawesome.css" />
+    <link rel="stylesheet" href="./asset/css/solid.css" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div class="lmp-main">
+      <div class="lmp-header">
+        <div class="lmp-header-search">
+          <input type="search" title="搜索" class="lmp-search-input" />
+          <div class="lmp-search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="lmp-body">
-      <div class="lmp-body-left">
-        <div class="lmp-meun-item lmp-meun-active">歌单</div>
-        <div class="lmp-meun-item">歌手</div>
-        <div class="lmp-meun-item">歌曲</div>
-      </div>
-      <div class="lmp-body-right">
-        <!-- 歌单 -->
-         <div class="lmp-my">
-          <div>
-            <span class="lmp-sheet-add lmp-cursor-pointer" title="新建" id="sheetAdd"><i class="fa-solid fa-plus fa-lg"></i></span>
-          </div>
-          <div class="lmp-my-sheet">
-            <div class="lmp-sheet-header">
-              <div class="lmp-sheet-name">歌单名</div>
-              <div class="lmp-sheet-add">操作</div>
+      <div class="lmp-body">
+        <div class="lmp-body-left">
+          <div class="lmp-meun-item lmp-meun-active">歌单</div>
+          <div class="lmp-meun-item">歌手</div>
+          <div class="lmp-meun-item">歌曲</div>
+        </div>
+        <div class="lmp-body-right">
+          <!-- 歌单列表 -->
+          <div class="lmp-my">
+            <div class="lmp-dn" id="sheetContainer">
+              <div>
+                <span
+                  class="lmp-sheet-add lmp-cursor-pointer"
+                  title="新建"
+                  id="sheetAdd"
+                  ><i class="fa-solid fa-plus fa-lg"></i
+                ></span>
+              </div>
+              <div class="lmp-my-sheet">
+                <div class="lmp-sheet-header">
+                  <div class="lmp-sheet-name">歌单名</div>
+                  <div class="lmp-sheet-add">操作</div>
+                </div>
+                <div class="lmp-sheet-body" id="sheetList">暂无数据</div>
+              </div>
             </div>
-            <div class="lmp-sheet-body" id="sheetList">
-              暂无数据
+            <!-- 歌单详情 -->
+            <div id="sheetDetailContainer">
+              <div class="lmp-sheet-detail">
+                <div class="lmp-detail-name">歌单名：<span id="sheetDetailName"></span></div>
+                <button id="sheetDetailPlay">播放全部</button>
+              </div>
+              <div class="lmp-song-header">
+                <div class="lmp-song-name">歌曲</div>
+                <div class="lmp-song-singer">歌手</div>
+                <div class="lmp-song-operate">操作</div>
+              </div>
+              <div class="lmp-song-tbody" id="sheetDetailList">暂无数据</div>
             </div>
           </div>
-         </div>
-        <!-- 歌手 -->
-         <div class="lmp-singer lmp-dn">
-          <div class="lmp-singer-row">
-            <div>A</div>
-            <div class="lmp-singer-list">
-              <div class="lmp-singer-name lmp-cursor-pointer">歌手 1</div>
-              <div class="lmp-singer-name lmp-cursor-pointer">歌手 2</div>
-              <div class="lmp-singer-name lmp-cursor-pointer">歌手 3</div>
-            </div>
-          </div>
-         </div>
-        <!-- 歌曲 -->
-         <div class="lmp-song lmp-dn">
-          <div class="lmp-song-header">
-            <div class="lmp-song-name">歌曲</div>
-            <div class="lmp-song-singer">歌手</div>
-            <div class="lmp-song-operate">操作</div>
-          </div>
-          <div class="lmp-song-tbody">
-            <div class="lmp-song-row lmp-song-odd">
-              <div class="lmp-song-name">歌曲歌曲歌</div>
-              <div class="lmp-song-singer"><span class="lmp-song-span lmp-cursor-pointer">歌手1</span></div>
-              <div class="lmp-song-operate">
-                <div class="lmp-operate-play lmp-cursor-pointer"><i class="fa-regular fa-circle-play fa-lg"></i></div>
-                <div class="lmp-operate-add lmp-cursor-pointer"><i class="fa-solid fa-folder fa-lg"></i></div>
-                <div class="lmp-operate-dele lmp-cursor-pointer"><i class="fa-solid fa-trash-can fa-lg"></i></div>
-                <div class="lmp-operate-drag lmp-cursor-pointer"><i class="fa-solid fa-bars fa-lg"></i></div>
+          <!-- 歌手 -->
+          <div class="lmp-singer lmp-dn">
+            <div class="lmp-singer-row">
+              <div>A</div>
+              <div class="lmp-singer-list">
+                <div class="lmp-singer-name lmp-cursor-pointer">歌手 1</div>
+                <div class="lmp-singer-name lmp-cursor-pointer">歌手 2</div>
+                <div class="lmp-singer-name lmp-cursor-pointer">歌手 3</div>
               </div>
             </div>
           </div>
-          <div class="lmp-song-footer">
-            <div class="lmp-cursor-pointer lmp-song-pre">上一页</div>
-            <div class="lmp-song-page">
-              <div class="lmp-song-num">1</div>
-              <div class="lmp-song-num">2</div>
-              <div class="lmp-song-num">3</div>
+          <!-- 歌曲 -->
+          <div class="lmp-song lmp-dn">
+            <div class="lmp-song-header">
+              <div class="lmp-song-name">歌曲</div>
+              <div class="lmp-song-singer">歌手</div>
+              <div class="lmp-song-operate">操作</div>
             </div>
-            <div class="lmp-cursor-pointer lmp-song-next">下一页</div>
+            <div class="lmp-song-tbody">
+              <div class="lmp-song-row lmp-song-odd">
+                <div class="lmp-song-name">歌曲歌曲歌</div>
+                <div class="lmp-song-singer">
+                  <span class="lmp-song-span lmp-cursor-pointer">歌手1</span>
+                </div>
+                <div class="lmp-song-operate">
+                  <div class="lmp-operate-play lmp-cursor-pointer">
+                    <i class="fa-regular fa-circle-play fa-lg"></i>
+                  </div>
+                  <div class="lmp-operate-add lmp-cursor-pointer">
+                    <i class="fa-solid fa-folder fa-lg"></i>
+                  </div>
+                  <div class="lmp-operate-dele lmp-cursor-pointer">
+                    <i class="fa-solid fa-trash-can fa-lg"></i>
+                  </div>
+                  <div class="lmp-operate-drag lmp-cursor-pointer">
+                    <i class="fa-solid fa-bars fa-lg"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lmp-song-footer">
+              <div class="lmp-cursor-pointer lmp-song-pre">上一页</div>
+              <div class="lmp-song-page">
+                <div class="lmp-song-num">1</div>
+                <div class="lmp-song-num">2</div>
+                <div class="lmp-song-num">3</div>
+              </div>
+              <div class="lmp-cursor-pointer lmp-song-next">下一页</div>
+            </div>
           </div>
-         </div>
-      </div>
-    </div>
-    <div class="lmp-footer lmp-flex-center">
-      <div class="lmp-player-btn">
-        <div class="lmp-player-pre lmp-cursor-pointer"><i class="fa-solid fa-backward-step fa-xl"></i></div>
-        <div class="lmp-player-play lmp-cursor-pointer"><i class="fa-solid fa-circle-pause fa-xl"></i></div>
-        <div class="lmp-player-next lmp-cursor-pointer"><i class="fa-solid fa-forward-step fa-xl"></i></div>
-      </div>
-      <div class="lmp-player-msg">
-        <div class="lmp-player-song" title="歌曲名-歌手名">歌曲名-歌手名</div>
-        <div class="lmp-flex-center">
-          <progress value="22" max="100" class="lmp-player-progress"></progress>
-          <div>03:00</div>
         </div>
       </div>
-      <div class="lmp-player-operate lmp-flex-center">
-        <div class="lmp-player-add lmp-cursor-pointer"><i class="fa-solid fa-folder fa-lg"></i></div>
-        <div class="lmp-player-model lmp-cursor-pointer">
-          <i class="fa-solid fa-rotate-right fa-lg lmp-dn"></i>
-          <i class="fa-solid fa-shuffle fa-lg lmp-dn"></i>
-          <i class="fa-solid fa-repeat fa-lg"></i>
+      <div class="lmp-footer lmp-flex-center">
+        <div class="lmp-player-btn">
+          <div class="lmp-player-pre lmp-cursor-pointer">
+            <i class="fa-solid fa-backward-step fa-xl"></i>
+          </div>
+          <div class="lmp-player-play lmp-cursor-pointer">
+            <i class="fa-solid fa-circle-pause fa-xl"></i>
+          </div>
+          <div class="lmp-player-next lmp-cursor-pointer">
+            <i class="fa-solid fa-forward-step fa-xl"></i>
+          </div>
         </div>
-        <div class="lmp-player-list lmp-cursor-pointer"><i class="fa-solid fa-file-lines fa-lg"></i></div>
-        <div class="lmp-player-pop">
-          <div class="lmp-player-triangle lmp-dn"></div>
-          <div class="lmp-pop-list lmp-dn">
-            <div class="lmp-song-row lmp-song-odd">
-              <div class="lmp-song-name">歌曲歌曲歌</div>
-              <div class="lmp-song-singer"><span class="lmp-song-span lmp-cursor-pointer">歌手1</span></div>
-              <div class="lmp-song-operate">
-                <div class="lmp-operate-play lmp-cursor-pointer"><i class="fa-regular fa-circle-play fa-lg"></i></div>
-                <div class="lmp-operate-add lmp-cursor-pointer"><i class="fa-solid fa-folder fa-lg"></i></div>
-                <div class="lmp-operate-dele lmp-cursor-pointer"><i class="fa-solid fa-trash-can fa-lg"></i></div>
-                <div class="lmp-operate-drag lmp-cursor-pointer"><i class="fa-solid fa-bars fa-lg"></i></div>
+        <div class="lmp-player-msg">
+          <div class="lmp-player-song" title="歌曲名-歌手名">歌曲名-歌手名</div>
+          <div class="lmp-flex-center">
+            <progress
+              value="22"
+              max="100"
+              class="lmp-player-progress"
+            ></progress>
+            <div>03:00</div>
+          </div>
+        </div>
+        <div class="lmp-player-operate lmp-flex-center">
+          <div class="lmp-player-add lmp-cursor-pointer">
+            <i class="fa-solid fa-folder fa-lg"></i>
+          </div>
+          <div class="lmp-player-model lmp-cursor-pointer">
+            <i class="fa-solid fa-rotate-right fa-lg lmp-dn"></i>
+            <i class="fa-solid fa-shuffle fa-lg lmp-dn"></i>
+            <i class="fa-solid fa-repeat fa-lg"></i>
+          </div>
+          <div class="lmp-player-list lmp-cursor-pointer">
+            <i class="fa-solid fa-file-lines fa-lg"></i>
+          </div>
+          <div class="lmp-player-pop">
+            <div class="lmp-player-triangle lmp-dn"></div>
+            <div class="lmp-pop-list lmp-dn">
+              <div class="lmp-song-row lmp-song-odd">
+                <div class="lmp-song-name">歌曲歌曲歌</div>
+                <div class="lmp-song-singer">
+                  <span class="lmp-song-span lmp-cursor-pointer">歌手1</span>
+                </div>
+                <div class="lmp-song-operate">
+                  <div class="lmp-operate-play lmp-cursor-pointer">
+                    <i class="fa-regular fa-circle-play fa-lg"></i>
+                  </div>
+                  <div class="lmp-operate-add lmp-cursor-pointer">
+                    <i class="fa-solid fa-folder fa-lg"></i>
+                  </div>
+                  <div class="lmp-operate-dele lmp-cursor-pointer">
+                    <i class="fa-solid fa-trash-can fa-lg"></i>
+                  </div>
+                  <div class="lmp-operate-drag lmp-cursor-pointer">
+                    <i class="fa-solid fa-bars fa-lg"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <dialog id="sheetAddDia">
-    <div class="lmp-dia-name" id="sheetDiaName">新建歌单</div>
-    <label>名称：<input type="text" id="sheetName"></label>
-    <div class="lmp-err-msg" id="sheetDiaErr"></div>
-    <div class="lmp-dia-btn">
-      <button id="sheetAddCancel">取消</button>
-      <button id="sheetAddConfirm">确定<i style="display: none;" class="fa-solid fa-spinner fa-spin" id="sheetDiaSpin"></i></button>
+    <dialog id="sheetAddDia">
+      <div class="lmp-dia-name" id="sheetDiaName">新建歌单</div>
+      <label>名称：<input type="text" id="sheetName" /></label>
+      <div class="lmp-err-msg" id="sheetDiaErr"></div>
+      <div class="lmp-dia-btn">
+        <button id="sheetAddCancel">取消</button>
+        <button id="sheetAddConfirm">
+          确定<i
+            style="display: none;"
+            class="fa-solid fa-spinner fa-spin"
+            id="sheetDiaSpin"
+          ></i>
+        </button>
+      </div>
+    </dialog>
+    <div class="lmp-spin lmp-dn" id="lmpSpin">
+      <div class="lmp-flex-center" style="height: 100%;color: #fff;">
+        <i class="fa-solid fa-spinner fa-spin fa-2xl"></i>
+      </div>
     </div>
-  </dialog>
-  <div class="lmp-spin lmp-dn" id="lmpSpin">
-    <div class="lmp-flex-center" style="height: 100%;color: #fff;">
-      <i class="fa-solid fa-spinner fa-spin fa-2xl"></i>
-    </div>
-  </div>
-  <div class="lmp-info lmp-dn" id="lmpInfo"></div>
-  <script type="module">
-    import { init } from './js/index.js'
-    window.onload = () => {
-      init();
-    }
-  </script>
-</body>
+    <div class="lmp-info lmp-dn" id="lmpInfo"></div>
+    <script type="module">
+      import { init } from './js/index.js'
+      window.onload = () => {
+        init();
+      }
+    </script>
+  </body>
 </html>

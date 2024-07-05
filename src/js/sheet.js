@@ -1,7 +1,7 @@
 import axios from "../asset/js/axios.min.js";
 import Sortable from '../asset/js/sortable.esm.js';
 import { api } from "./api.js";
-import { spin, info } from "./util.js";
+import { spin, info, showTrigger, addEventOnce } from "./util.js";
 
 let allListOrigin = [] // 主要用来判断 新建和修改时 是否重名
 
@@ -81,6 +81,90 @@ const deleSheet = async (params) => {
   }
 }
 
+const getSheetDetail = async (params) => {
+  spin.show();
+  try {
+    const { status, data } = await axios.post(api.sheetDetail, params);
+    if (status === 200) {
+      const { listId, listName, songList } = data;
+      const listStr = songList.reduce((acc, cur, index) => {
+              const { singerId, singerName, songId, songName } = cur;
+              const rowCls = index % 2 ? "" : "lmp-song-odd";
+              acc += `<div class="lmp-song-row ${rowCls}" data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
+                        <div class="lmp-song-name">${songName}</div>
+                        <div class="lmp-song-singer">
+                          <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId}>${singerName}</span>
+                        </div>
+                        <div class="lmp-song-operate">
+                          <div class="lmp-operate-play lmp-cursor-pointer">
+                            <i class="fa-regular fa-circle-play fa-lg" data-id=${songId}></i>
+                          </div>
+                          <div class="lmp-operate-add lmp-cursor-pointer">
+                            <i class="fa-solid fa-folder fa-lg"></i>
+                          </div>
+                          <div class="lmp-operate-dele lmp-cursor-pointer">
+                            <i class="fa-solid fa-trash-can fa-lg" data-id=${songId}></i>
+                          </div>
+                          <div class="lmp-operate-drag lmp-cursor-pointer" data-id=${songId}>
+                            <i class="fa-solid fa-bars fa-lg"></i>
+                          </div>
+                        </div>
+                      </div>`;
+              return acc;
+      }, "");
+      const listObj = document.querySelector("#sheetDetailList");
+      listObj.innerHTML = listStr;
+      setTimeout(() => {
+        const hasInstance = Sortable.get(listObj);
+        if (!hasInstance) {
+          Sortable.create(listObj, {
+            handle: ".lmp-operate-drag",
+            animation: 150,
+            draggable: ".lmp-song-row",
+            onEnd: (evt) => {
+              const newNodeList = listObj.querySelectorAll(".lmp-song-row");
+              const newList = [];
+              for (let i = 0; i < newNodeList.length; i++) {
+                const dataSongId = Number(newNodeList[i].getAttribute("data-songid"));
+                const dataSongName = newNodeList[i].getAttribute("data-songname");
+                const dataSingerId = Number(newNodeList[i].getAttribute("data-singerid"));
+                const dataSingerName = newNodeList[i].getAttribute("data-singername");
+                newList.push(
+                  {
+                    songId: dataSongId,
+                    songName: dataSongName,
+                    singerId: dataSingerId,
+                    singerName: dataSingerName,
+                  },
+                );
+              }
+              axios
+                .post(api.sheetDetailSort, {
+                  listId,
+                  newList,
+                })
+                .then(() => {
+                  getSheetDetail(params);
+                });
+            },
+          });
+        }
+      }, 1000);
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    spin.hide();
+  }
+
+  const sheetDetailPlayEle = document.querySelector("#sheetDetailPlay");
+  addEventOnce(sheetDetailPlayEle, "click", () => {
+    console.info("ddd");
+  });
+
+
+};
+
 
 const sheetEventInit = () => {
   const sheetListEle = document.querySelector("#sheetList");
@@ -92,6 +176,8 @@ const sheetEventInit = () => {
   const sheetDiaErrObj = document.querySelector("#sheetDiaErr");
   const sheetDiaSpinObj = document.querySelector("#sheetDiaSpin");
   const sheetDiaNameObj = document.querySelector("#sheetDiaName");
+
+  getSheetDetail({ listId: 1, listName: "当前播放" });
 
   addBtn.addEventListener("click", () => {
     addDia.showModal();
@@ -172,6 +258,7 @@ const sheetEventInit = () => {
     const eleId = Number(ele.getAttribute('data-id'));
     switch(eleType) {
       case 'jump':{
+        getSheetDetail({ listId: eleId, listName: eleName });
         break;
       }
       case 'edit':{

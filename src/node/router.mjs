@@ -15,7 +15,15 @@
 // 歌曲：
 // - 列表：/api/music
 // - 所有歌曲公用转移到歌单：/api/music/move，通过传参区分是单独收藏还是从一个歌单转移到另外一个歌单
-import { sheetList, sheetAdd, sheetEdit, sheetDele, sheetSort } from "./sheet.mjs";
+import {
+  sheetList,
+  sheetAdd,
+  sheetEdit,
+  sheetDele,
+  sheetSort,
+  sheetDetail,
+  sheetDetailSort,
+} from "./sheet.mjs";
 
 
 const api = {
@@ -55,6 +63,14 @@ const route = (req,res) => {
     }
     case api.sheetSort: {
       sheetSort(req, res);
+      break;
+    }
+    case api.sheetDetail: {
+      sheetDetail(req, res);
+      break;
+    }
+    case api.sheetDetailSort: {
+      sheetDetailSort(req, res);
       break;
     }
     default: {

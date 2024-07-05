@@ -44,6 +44,10 @@ const sheetDele = async (req, res) => {
   const contents = await readFile(allListPath, { encoding: "utf-8" });
   const contentsObj = JSON.parse(contents);
   dealPost(req, (params) => {
+    if (params.listId == 1) {
+      backErrMsg(res, "默认歌单不能删除");
+      return;
+    }
     const newArr = contentsObj.filter((ele) => ele.listId !== params.listId);
     writeFile(allListPath, JSON.stringify(newArr)).then(() => {
       unlink(`${sheetPathPrefix}${params.listId}.json`).then(() => {
@@ -94,5 +98,37 @@ const sheetEdit = async (req, res) => {
   });
 };
 
+const sheetDetail = (req, res) => {
+  dealPost(req, async (params) => {
+    const { listId, listName } = params;
+    const singleFilePath = `${sheetPathPrefix}${listId}.json`;
+    const contents = await readFile(singleFilePath, {
+      encoding: "utf-8",
+    });
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(contents);
+  })
+}
 
-export { sheetList, sheetAdd, sheetDele, sheetSort, sheetEdit };
+const sheetDetailSort = (req, res) => {
+  dealPost(req, async (params) => {
+    const { listId, newList } = params;
+    const singleFilePath = `${sheetPathPrefix}${listId}.json`;
+    const contents = await readFile(singleFilePath, { encoding: "utf-8" });
+    const contentsObj = JSON.parse(contents);
+    contentsObj.songList = newList;
+    writeFile(singleFilePath, JSON.stringify(contentsObj)).then(() => {
+      backOkMsg(res);
+    });
+  });
+};
+
+export {
+  sheetList,
+  sheetAdd,
+  sheetDele,
+  sheetSort,
+  sheetEdit,
+  sheetDetail,
+  sheetDetailSort,
+};
