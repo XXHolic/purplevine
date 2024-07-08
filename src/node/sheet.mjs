@@ -50,6 +50,7 @@ const sheetDele = async (req, res) => {
     }
     const newArr = contentsObj.filter((ele) => ele.listId !== params.listId);
     writeFile(allListPath, JSON.stringify(newArr)).then(() => {
+      // 删除文件
       unlink(`${sheetPathPrefix}${params.listId}.json`).then(() => {
         backOkMsg(res);
       });
@@ -89,7 +90,7 @@ const sheetEdit = async (req, res) => {
       }
       return ele;
     });
-    const updateFile = {...singleFileObj, listName: listName};
+    const updateFile = { ...singleFileObj, listName: listName };
     writeFile(allListPath, JSON.stringify(newContents)).then(() => {
       writeFile(singleFilePath, JSON.stringify(updateFile)).then(() => {
         backOkMsg(res);
@@ -107,8 +108,8 @@ const sheetDetail = (req, res) => {
     });
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(contents);
-  })
-}
+  });
+};
 
 const sheetDetailSort = (req, res) => {
   dealPost(req, async (params) => {
@@ -123,6 +124,42 @@ const sheetDetailSort = (req, res) => {
   });
 };
 
+const sheetDetailMove = (req, res) => {
+  dealPost(req, async (params) => {
+    const { songId, oldListId, newListId } = params;
+    const oldFilePath = `${sheetPathPrefix}${oldListId}.json`;
+    const newFilePath = `${sheetPathPrefix}${newListId}.json`;
+    const oldContents = await readFile(oldFilePath, { encoding: "utf-8" });
+    const newContents = await readFile(newFilePath, { encoding: "utf-8" });
+    const oldContentsObj = JSON.parse(oldContents);
+    const newContentsObj = JSON.parse(newContents);
+    const songList = oldContentsObj.songList;
+    const targetSong = songList.find((ele) => ele.songId == songId);
+    const oldLeftSong = songList.filter((ele) => ele.songId != songId);
+    oldContentsObj.songList = oldLeftSong;
+    newContentsObj.songList.push({ ...targetSong });
+    writeFile(oldFilePath, JSON.stringify(oldContentsObj)).then(() => {
+      writeFile(newFilePath, JSON.stringify(newContentsObj)).then(() => {
+        backOkMsg(res);
+      });
+    });
+  });
+};
+
+const sheetDetailDele = (req, res) => {
+  dealPost(req, async (params) => {
+    const { songId, listId } = params;
+    const filePath = `${sheetPathPrefix}${listId}.json`;
+    const contents = await readFile(filePath, { encoding: "utf-8" });
+    const contentsObj = JSON.parse(contents);
+    const newList = contentsObj.songList.filter((ele) => ele.songId != songId);
+    contentsObj.songList = newList;
+    writeFile(filePath, JSON.stringify(contentsObj)).then(() => {
+      backOkMsg(res);
+    });
+  });
+};
+
 export {
   sheetList,
   sheetAdd,
@@ -131,4 +168,6 @@ export {
   sheetEdit,
   sheetDetail,
   sheetDetailSort,
+  sheetDetailMove,
+  sheetDetailDele,
 };

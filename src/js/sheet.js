@@ -21,7 +21,7 @@ const getSheetList = () => {
           : "lmp-sheet-dele lmp-cursor-pointer";
         const rowCls = index % 2 ? "" : "lmp-sheet-odd";
         acc += `<div class="lmp-sheet-row ${rowCls}" data-id=${listId} data-name=${listName}>
-                  <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer" data-id=${listId} data-type="jump">${listName}</span></div>
+                  <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer" data-id=${listId} data-name=${listName} data-type="jump">${listName}</span></div>
                   <div class="lmp-sheet-operate">
                   <div class="${editClassName}" title="编辑"><i class="fa-solid fa-pencil fa-lg" data-name=${listName} data-id=${listId} data-type="edit"></i></div>
                     <div class="${deleClassName}" title="删除"><i class="fa-solid fa-trash-can fa-lg" data-id=${listId} data-type="dele"></i></div>
@@ -55,14 +55,14 @@ const getSheetList = () => {
             },
           });
         }
-      },1000)
+      }, 1000);
     }
   });
-}
+};
 
 const deleSheet = async (params) => {
   if (params.listId == 1) {
-    info.err('默认歌单不能删除');
+    info.err("默认歌单不能删除");
     return;
   }
   if (window.confirm("确定要删除此歌单吗?")) {
@@ -79,7 +79,7 @@ const deleSheet = async (params) => {
       spin.hide();
     }
   }
-}
+};
 
 const getSheetDetail = async (params) => {
   spin.show();
@@ -88,29 +88,29 @@ const getSheetDetail = async (params) => {
     if (status === 200) {
       const { listId, listName, songList } = data;
       const listStr = songList.reduce((acc, cur, index) => {
-              const { singerId, singerName, songId, songName } = cur;
-              const rowCls = index % 2 ? "" : "lmp-song-odd";
-              acc += `<div class="lmp-song-row ${rowCls}" data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
+        const { singerId, singerName, songId, songName } = cur;
+        const rowCls = index % 2 ? "" : "lmp-song-odd";
+        acc += `<div class="lmp-song-row ${rowCls}" data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
                         <div class="lmp-song-name">${songName}</div>
                         <div class="lmp-song-singer">
-                          <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId}>${singerName}</span>
+                          <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId} data-type="jump">${singerName}</span>
                         </div>
                         <div class="lmp-song-operate">
-                          <div class="lmp-operate-play lmp-cursor-pointer">
-                            <i class="fa-regular fa-circle-play fa-lg" data-id=${songId}></i>
+                          <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
+                            <i class="fa-regular fa-circle-play fa-lg" data-id=${songId} data-type="play"></i>
                           </div>
-                          <div class="lmp-operate-add lmp-cursor-pointer">
-                            <i class="fa-solid fa-folder fa-lg"></i>
+                          <div class="lmp-operate-add lmp-cursor-pointer" title="移动">
+                            <i class="fa-solid fa-folder fa-lg" data-id=${songId} data-type="move"></i>
                           </div>
-                          <div class="lmp-operate-dele lmp-cursor-pointer">
-                            <i class="fa-solid fa-trash-can fa-lg" data-id=${songId}></i>
+                          <div class="lmp-operate-dele lmp-cursor-pointer" title="移除">
+                            <i class="fa-solid fa-trash-can fa-lg" data-id=${songId} data-type="dele"></i>
                           </div>
-                          <div class="lmp-operate-drag lmp-cursor-pointer" data-id=${songId}>
+                          <div class="lmp-operate-drag lmp-cursor-pointer" title="拖拽排序" data-id=${songId}>
                             <i class="fa-solid fa-bars fa-lg"></i>
                           </div>
                         </div>
                       </div>`;
-              return acc;
+        return acc;
       }, "");
       const listObj = document.querySelector("#sheetDetailList");
       listObj.innerHTML = listStr;
@@ -125,18 +125,22 @@ const getSheetDetail = async (params) => {
               const newNodeList = listObj.querySelectorAll(".lmp-song-row");
               const newList = [];
               for (let i = 0; i < newNodeList.length; i++) {
-                const dataSongId = Number(newNodeList[i].getAttribute("data-songid"));
-                const dataSongName = newNodeList[i].getAttribute("data-songname");
-                const dataSingerId = Number(newNodeList[i].getAttribute("data-singerid"));
-                const dataSingerName = newNodeList[i].getAttribute("data-singername");
-                newList.push(
-                  {
-                    songId: dataSongId,
-                    songName: dataSongName,
-                    singerId: dataSingerId,
-                    singerName: dataSingerName,
-                  },
+                const dataSongId = Number(
+                  newNodeList[i].getAttribute("data-songid")
                 );
+                const dataSongName =
+                  newNodeList[i].getAttribute("data-songname");
+                const dataSingerId = Number(
+                  newNodeList[i].getAttribute("data-singerid")
+                );
+                const dataSingerName =
+                  newNodeList[i].getAttribute("data-singername");
+                newList.push({
+                  songId: dataSongId,
+                  songName: dataSongName,
+                  singerId: dataSingerId,
+                  singerName: dataSingerName,
+                });
               }
               axios
                 .post(api.sheetDetailSort, {
@@ -156,15 +160,113 @@ const getSheetDetail = async (params) => {
   } finally {
     spin.hide();
   }
-
-  const sheetDetailPlayEle = document.querySelector("#sheetDetailPlay");
-  addEventOnce(sheetDetailPlayEle, "click", () => {
-    console.info("ddd");
-  });
-
-
 };
 
+const moveSong = (params) => {
+  const moveDia = document.querySelector("#songMoveDia");
+  const sheetSelect = document.querySelector("#allSheets");
+  allListOrigin.map((ele) => {
+    const { listId, listName } = ele;
+    if (params.listId != listId) {
+      sheetSelect.add(new Option(listName, listId));
+    }
+  });
+  moveDia.showModal();
+
+  const diaCancel = document.querySelector("#sheetMoveCancel");
+  const diaConfirm = document.querySelector("#sheetMoveConfirm");
+  const diaSpin = document.querySelector("#sheetMoveSpin");
+
+  addEventOnce(diaConfirm, "click", (e) => {
+    const index = sheetSelect.selectedIndex; //序号，取当前选中选项的序号
+    const val = sheetSelect.options[index].value;
+    if (params.listId == val) {
+      moveDia.close();
+      return;
+    }
+    const postData = {
+      songId: params.songId,
+      newListId: Number(val),
+      oldListId: params.listId,
+    };
+    diaSpin.style.display = "inline-block";
+    diaConfirm.disabled = true;
+    axios
+      .post(api.sheetDetailMove, postData)
+      .then((response) => {
+        const { status } = response;
+        if (status === 200) {
+          moveDia.close();
+          info.show();
+          getSheetDetail(params);
+        }
+      })
+      .finally(() => {
+        diaSpin.style.display = "none";
+      });
+  });
+
+  addEventOnce(diaCancel, "click", (e) => {
+    moveDia.close();
+  });
+
+  addEventOnce(moveDia, "close", (e) => {
+    diaConfirm.disabled = false;
+    sheetSelect.options.length = 0;
+  });
+};
+
+const deleSong = async (params) => {
+  if (window.confirm("确定要移除此歌曲吗?")) {
+    spin.show();
+    try {
+      const { status } = await axios.post(api.sheetDetailDel, params);
+      if (status === 200) {
+        info.show();
+        getSheetDetail(params);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      spin.hide();
+    }
+  }
+};
+
+const sheetDetailEvent = (params) => {
+  const { listName, listId } = params;
+  const backEle = document.querySelector("#sheetDetailBack");
+  const containerEle = document.querySelector("#sheetDetailList");
+  const sheetDetailName = document.querySelector("#sheetDetailName");
+  sheetDetailName.innerHTML = listName;
+  addEventOnce(containerEle, "click", (e) => {
+    const ele = e.target;
+    const eleType = ele.getAttribute("data-type");
+    const eleName = ele.getAttribute("data-name");
+    const eleId = Number(ele.getAttribute("data-id"));
+    switch (eleType) {
+      case "jump": {
+        break;
+      }
+      case "play": {
+        break;
+      }
+      case "move": {
+        moveSong({ songId: eleId, listId: listId, listName: listName });
+        break;
+      }
+      case "dele": {
+        deleSong({ songId: eleId, listId: listId, listName: listName });
+        break;
+      }
+    }
+  });
+  addEventOnce(backEle, "click", (e) => {
+    const showEle = document.querySelector("#sheetContainer");
+    const hideEle = document.querySelector("#sheetDetailContainer");
+    showTrigger.show(showEle, hideEle);
+  });
+};
 
 const sheetEventInit = () => {
   const sheetListEle = document.querySelector("#sheetList");
@@ -177,8 +279,6 @@ const sheetEventInit = () => {
   const sheetDiaSpinObj = document.querySelector("#sheetDiaSpin");
   const sheetDiaNameObj = document.querySelector("#sheetDiaName");
 
-  getSheetDetail({ listId: 1, listName: "当前播放" });
-
   addBtn.addEventListener("click", () => {
     addDia.showModal();
   });
@@ -187,17 +287,17 @@ const sheetEventInit = () => {
     const nameValue = sheetNameObj.value;
     const sheetName = nameValue.trim();
     if (!sheetName) {
-      sheetDiaErrObj.innerHTML="必填";
+      sheetDiaErrObj.innerHTML = "必填";
       return;
     }
     if (sheetName.length > 20) {
-      sheetDiaErrObj.innerHTML="名称长度最大 20";
+      sheetDiaErrObj.innerHTML = "名称长度最大 20";
       return;
     }
     const dataType = addDiaConfirm.getAttribute("data-type");
     const dataId = addDiaConfirm.getAttribute("data-id");
     let isRepeat = allListOrigin.find((ele) => ele.listName === sheetName);
-    const isEdit = dataType === 'edit'
+    const isEdit = dataType === "edit";
     let apiUse = isEdit ? api.sheetEdit : api.sheetAdd;
     if (isEdit) {
       isRepeat = allListOrigin.find(
@@ -206,13 +306,13 @@ const sheetEventInit = () => {
       formData.listId = Number(dataId);
     }
     if (isRepeat) {
-      info.err('歌单名称已存在');
+      info.err("歌单名称已存在");
       return;
     }
 
-    sheetDiaErrObj.innerHTML = '';
+    sheetDiaErrObj.innerHTML = "";
     const formData = { listName: sheetName };
-    sheetDiaSpinObj.style.display = 'inline-block';
+    sheetDiaSpinObj.style.display = "inline-block";
     addDiaConfirm.disabled = true;
     axios
       .post(apiUse, formData)
@@ -239,37 +339,42 @@ const sheetEventInit = () => {
     addDiaConfirm.setAttribute("data-id", "");
     sheetNameObj.value = "";
     sheetDiaErrObj.innerHTML = "";
-    sheetDiaNameObj.innerHTML = '新建歌单';
+    sheetDiaNameObj.innerHTML = "新建歌单";
   });
 
   const editSheet = (params) => {
     addDia.showModal();
-    sheetDiaNameObj.innerHTML = '歌单重命名';
+    sheetDiaNameObj.innerHTML = "歌单重命名";
     sheetNameObj.value = params.listName;
     // 这个是为了公用新建弹窗，添加标识区分
-    addDiaConfirm.setAttribute('data-type', 'edit');
+    addDiaConfirm.setAttribute("data-type", "edit");
     addDiaConfirm.setAttribute("data-id", params.listId);
   };
 
-  sheetListEle.addEventListener('click', (e) => {
-    const ele = e.target
-    const eleType = ele.getAttribute('data-type');
-    const eleName = ele.getAttribute('data-name');
-    const eleId = Number(ele.getAttribute('data-id'));
-    switch(eleType) {
-      case 'jump':{
-        getSheetDetail({ listId: eleId, listName: eleName });
+  sheetListEle.addEventListener("click", (e) => {
+    const showEle = document.querySelector("#sheetDetailContainer");
+    const hideEle = document.querySelector("#sheetContainer");
+    const ele = e.target;
+    const eleType = ele.getAttribute("data-type");
+    const eleName = ele.getAttribute("data-name");
+    const eleId = Number(ele.getAttribute("data-id"));
+    const params = { listId: eleId, listName: eleName };
+    switch (eleType) {
+      case "jump": {
+        showTrigger.show(showEle, hideEle);
+        getSheetDetail(params);
+        sheetDetailEvent(params);
         break;
       }
-      case 'edit':{
-        editSheet({ listId: eleId, listName: eleName });
+      case "edit": {
+        editSheet(params);
         break;
       }
-      case 'dele':{
+      case "dele": {
         deleSheet({ listId: eleId });
         break;
       }
-      case 'sort':{
+      case "sort": {
         break;
       }
     }

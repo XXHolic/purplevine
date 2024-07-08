@@ -7,6 +7,7 @@ const api = {
   sheetDetail: "/api/sheet/detail",
   sheetDetailSort: "/api/sheet/detail/sort",
   sheetDetailDel: "/api/sheet/detail/del",
+  sheetDetailMove: "/api/sheet/detail/move",
   singer: "/api/singer",
   singerMusic: "/api/sheet/music",
   music: "/api/music",

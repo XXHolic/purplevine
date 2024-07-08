@@ -9,6 +9,9 @@
 .lmp-dn {
   display: none;
 }
+.lmp-mb10 {
+  margin-bottom: 10px;
+}
 
 .lmp-main {
   display: flex;
@@ -65,14 +68,14 @@
   height: 100%;
 }
 
-.lmp-meun-item {
+.lmp-menu-item {
   line-height: 60px;
   padding-left: 30px;
   cursor: pointer;
 }
 
-.lmp-meun-active,
-.lmp-meun-item:hover {
+.lmp-menu-active,
+.lmp-menu-item:hover {
   background-color: #e4e4e4;
 }
 

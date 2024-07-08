@@ -23,8 +23,9 @@ import {
   sheetSort,
   sheetDetail,
   sheetDetailSort,
+  sheetDetailMove,
+  sheetDetailDele,
 } from "./sheet.mjs";
-
 
 const api = {
   sheet: "/api/sheet",
@@ -35,15 +36,16 @@ const api = {
   sheetDetail: "/api/sheet/detail",
   sheetDetailSort: "/api/sheet/detail/sort",
   sheetDetailDel: "/api/sheet/detail/del",
+  sheetDetailMove: "/api/sheet/detail/move",
   singer: "/api/singer",
   singerMusic: "/api/sheet/music",
   music: "/api/music",
   musicMove: "/api/music/move",
 };
 
-const route = (req,res) => {
+const route = (req, res) => {
   console.log("About to route a request for " + req.url);
-  const {url} = req
+  const { url } = req;
   switch (url) {
     case api.sheet: {
       sheetList(res);
@@ -73,12 +75,19 @@ const route = (req,res) => {
       sheetDetailSort(req, res);
       break;
     }
+    case api.sheetDetailMove: {
+      sheetDetailMove(req, res);
+      break;
+    }
+    case api.sheetDetailDel: {
+      sheetDetailDele(req, res);
+      break;
+    }
     default: {
       res.writeHead(404, { "Content-Type": "application/json" });
       res.end("No Match Url");
     }
   }
-
 };
 
 export { route };

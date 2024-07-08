@@ -22,14 +22,14 @@
       </div>
       <div class="lmp-body">
         <div class="lmp-body-left">
-          <div class="lmp-meun-item lmp-meun-active">歌单</div>
-          <div class="lmp-meun-item">歌手</div>
-          <div class="lmp-meun-item">歌曲</div>
+          <div class="lmp-menu-item lmp-menu-active" data-type="sheet">歌单</div>
+          <div class="lmp-menu-item" data-type="singer">歌手</div>
+          <div class="lmp-menu-item" data-type="song">歌曲</div>
         </div>
         <div class="lmp-body-right">
           <!-- 歌单列表 -->
           <div class="lmp-my">
-            <div class="lmp-dn" id="sheetContainer">
+            <div id="sheetContainer">
               <div>
                 <span
                   class="lmp-sheet-add lmp-cursor-pointer"
@@ -47,8 +47,9 @@
               </div>
             </div>
             <!-- 歌单详情 -->
-            <div id="sheetDetailContainer">
+            <div class="lmp-dn" id="sheetDetailContainer">
               <div class="lmp-sheet-detail">
+                <button class="lmp-mb10" id="sheetDetailBack">返回</button>
                 <div class="lmp-detail-name">歌单名：<span id="sheetDetailName"></span></div>
                 <button id="sheetDetailPlay">播放全部</button>
               </div>
@@ -186,6 +187,19 @@
             style="display: none;"
             class="fa-solid fa-spinner fa-spin"
             id="sheetDiaSpin"
+          ></i>
+        </button>
+      </div>
+    </dialog>
+    <dialog id="songMoveDia">
+      <label>移动到：<select id="allSheets"></select></label>
+      <div class="lmp-dia-btn">
+        <button id="sheetMoveCancel">取消</button>
+        <button id="sheetMoveConfirm">
+          确定<i
+            style="display: none;"
+            class="fa-solid fa-spinner fa-spin"
+            id="sheetMoveSpin"
           ></i>
         </button>
       </div>
