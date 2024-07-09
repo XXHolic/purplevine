@@ -2,10 +2,10 @@ import { readFile, writeFile, unlink } from "node:fs/promises";
 import { dealPost, backOkMsg, backErrMsg } from "./util.mjs";
 
 const sheetPathPrefix = "../json/list";
-const allListPath = "../json/allList.json"
+const allListPath = "../json/allList.json";
 
 const sheetList = async (res) => {
-  const contents = await readFile(allListPath, { encoding: 'utf-8' });
+  const contents = await readFile(allListPath, { encoding: "utf-8" });
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(contents);
 };
@@ -18,9 +18,11 @@ const sheetAdd = async (req, res) => {
   const newId = maxId + 1;
   dealPost(req, (params) => {
     params.listId = newId;
-    const isRepeat = contentsObj.find((ele) => ele.listName === params.listName);
+    const isRepeat = contentsObj.find(
+      (ele) => ele.listName === params.listName
+    );
     if (isRepeat) {
-      backErrMsg(res, '歌单名称已存在');
+      backErrMsg(res, "歌单名称已存在");
       return;
     }
     contentsObj.push(params);
