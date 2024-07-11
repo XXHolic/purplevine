@@ -3,7 +3,7 @@ import { join, extname } from "node:path";
 
 const fileArr = [];
 const getFilePath = () => {
-  const dir = "../datajson";
+  const dir = "../localdatajson";
   const exist = existsSync(dir);
   // 排除不需要遍历的文件夹或文件
   const excludeDir = /^(\.|node_module)/;

@@ -38,7 +38,13 @@ const showTrigger = {
   show:(showEle,hideEle) => {
     showEle.style.display = "block";
     if (hideEle) {
-      hideEle.style.display = "none";;
+      if (Array.isArray(hideEle)) {
+        hideEle.forEach((ele) => {
+          ele.style.display = "none";
+        });
+      } else {
+        hideEle.style.display = "none";
+      }
     }
   },
   hide:(ele) => {

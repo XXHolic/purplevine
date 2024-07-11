@@ -26,6 +26,7 @@ import {
   sheetDetailMove,
   sheetDetailDele,
 } from "./sheet.mjs";
+import { getSinger } from "./singer.mjs";
 
 const api = {
   sheet: "/api/sheet",
@@ -81,6 +82,10 @@ const route = (req, res) => {
     }
     case api.sheetDetailDel: {
       sheetDetailDele(req, res);
+      break;
+    }
+    case api.singer: {
+      getSinger(req, res);
       break;
     }
     default: {

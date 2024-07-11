@@ -381,4 +381,12 @@ const sheetEventInit = () => {
   });
 };
 
-export { sheetEventInit, getSheetList };
+const sheetInit = () => {
+  getSheetList().then(() => {
+    setTimeout(() => {
+      sheetEventInit();
+    }, 500);
+  });
+};
+
+export { sheetInit, sheetEventInit, getSheetList };
