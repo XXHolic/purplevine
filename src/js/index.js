@@ -6,6 +6,7 @@ const init = () => {
   sheetInit();
   const myEle = document.querySelector(".lmp-my");
   const singerEle = document.querySelector(".lmp-singer");
+  const singerSelfEle = document.querySelector(".lmp-singer-self");
   const songEle = document.querySelector(".lmp-song");
   const menuEle = document.querySelector(".lmp-body-left");
   const menuItemEle = document.getElementsByClassName("lmp-menu-item");
@@ -20,14 +21,14 @@ const init = () => {
         sheetMenu.setAttribute("class", "lmp-menu-item lmp-menu-active");
         singerMenu.setAttribute("class", "lmp-menu-item");
         songMenu.setAttribute("class", "lmp-menu-item");
-        showTrigger.show(myEle, [songEle, singerEle]);
+        showTrigger.show(myEle, [songEle, singerEle, singerSelfEle]);
         break;
       }
       case "singer": {
         sheetMenu.setAttribute("class", "lmp-menu-item");
         singerMenu.setAttribute("class", "lmp-menu-item lmp-menu-active");
         songMenu.setAttribute("class", "lmp-menu-item");
-        showTrigger.show(singerEle, [myEle, songEle]);
+        showTrigger.show(singerEle, [myEle, songEle, singerSelfEle]);
         singerInit();
         break;
       }
@@ -35,7 +36,7 @@ const init = () => {
         sheetMenu.setAttribute("class", "lmp-menu-item");
         singerMenu.setAttribute("class", "lmp-menu-item");
         songMenu.setAttribute("class", "lmp-menu-item lmp-menu-active");
-        showTrigger.show(songEle, [myEle, singerEle]);
+        showTrigger.show(songEle, [myEle, singerEle, singerSelfEle]);
         break;
       }
     }

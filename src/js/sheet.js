@@ -374,9 +374,6 @@ const sheetEventInit = () => {
         deleSheet({ listId: eleId });
         break;
       }
-      case "sort": {
-        break;
-      }
     }
   });
 };
@@ -389,4 +386,4 @@ const sheetInit = () => {
   });
 };
 
-export { sheetInit, sheetEventInit, getSheetList };
+export { sheetInit, sheetEventInit, getSheetList, allListOrigin };

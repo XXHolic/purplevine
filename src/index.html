@@ -61,8 +61,21 @@
               <div class="lmp-song-tbody" id="sheetDetailList">暂无数据</div>
             </div>
           </div>
-          <!-- 歌手 -->
+          <!-- 歌手列表 -->
           <div class="lmp-singer lmp-dn"></div>
+          <!-- 歌手主页 -->
+          <div class="lmp-singer-self lmp-dn">
+            <div class="lmp-mb10">
+                <button class="lmp-mb10" id="singerSelfBack">返回</button>
+                <div class="lmp-detail-name">歌手：<span id="singerSelfName"></span></div>
+                <button id="singerSelfPlay">播放全部</button>
+              </div>
+              <div class="lmp-song-header">
+                <div class="lmp-song-name">歌曲</div>
+                <div class="lmp-song-operate">操作</div>
+              </div>
+              <div class="lmp-song-tbody" id="singerSelfList">暂无数据</div>
+          </div>
           <!-- 歌曲 -->
           <div class="lmp-song lmp-dn">
             <div class="lmp-song-header">
@@ -183,7 +196,7 @@
       </div>
     </dialog>
     <dialog id="songMoveDia">
-      <label>移动到：<select id="allSheets"></select></label>
+      <label>收藏到：<select id="allSheets"></select></label>
       <div class="lmp-dia-btn">
         <button id="sheetMoveCancel">取消</button>
         <button id="sheetMoveConfirm">
