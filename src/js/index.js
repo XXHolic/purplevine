@@ -1,5 +1,6 @@
 import { sheetInit } from "./sheet.js";
 import { singerInit } from "./singer.js";
+import { songInit } from "./song.js";
 import { spin, info, showTrigger } from "./util.js";
 
 const init = () => {
@@ -37,6 +38,7 @@ const init = () => {
         singerMenu.setAttribute("class", "lmp-menu-item");
         songMenu.setAttribute("class", "lmp-menu-item lmp-menu-active");
         showTrigger.show(songEle, [myEle, singerEle, singerSelfEle]);
+        songInit();
         break;
       }
     }

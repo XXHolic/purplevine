@@ -83,36 +83,12 @@
               <div class="lmp-song-singer">歌手</div>
               <div class="lmp-song-operate">操作</div>
             </div>
-            <div class="lmp-song-tbody">
-              <div class="lmp-song-row lmp-song-odd">
-                <div class="lmp-song-name">歌曲歌曲歌</div>
-                <div class="lmp-song-singer">
-                  <span class="lmp-song-span lmp-cursor-pointer">歌手1</span>
-                </div>
-                <div class="lmp-song-operate">
-                  <div class="lmp-operate-play lmp-cursor-pointer">
-                    <i class="fa-regular fa-circle-play fa-lg"></i>
-                  </div>
-                  <div class="lmp-operate-add lmp-cursor-pointer">
-                    <i class="fa-solid fa-folder fa-lg"></i>
-                  </div>
-                  <div class="lmp-operate-dele lmp-cursor-pointer">
-                    <i class="fa-solid fa-trash-can fa-lg"></i>
-                  </div>
-                  <div class="lmp-operate-drag lmp-cursor-pointer">
-                    <i class="fa-solid fa-bars fa-lg"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div class="lmp-song-tbody lmp-music-body" id="musicList"></div>
             <div class="lmp-song-footer">
-              <div class="lmp-cursor-pointer lmp-song-pre">上一页</div>
-              <div class="lmp-song-page">
-                <div class="lmp-song-num">1</div>
-                <div class="lmp-song-num">2</div>
-                <div class="lmp-song-num">3</div>
-              </div>
-              <div class="lmp-cursor-pointer lmp-song-next">下一页</div>
+              <div>共 <span id="musicTotal"></span> 首</div>
+              <!-- <div class="lmp-cursor-pointer lmp-song-pre">上一页</div> -->
+              <div class="lmp-song-page" id="musicPage"></div>
+              <!-- <div class="lmp-cursor-pointer lmp-song-next">下一页</div> -->
             </div>
           </div>
         </div>

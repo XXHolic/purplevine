@@ -113,6 +113,9 @@
   margin-bottom: 10px;
 }
 
+.lmp-song {
+  height: 100%;
+}
 .lmp-song-header,
 .lmp-sheet-header {
   display: flex;
@@ -171,16 +174,25 @@
 
 .lmp-song-num {
   width: 30px;
-  line-height: 30px;
   text-align: center;
+  line-height: 30px;
   border: 1px solid #000;
   cursor: pointer;
 }
 
+.lmp-song-num.active {
+  background-color: #000;
+  color: #fff;
+  cursor: not-allowed;
+}
 .lmp-song-tbody {
   margin: 10px 0 20px 0;
 }
-
+.lmp-song-tbody.lmp-music-body {
+  overflow-y: auto;
+  margin-bottom: 0;
+  height: calc(100% - 70px);
+}
 .lmp-footer {
   color: #fff;
   gap: 30px;

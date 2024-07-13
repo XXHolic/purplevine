@@ -12,7 +12,7 @@ const api = {
   singerMusic: "/api/singer/music",
   singerMusicCollect: "/api/singer/music/collect",
   music: "/api/music",
-  musicMove: "/api/music/move",
+  musicCollect: "/api/music/collect",
 };
 
 export {api}

@@ -14,16 +14,16 @@ const getSingerSelf = async (params) => {
         const { singerId, singerName, songId, songName } = cur;
         const rowCls = index % 2 ? "" : "lmp-song-odd";
         acc += `<div class="lmp-song-row ${rowCls}">
-                        <div class="lmp-song-name">${songName}</div>
-                        <div class="lmp-song-operate">
-                          <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
-                            <i class="fa-regular fa-circle-play fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName}  data-type="play"></i>
-                          </div>
-                          <div class="lmp-operate-add lmp-cursor-pointer" title="收藏到歌单">
-                            <i class="fa-solid fa-folder fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName} data-type="collect"></i>
-                          </div>
-                        </div>
-                      </div>`;
+                  <div class="lmp-song-name">${songName}</div>
+                  <div class="lmp-song-operate">
+                    <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
+                      <i class="fa-regular fa-circle-play fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName}  data-type="play"></i>
+                    </div>
+                    <div class="lmp-operate-add lmp-cursor-pointer" title="收藏到歌单">
+                      <i class="fa-solid fa-folder fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName} data-type="collect"></i>
+                    </div>
+                  </div>
+                </div>`;
         return acc;
       }, "");
       const listObj = document.querySelector("#singerSelfList");
