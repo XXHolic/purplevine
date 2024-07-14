@@ -36,25 +36,24 @@
 }
 
 .lmp-header-search {
-  overflow: hidden;
   display: flex;
   align-items: center;
-  border: 1px solid #242424;
-  border-radius: 2px;
-  width: 140px;
   height: 30px;
   margin-bottom: 20px;
 }
 
 .lmp-search-input {
-  width: 110px;
-  height: 26px;
-  border: 0;
+  width: 120px;
+    height: 28px;
   padding: 2px;
+  border-radius: 2px;
+    border: 1px solid #242424;
 }
 
-.lmp-search-icon {
-  line-height: 30px;
+.lmp-search-icon,
+.lmp-search-reset {
+  margin-left: 10px;
+  font-size: 20px;
 }
 
 .lmp-body {

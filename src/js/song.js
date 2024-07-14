@@ -32,8 +32,11 @@ const getList = async (params) => {
       const listObj = document.querySelector("#musicList");
       const musicPageObj = document.querySelector("#musicPage");
       musicTotalObj.innerHTML = total;
-      listObj.innerHTML = listStr;
-
+      listObj.innerHTML = listStr ? listStr : "暂无数据";
+      // 搜索只取前 100 结果，不进行分页
+      if (params.key) {
+        return;
+      }
       const pageCount = Math.round(total / pageSize);
       let pageStr = "";
       for (let index = 0; index < pageCount; index++) {
@@ -53,6 +56,9 @@ const getList = async (params) => {
 const eventInit = () => {
   const listObj = document.querySelector("#musicList");
   const musicPageObj = document.querySelector("#musicPage");
+  const songSearch = document.querySelector("#songSearch");
+  const songReset = document.querySelector("#songReset");
+  const songSearchValue = document.querySelector("#songSearchValue");
 
   addEventOnce(listObj, "click", (e) => {
     const ele = e.target;
@@ -92,6 +98,19 @@ const eventInit = () => {
       return;
     }
     getList({ page });
+  });
+  addEventOnce(songSearch, "click", (e) => {
+    const inputValue = songSearchValue.value;
+    const key = inputValue.trim();
+    if (!key) {
+      info.show("请输入关键字");
+      return;
+    }
+    getList({ key });
+  });
+  addEventOnce(songReset, "click", (e) => {
+    songSearchValue.value = "";
+    getList({ page: 1 });
   });
 };
 
