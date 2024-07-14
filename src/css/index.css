@@ -39,11 +39,11 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  border: 1px solid #242424;
   border-radius: 2px;
   width: 140px;
   height: 30px;
-  margin-left: 30px;
-  background-color: #fff;
+  margin-bottom: 20px;
 }
 
 .lmp-search-input {
@@ -180,6 +180,9 @@
   cursor: pointer;
 }
 
+.lmp-song-list {
+  height: calc(100% - 50px);
+}
 .lmp-song-num.active {
   background-color: #000;
   color: #fff;
@@ -191,7 +194,7 @@
 .lmp-song-tbody.lmp-music-body {
   overflow-y: auto;
   margin-bottom: 0;
-  height: calc(100% - 70px);
+  height: calc(100% - 60px);
 }
 .lmp-footer {
   color: #fff;

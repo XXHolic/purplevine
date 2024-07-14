@@ -1,9 +1,10 @@
 import axios from "../asset/js/axios.min.js";
 import Sortable from '../asset/js/sortable.esm.js';
 import { api } from "./api.js";
+import { getSingerSelf, singerSelfEvent } from "./singer.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
 
-let allListOrigin = [] // 主要用来判断 新建和修改时 是否重名
+let allListOrigin = []; // 主要用来判断 新建和修改时 是否重名
 
 const getSheetList = () => {
   return axios.get(api.sheet).then((response) => {
@@ -93,7 +94,7 @@ const getSheetDetail = async (params) => {
         acc += `<div class="lmp-song-row ${rowCls}" data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
                         <div class="lmp-song-name">${songName}</div>
                         <div class="lmp-song-singer">
-                          <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId} data-type="jump">${singerName}</span>
+                          <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId} data-name=${singerName} data-type="jump">${singerName}</span>
                         </div>
                         <div class="lmp-song-operate">
                           <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
@@ -246,6 +247,15 @@ const sheetDetailEvent = (params) => {
     const eleId = Number(ele.getAttribute("data-id"));
     switch (eleType) {
       case "jump": {
+        const myEle = document.querySelector(".lmp-my");
+        const singerSelf = document.querySelector(".lmp-singer-self");
+        showTrigger.show(singerSelf, myEle);
+        getSingerSelf({ singerId: eleId });
+        singerSelfEvent({
+          singerId: eleId,
+          singerName: eleName,
+          from: "my",
+        });
         break;
       }
       case "play": {

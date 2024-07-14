@@ -6,9 +6,10 @@ const getData = () => {
   const fileArr = JSON.parse(fileContent);
   let len = fileArr.length;
   let music = [];
-  const pageSize = 2;
-  const count = Math.round(len / 2);
-  for (let num = 0; num < count; num++) {
+  const pageSize = 100;
+  const count = Math.round(len / pageSize);
+  const countUse = count ? count : 1;
+  for (let num = 0; num < countUse; num++) {
     const sliceArr = fileArr.slice(num * pageSize, num * pageSize + pageSize);
     const sliceArrLen = sliceArr.length;
     for (let index = 0; index < sliceArrLen; index++) {

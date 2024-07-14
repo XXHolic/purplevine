@@ -3,7 +3,6 @@ import { api } from "./api.js";
 import { allListOrigin } from "./sheet.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
 
-const eventInit = () => {};
 
 const getSingerSelf = async (params) => {
   spin.show();
@@ -109,7 +108,7 @@ const singerSelfEvent = (params) => {
     const hideEle = document.querySelector(".lmp-singer-self");
     switch (from) {
       case "my": {
-        const showEle = document.querySelector("#sheetDetailContainer");
+        const showEle = document.querySelector(".lmp-my");
         showTrigger.show(showEle, hideEle);
         break;
       }
@@ -178,4 +177,4 @@ const singerInit = () => {
   });
 };
 
-export { singerInit };
+export { singerInit, collectSong, getSingerSelf, singerSelfEvent };

@@ -1,5 +1,6 @@
 import axios from "../asset/js/axios.min.js";
 import { api } from "./api.js";
+import { collectSong, getSingerSelf, singerSelfEvent } from "./singer.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
 
 const getList = async (params) => {
@@ -53,7 +54,35 @@ const eventInit = () => {
   const listObj = document.querySelector("#musicList");
   const musicPageObj = document.querySelector("#musicPage");
 
-  addEventOnce(listObj, "click", (e) => {});
+  addEventOnce(listObj, "click", (e) => {
+    const ele = e.target;
+    const eleType = ele.getAttribute("data-type");
+    const songName = ele.getAttribute("data-songname");
+    const songId = Number(ele.getAttribute("data-songid"));
+    const singerName = ele.getAttribute("data-singername");
+    const singerId = Number(ele.getAttribute("data-singerid"));
+    switch (eleType) {
+      case "jump": {
+        const songEle = document.querySelector(".lmp-song");
+        const singerSelf = document.querySelector(".lmp-singer-self");
+        showTrigger.show(singerSelf, songEle);
+        getSingerSelf({ singerId: singerId });
+        singerSelfEvent({
+          singerId: singerId,
+          singerName: singerName,
+          from: "song",
+        });
+        break;
+      }
+      case "play": {
+        break;
+      }
+      case "collect": {
+        collectSong({ songId, songName, singerId, singerName });
+        break;
+      }
+    }
+  });
   addEventOnce(musicPageObj, "click", (e) => {
     const ele = e.target;
     const page = Number(ele.getAttribute("data-page"));

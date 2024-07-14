@@ -12,14 +12,7 @@
   </head>
   <body>
     <div class="lmp-main">
-      <div class="lmp-header">
-        <div class="lmp-header-search">
-          <input type="search" title="搜索" class="lmp-search-input" />
-          <div class="lmp-search-icon">
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </div>
-        </div>
-      </div>
+      <div class="lmp-header"></div>
       <div class="lmp-body">
         <div class="lmp-body-left">
           <div class="lmp-menu-item lmp-menu-active" data-type="sheet">歌单</div>
@@ -78,17 +71,25 @@
           </div>
           <!-- 歌曲 -->
           <div class="lmp-song lmp-dn">
-            <div class="lmp-song-header">
-              <div class="lmp-song-name">歌曲</div>
-              <div class="lmp-song-singer">歌手</div>
-              <div class="lmp-song-operate">操作</div>
+            <div class="lmp-header-search">
+              <input type="search" title="搜索" class="lmp-search-input" />
+              <div class="lmp-search-icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
             </div>
-            <div class="lmp-song-tbody lmp-music-body" id="musicList"></div>
-            <div class="lmp-song-footer">
-              <div>共 <span id="musicTotal"></span> 首</div>
-              <!-- <div class="lmp-cursor-pointer lmp-song-pre">上一页</div> -->
-              <div class="lmp-song-page" id="musicPage"></div>
-              <!-- <div class="lmp-cursor-pointer lmp-song-next">下一页</div> -->
+            <div class="lmp-song-list">
+              <div class="lmp-song-header">
+                <div class="lmp-song-name">歌曲</div>
+                <div class="lmp-song-singer">歌手</div>
+                <div class="lmp-song-operate">操作</div>
+              </div>
+              <div class="lmp-song-tbody lmp-music-body" id="musicList"></div>
+              <div class="lmp-song-footer">
+                <div>共 <span id="musicTotal"></span> 首</div>
+                <!-- <div class="lmp-cursor-pointer lmp-song-pre">上一页</div> -->
+                <div class="lmp-song-page" id="musicPage"></div>
+                <!-- <div class="lmp-cursor-pointer lmp-song-next">下一页</div> -->
+              </div>
             </div>
           </div>
         </div>
