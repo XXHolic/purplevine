@@ -106,14 +106,16 @@
           </div>
         </div>
         <div class="lmp-player-msg">
-          <div class="lmp-player-song" title="歌曲名-歌手名">歌曲名-歌手名</div>
+          <div class="lmp-player-song" title="歌曲名-歌手名" id="playerMsg">/-/</div>
           <div class="lmp-flex-center">
-            <progress
-              value="22"
-              max="100"
-              class="lmp-player-progress"
-            ></progress>
-            <div>03:00</div>
+            <div class="lmp-player-progress">
+              <div class="lmp-player-preload" id="playerPreload"></div>
+              <div class="lmp-player-playing" id="playerPlaying"></div>
+            </div>
+            <div>
+              <span id="playerTimePlaying">00:00</span>/
+              <span id="playerTimeTotal">--:--</span>
+            </div>
           </div>
         </div>
         <div class="lmp-player-operate lmp-flex-center">
@@ -190,6 +192,11 @@
       </div>
     </div>
     <div class="lmp-info lmp-dn" id="lmpInfo"></div>
+    <div class="lmp-dn">
+      <audio id="audioPlayer">
+        您的浏览器不支持 audio 元素。
+      </audio>
+    </div>
     <script type="module">
       import { init } from './js/index.js'
       window.onload = () => {

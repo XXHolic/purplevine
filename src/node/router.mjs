@@ -27,7 +27,7 @@ import {
   sheetDetailDele,
 } from "./sheet.mjs";
 import { getSinger, getSingerMusic, singerMusicCollect } from "./singer.mjs";
-import { getMusic } from "./song.mjs";
+import { getMusic, getSong } from "./song.mjs";
 
 const api = {
   sheet: "/api/sheet",
@@ -44,6 +44,7 @@ const api = {
   singerMusicCollect: "/api/singer/music/collect",
   music: "/api/music",
   musicCollect: "/api/music/collect",
+  song: "/api/song",
 };
 
 const route = (req, res) => {
@@ -100,6 +101,10 @@ const route = (req, res) => {
     }
     case api.music: {
       getMusic(req, res);
+      break;
+    }
+    case api.song: {
+      getSong(req, res);
       break;
     }
     default: {

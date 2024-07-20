@@ -2,6 +2,7 @@ import axios from "../asset/js/axios.min.js";
 import Sortable from '../asset/js/sortable.esm.js';
 import { api } from "./api.js";
 import { getSingerSelf, singerSelfEvent } from "./singer.js";
+import { getMusic } from "./player.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
 
 let allListOrigin = []; // 主要用来判断 新建和修改时 是否重名
@@ -259,6 +260,7 @@ const sheetDetailEvent = (params) => {
         break;
       }
       case "play": {
+        getMusic({ songId: eleId });
         break;
       }
       case "move": {

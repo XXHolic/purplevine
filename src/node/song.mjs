@@ -1,4 +1,5 @@
 import { readFile, writeFile, unlink } from "node:fs/promises";
+import { mp3Duration } from "../asset/js/mp3Duration.mjs";
 import { dealPost, backOkMsg, backErrMsg } from "./util.mjs";
 
 const getMusic = (req, res) => {
@@ -40,4 +41,19 @@ const getMusic = (req, res) => {
   });
 };
 
-export { getMusic };
+const getSong = (req, res) => {
+  dealPost(req, async (params) => {
+    const { songId } = params;
+    const targetPath = `../localdatajson/song${songId}.json`;
+    const contents = await readFile(targetPath, { encoding: "utf-8" });
+    const { songName, singerName, type } = JSON.parse(contents);
+    const src = `./localdata/${songName}.${type}`;
+    const buffer = await readFile(`../localdata/${songName}.${type}`);
+    const info = mp3Duration(buffer, buffer.length);
+    const backData = { src, singerName, songName, ...info };
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(backData));
+  });
+};
+
+export { getMusic, getSong };

@@ -32,7 +32,7 @@ const getList = async (params) => {
       const listObj = document.querySelector("#musicList");
       const musicPageObj = document.querySelector("#musicPage");
       musicTotalObj.innerHTML = total;
-      listObj.innerHTML = listStr ? listStr : "暂无数据";
+      listObj.innerHTML = listStr ? listStr : "暂无匹配数据";
       // 搜索只取前 100 结果，不进行分页
       if (params.key) {
         return;

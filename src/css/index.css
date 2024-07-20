@@ -233,9 +233,29 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .lmp-player-progress {
+  position: relative;
   flex: 1;
+  height: 12px;
   margin-right: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.lmp-player-preload {
+  height: 100%;
+  width: 0;
+  background-color: #e4e4e4;
+  border-radius: 6px;
+}
+.lmp-player-playing {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 6px;
+  background-color: #e0420d;
 }
 .lmp-player-operate {
   gap: 20px;

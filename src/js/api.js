@@ -13,6 +13,7 @@ const api = {
   singerMusicCollect: "/api/singer/music/collect",
   music: "/api/music",
   musicCollect: "/api/music/collect",
+  song: "/api/song",
 };
 
 export {api}
