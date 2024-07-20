@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 // 考虑到后面歌手可能多了，每次都全部解析合并一次没有必要，
 // 做成可根据 id 来进行指定拉取合并
 
-const targetSingerId = 2;
+const targetSingerId = 4;
 const songs = [];
 
 // 按照播放次数从多到少排序
@@ -41,7 +41,7 @@ const getData = (params) => {
     }
   }
   dataSort(songs);
-  // 去播放量最多的前 30 首
+  // 取播放量最多的前 30 首
   const writeContent = songs.slice(0, 30);
   const writePath = `../json/singer${params}.json`;
   writeFileSync(writePath, JSON.stringify(writeContent));

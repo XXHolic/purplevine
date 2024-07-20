@@ -1,8 +1,8 @@
 import axios from "../asset/js/axios.min.js";
 import { api } from "./api.js";
 import { allListOrigin } from "./sheet.js";
+import { getMusic } from "./player.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
-
 
 const getSingerSelf = async (params) => {
   spin.show();
@@ -96,6 +96,7 @@ const singerSelfEvent = (params) => {
     const songId = Number(ele.getAttribute("data-songid"));
     switch (eleType) {
       case "play": {
+        getMusic({ songId, songName, singerId, singerName });
         break;
       }
       case "collect": {

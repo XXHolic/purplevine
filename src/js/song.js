@@ -2,6 +2,7 @@ import axios from "../asset/js/axios.min.js";
 import { api } from "./api.js";
 import { collectSong, getSingerSelf, singerSelfEvent } from "./singer.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
+import { getMusic } from "./player.js";
 
 const getList = async (params) => {
   spin.show();
@@ -81,6 +82,7 @@ const eventInit = () => {
         break;
       }
       case "play": {
+        getMusic({ songId, songName, singerId, singerName });
         break;
       }
       case "collect": {
