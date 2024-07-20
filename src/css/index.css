@@ -152,6 +152,7 @@
 .lmp-song-span:hover,
 .lmp-song-num:hover,
 .lmp-song-next:hover,
+.lmp-list-clear:hover,
 .lmp-song-pre:hover {
   color: blue;
 }
@@ -269,11 +270,12 @@
 .lmp-pop-list {
   overflow-y: auto;
   position: absolute;
-  top: -740px;
-  left: -420px;
+  top: -640px;
+  /* left: -420px; */
+  left: -820px;
   z-index: 100;
   width: 800px;
-  height: 700px;
+  height: 600px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -326,4 +328,14 @@
 
 .lmp-dia-name {
   margin-bottom: 20px;
+}
+
+.lmp-pop-header {
+  height: 70px;
+}
+.lmp-pop-count {
+  display: flex;
+  font-size: 20px;
+  justify-content: space-between;
+  align-items: center;
 }

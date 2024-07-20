@@ -1,10 +1,12 @@
 import { sheetInit } from "./sheet.js";
 import { singerInit } from "./singer.js";
 import { songInit } from "./song.js";
+import { audioEvent } from "./player.js";
 import { spin, info, showTrigger } from "./util.js";
 
 const init = () => {
   sheetInit();
+  audioEvent();
   const myEle = document.querySelector(".lmp-my");
   const singerEle = document.querySelector(".lmp-singer");
   const singerSelfEle = document.querySelector(".lmp-singer-self");

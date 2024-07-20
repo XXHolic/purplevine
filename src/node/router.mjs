@@ -27,7 +27,13 @@ import {
   sheetDetailDele,
 } from "./sheet.mjs";
 import { getSinger, getSingerMusic, singerMusicCollect } from "./singer.mjs";
-import { getMusic, getSong } from "./song.mjs";
+import {
+  getMusic,
+  getSong,
+  getCurrent,
+  currentAdd,
+  currentSort,
+} from "./song.mjs";
 
 const api = {
   sheet: "/api/sheet",
@@ -45,6 +51,11 @@ const api = {
   music: "/api/music",
   musicCollect: "/api/music/collect",
   song: "/api/song",
+  current: "/api/current",
+  currentAdd: "/api/current/add",
+  currentSort: "/api/current/sort",
+  currentDel: "/api/current/del",
+  currentMove: "/api/current/move",
 };
 
 const route = (req, res) => {
@@ -105,6 +116,18 @@ const route = (req, res) => {
     }
     case api.song: {
       getSong(req, res);
+      break;
+    }
+    case api.current: {
+      getCurrent(res);
+      break;
+    }
+    case api.currentAdd: {
+      currentAdd(req, res);
+      break;
+    }
+    case api.currentSort: {
+      currentSort(req, res);
       break;
     }
     default: {

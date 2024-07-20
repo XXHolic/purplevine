@@ -14,6 +14,11 @@ const api = {
   music: "/api/music",
   musicCollect: "/api/music/collect",
   song: "/api/song",
+  current: "/api/current",
+  currentAdd: "/api/current/add",
+  currentSort: "/api/current/sort",
+  currentDel: "/api/current/del",
+  currentMove: "/api/current/move",
 };
 
 export {api}

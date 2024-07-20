@@ -12,7 +12,11 @@
   </head>
   <body>
     <div class="lmp-main">
-      <div class="lmp-header"></div>
+      <div class="lmp-header">
+              <audio controls id="audioPlayer">
+        您的浏览器不支持 audio 元素。
+      </audio>
+      </div>
       <div class="lmp-body">
         <div class="lmp-body-left">
           <div class="lmp-menu-item lmp-menu-active" data-type="sheet">歌单</div>
@@ -94,15 +98,15 @@
         </div>
       </div>
       <div class="lmp-footer lmp-flex-center">
-        <div class="lmp-player-btn">
+        <div class="lmp-player-btn" id="playerControlBtn">
           <div class="lmp-player-pre lmp-cursor-pointer">
-            <i class="fa-solid fa-backward-step fa-xl"></i>
+            <i class="fa-solid fa-backward-step fa-xl" data-type="pre"></i>
           </div>
           <div class="lmp-player-play lmp-cursor-pointer">
-            <i class="fa-solid fa-circle-pause fa-xl"></i>
+            <i class="fa-solid fa-circle-pause fa-xl" data-type="play"></i>
           </div>
           <div class="lmp-player-next lmp-cursor-pointer">
-            <i class="fa-solid fa-forward-step fa-xl"></i>
+            <i class="fa-solid fa-forward-step fa-xl" data-type="next"></i>
           </div>
         </div>
         <div class="lmp-player-msg">
@@ -118,40 +122,48 @@
             </div>
           </div>
         </div>
-        <div class="lmp-player-operate lmp-flex-center">
+        <div class="lmp-player-operate lmp-flex-center" id="playerOperateBtn">
           <div class="lmp-player-add lmp-cursor-pointer">
-            <i class="fa-solid fa-folder fa-lg"></i>
+            <i class="fa-solid fa-folder fa-lg" data-type="collect"></i>
           </div>
           <div class="lmp-player-model lmp-cursor-pointer">
-            <i class="fa-solid fa-rotate-right fa-lg lmp-dn"></i>
-            <i class="fa-solid fa-shuffle fa-lg lmp-dn"></i>
-            <i class="fa-solid fa-repeat fa-lg"></i>
+            <i class="fa-solid fa-rotate-right fa-lg lmp-dn" id="playerCycleLoop" data-type="playLoop"></i>
+            <!-- <i class="fa-solid fa-shuffle fa-lg lmp-dn" id="playerCycleRandom" data-type="playRandom"></i> -->
+            <i class="fa-solid fa-repeat fa-lg " id="playerCycleOrder" data-type="playOrder"></i>
           </div>
           <div class="lmp-player-list lmp-cursor-pointer">
-            <i class="fa-solid fa-file-lines fa-lg"></i>
+            <i class="fa-solid fa-file-lines fa-lg" data-type="list"></i>
           </div>
           <div class="lmp-player-pop">
-            <div class="lmp-player-triangle lmp-dn"></div>
-            <div class="lmp-pop-list lmp-dn">
-              <div class="lmp-song-row lmp-song-odd">
-                <div class="lmp-song-name">歌曲歌曲歌</div>
-                <div class="lmp-song-singer">
-                  <span class="lmp-song-span lmp-cursor-pointer">歌手1</span>
+            <div class="lmp-player-triangle lmp-dn" id="playerPopTriangle"></div>
+            <div class="lmp-pop-list lmp-dn" id="playerPopList">
+              <div class="lmp-pop-header">
+                <div>当前播放</div>
+                <div class="lmp-pop-count">
+                  <span id="playerTotalCount">总共 - 首</span>
+                  <span class="lmp-list-clear lmp-cursor-pointer" data-type="clearAll">清空列表</span></div>
                 </div>
-                <div class="lmp-song-operate">
-                  <div class="lmp-operate-play lmp-cursor-pointer">
-                    <i class="fa-regular fa-circle-play fa-lg"></i>
+              <div id="playerPopBody">
+                <!-- <div class="lmp-song-row lmp-song-odd">
+                  <div class="lmp-song-name">歌曲歌曲歌</div>
+                  <div class="lmp-song-singer">
+                    <span class="lmp-song-span lmp-cursor-pointer">歌手1</span>
                   </div>
-                  <div class="lmp-operate-add lmp-cursor-pointer">
-                    <i class="fa-solid fa-folder fa-lg"></i>
+                  <div class="lmp-song-operate">
+                    <div class="lmp-operate-play lmp-cursor-pointer">
+                      <i class="fa-regular fa-circle-play fa-lg"></i>
+                    </div>
+                    <div class="lmp-operate-add lmp-cursor-pointer">
+                      <i class="fa-solid fa-folder fa-lg"></i>
+                    </div>
+                    <div class="lmp-operate-dele lmp-cursor-pointer">
+                      <i class="fa-solid fa-trash-can fa-lg"></i>
+                    </div>
+                    <div class="lmp-operate-drag lmp-cursor-pointer">
+                      <i class="fa-solid fa-bars fa-lg"></i>
+                    </div>
                   </div>
-                  <div class="lmp-operate-dele lmp-cursor-pointer">
-                    <i class="fa-solid fa-trash-can fa-lg"></i>
-                  </div>
-                  <div class="lmp-operate-drag lmp-cursor-pointer">
-                    <i class="fa-solid fa-bars fa-lg"></i>
-                  </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -193,9 +205,7 @@
     </div>
     <div class="lmp-info lmp-dn" id="lmpInfo"></div>
     <div class="lmp-dn">
-      <audio id="audioPlayer">
-        您的浏览器不支持 audio 元素。
-      </audio>
+
     </div>
     <script type="module">
       import { init } from './js/index.js'

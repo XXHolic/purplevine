@@ -56,4 +56,33 @@ const getSong = (req, res) => {
   });
 };
 
-export { getMusic, getSong };
+const currentPath = `../json/current.json`;
+const getCurrent = async (res) => {
+  const contents = await readFile(currentPath, { encoding: "utf-8" });
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(contents);
+};
+
+const currentAdd = (req, res) => {
+  dealPost(req, async (params) => {
+    const contents = await readFile(currentPath, { encoding: "utf-8" });
+    const currentArr = JSON.parse(contents);
+    const targetSong = currentArr.find((ele) => ele.songId == params.songId);
+    if (!targetSong) {
+      currentArr.push(params);
+    }
+    writeFile(currentPath, JSON.stringify(currentArr)).then(() => {
+      backOkMsg(res);
+    });
+  });
+};
+
+const currentSort = (req, res) => {
+  dealPost(req, (params) => {
+    writeFile(targetPath, JSON.stringify(params)).then(() => {
+      backOkMsg(res);
+    });
+  });
+};
+
+export { getMusic, getSong, getCurrent, currentAdd, currentSort };
