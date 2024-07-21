@@ -12,7 +12,7 @@ const getSingerSelf = async (params) => {
       const listStr = data.reduce((acc, cur, index) => {
         const { singerId, singerName, songId, songName } = cur;
         const rowCls = index % 2 ? "" : "lmp-song-odd";
-        acc += `<div class="lmp-song-row ${rowCls}">
+        acc += `<div class="lmp-song-row ${rowCls}" data-songid=${songId} data-songname=${songName}>
                   <div class="lmp-song-name">${songName}</div>
                   <div class="lmp-song-operate">
                     <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
@@ -88,7 +88,7 @@ const singerSelfEvent = (params) => {
   const { singerId, singerName, from } = params;
   const singerSelfBack = document.querySelector("#singerSelfBack");
   const singerSelfName = document.querySelector("#singerSelfName");
-  const singerSelfPlay = document.querySelector("#singerSelfPlay");
+  const singerSelfPlayAll = document.querySelector("#singerSelfPlayAll");
   const singerSelfList = document.querySelector("#singerSelfList");
 
   singerSelfName.innerHTML = singerName;
@@ -131,6 +131,13 @@ const singerSelfEvent = (params) => {
         break;
       }
     }
+  });
+  addEventOnce(singerSelfPlayAll, "click", (e) => {
+    const firstRow = singerSelfList.querySelector(".lmp-song-row");
+    const songId = Number(firstRow.getAttribute("data-songid"));
+    const songName = firstRow.getAttribute("data-songname");
+    getMusic({ songId, songName, singerId, singerName }, { needUpdate: false });
+    addCurrentPlayList({ isPlayAll: true, singerId });
   });
 };
 

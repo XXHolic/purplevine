@@ -65,13 +65,23 @@ const getCurrent = async (res) => {
 
 const currentAdd = (req, res) => {
   dealPost(req, async (params) => {
-    const contents = await readFile(currentPath, { encoding: "utf-8" });
-    const currentArr = JSON.parse(contents);
-    const targetSong = currentArr.find((ele) => ele.songId == params.songId);
-    if (!targetSong) {
-      currentArr.push(params);
+    const { isPlayAll, listId, singerId } = params;
+    let newArr = [];
+    if (isPlayAll) {
+      const fileType = listId ? `list${listId}` : `singer${singerId}`;
+      const jsonPath = `../json/${fileType}.json`;
+      const contents = await readFile(jsonPath, { encoding: "utf-8" });
+      const contentsObj = JSON.parse(contents);
+      newArr = listId ? contentsObj.songList : contentsObj;
+    } else {
+      const contents = await readFile(currentPath, { encoding: "utf-8" });
+      newArr = JSON.parse(contents);
+      const targetSong = newArr.find((ele) => ele.songId == params.songId);
+      if (!targetSong) {
+        newArr.push(params);
+      }
     }
-    writeFile(currentPath, JSON.stringify(currentArr)).then(() => {
+    writeFile(currentPath, JSON.stringify(newArr)).then(() => {
       backOkMsg(res);
     });
   });

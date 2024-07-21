@@ -243,6 +243,7 @@ const sheetDetailEvent = (params) => {
   const backEle = document.querySelector("#sheetDetailBack");
   const containerEle = document.querySelector("#sheetDetailList");
   const sheetDetailName = document.querySelector("#sheetDetailName");
+  const sheetDetailPlayAll = document.querySelector("#sheetDetailPlayAll");
   sheetDetailName.innerHTML = listName;
   addEventOnce(containerEle, "click", (e) => {
     const ele = e.target;
@@ -290,6 +291,15 @@ const sheetDetailEvent = (params) => {
     const showEle = document.querySelector("#sheetContainer");
     const hideEle = document.querySelector("#sheetDetailContainer");
     showTrigger.show(showEle, hideEle);
+  });
+  addEventOnce(sheetDetailPlayAll, "click", (e) => {
+    const firstRow = containerEle.querySelector(".lmp-song-row");
+    const songId = Number(firstRow.getAttribute("data-songid"));
+    const songName = firstRow.getAttribute("data-songname");
+    const singerId = Number(firstRow.getAttribute("data-singerid"));
+    const singerName = firstRow.getAttribute("data-singername");
+    getMusic({ songId, songName, singerId, singerName }, { needUpdate: false });
+    addCurrentPlayList({ isPlayAll: true, listId });
   });
 };
 

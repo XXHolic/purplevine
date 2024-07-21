@@ -190,6 +190,12 @@ const playBtnTrigger = (status) => {
 };
 
 const addCurrentPlayList = (params) => {
+  if (params.isPlayAll) {
+    axios.post(api.currentAdd, params).then(() => {
+      getCurrent({ showSpin: false });
+    });
+    return;
+  }
   axios.post(api.currentAdd, params).then(() => {
     info.show("添加成功");
     getCurrent({ showSpin: false });
