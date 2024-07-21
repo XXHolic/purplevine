@@ -127,11 +127,17 @@
   align-items: center;
   height: 70px;
 }
-
+.lmp-song-status {
+  width: 40px;
+  text-align: center;
+}
 .lmp-song-name,
-.lmp-song-singer,
 .lmp-sheet-name {
   width: 300px;
+  padding-right: 10px;
+}
+.lmp-song-singer {
+  width: 250px;
   padding-right: 10px;
 }
 .lmp-song-operate,

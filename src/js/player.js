@@ -80,6 +80,7 @@ const getCurrent = async (params) => {
   try {
     const { status, data } = await axios.get(api.current);
     if (status === 200) {
+      const playingId = Number(audioEle.getAttribute("data-songid"));
       const total = data.length;
       const listStr =
         data &&
@@ -87,6 +88,7 @@ const getCurrent = async (params) => {
           const { singerId, singerName, songId, songName } = cur;
           const isFirst = index === 0;
           const isLast = index === total - 1;
+          const isPlaying = playingId == songId && audioEle.src;
           let elePre = {},
             eleNext = {},
             dataPreId = songId,
@@ -114,7 +116,9 @@ const getCurrent = async (params) => {
             }
           }
           const rowCls = index % 2 ? "" : "lmp-song-odd";
+          const playingStyle = isPlaying ? "inline-block" : "none";
           acc += `<div class="lmp-song-row ${rowCls}" data-preid=${dataPreId} data-nextid=${dataNextId} data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
+                      <div class="lmp-song-status"><i class="fa-solid fa-music fa-beat" style="display: ${playingStyle}"></i></div>
                       <div class="lmp-song-name">${songName}</div>
                       <div class="lmp-song-singer">
                         <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId} data-name=${singerName} data-type="jump">${singerName}</span>
@@ -170,6 +174,21 @@ const getCurrent = async (params) => {
   }
 };
 
+const playBtnTrigger = (status) => {
+  // 播放歌曲时统一播放样式，其它就是交互互斥
+  const playerPlay = document.querySelector("#playerPlay");
+  const playerPause = document.querySelector("#playerPause");
+  if (status === "play") {
+    showTrigger.show(playerPause, playerPlay);
+    return;
+  }
+  if (playerPlay.style.display === "block") {
+    showTrigger.show(playerPause, playerPlay);
+  } else {
+    showTrigger.show(playerPlay, playerPause);
+  }
+};
+
 const getMusic = async (params, opt = {}) => {
   const { needUpdate = true } = opt;
   const { status, data } = await axios.post(api.song, params);
@@ -190,6 +209,7 @@ const getMusic = async (params, opt = {}) => {
     if (!hasInstance) {
       const player = new AudioPlayer({ ele: audioEle, src });
       player.play();
+      playBtnTrigger("play");
 
       player.on("play", () => {
         preloadProgress();
@@ -218,10 +238,12 @@ const getMusic = async (params, opt = {}) => {
           getMusic(msg, { needUpdate: false });
         } else {
           player.play();
+          playBtnTrigger("play");
         }
       });
     } else {
       audioEle.play();
+      playBtnTrigger("play");
     }
   }
 };
@@ -253,9 +275,13 @@ const audioEvent = () => {
         const targetRow = playerPopList.querySelector(selectorPre);
         const msg = getSongMsg(targetRow);
         getMusic(msg, { needUpdate: false });
+        setTimeout(() => {
+          getCurrent({ showSpin: false });
+        }, 1000);
         break;
       }
       case "play": {
+        playBtnTrigger();
         if (audioEle.paused) {
           audioEle.play();
         } else {
@@ -272,6 +298,9 @@ const audioEvent = () => {
         const targetRow = playerPopList.querySelector(selectorNext);
         const msg = getSongMsg(targetRow);
         getMusic(msg, { needUpdate: false });
+        setTimeout(() => {
+          getCurrent({ showSpin: false });
+        }, 1000);
         break;
       }
     }
@@ -342,6 +371,9 @@ const audioEvent = () => {
       case "play": {
         const msg = getSongMsg(ele);
         getMusic(msg, { needUpdate: false });
+        setTimeout(() => {
+          getCurrent({ showSpin: false });
+        }, 1000);
         break;
       }
       case "tuck": {
