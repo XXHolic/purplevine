@@ -7,7 +7,9 @@ import {
   showTrigger,
   formatSeconds,
   addEventOnce,
+  getSongMsg,
 } from "./util.js";
+import { collectSong } from "./singer.js";
 
 const expando = "player" + new Date().getTime();
 class AudioPlayer {
@@ -72,7 +74,104 @@ const playingProgress = () => {
   playingTimer = setTimeout(playingProgress, 500);
 };
 
-const getMusic = async (params) => {
+const getCurrent = async (params) => {
+  const { showSpin = true } = params || {};
+  showSpin && spin.show();
+  try {
+    const { status, data } = await axios.get(api.current);
+    if (status === 200) {
+      const total = data.length;
+      const listStr =
+        data &&
+        data.reduce((acc, cur, index) => {
+          const { singerId, singerName, songId, songName } = cur;
+          const isFirst = index === 0;
+          const isLast = index === total - 1;
+          let elePre = {},
+            eleNext = {},
+            dataPreId = songId,
+            dataNextId = songId;
+          if (total != 1) {
+            if (isFirst) {
+              elePre = data[total - 1];
+              eleNext = data[index + 1];
+              if (eleNext) {
+                dataNextId = eleNext.songId;
+                dataPreId = elePre.songId;
+              }
+            } else if (isLast) {
+              elePre = data[index - 1];
+              eleNext = data[0];
+              if (elePre) {
+                dataPreId = elePre.songId;
+                dataNextId = eleNext.songId;
+              }
+            } else {
+              eleNext = data[index + 1];
+              elePre = data[index - 1];
+              dataPreId = elePre.songId;
+              dataNextId = eleNext.songId;
+            }
+          }
+          const rowCls = index % 2 ? "" : "lmp-song-odd";
+          acc += `<div class="lmp-song-row ${rowCls}" data-preid=${dataPreId} data-nextid=${dataNextId} data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
+                      <div class="lmp-song-name">${songName}</div>
+                      <div class="lmp-song-singer">
+                        <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId} data-name=${singerName} data-type="jump">${singerName}</span>
+                      </div>
+                      <div class="lmp-song-operate">
+                        <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
+                          <i class="fa-regular fa-circle-play fa-lg" data-songid=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="play"></i>
+                        </div>
+                        <div class="lmp-operate-add lmp-cursor-pointer" title="收藏">
+                          <i class="fa-solid fa-folder fa-lg" data-songid=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="tuck"></i>
+                        </div>
+                        <div class="lmp-operate-dele lmp-cursor-pointer" title="移除">
+                          <i class="fa-solid fa-trash-can fa-lg" data-songid=${songId} data-type="dele"></i>
+                        </div>
+                        <div class="lmp-operate-drag lmp-cursor-pointer" title="拖拽排序" data-songid=${songId}>
+                          <i class="fa-solid fa-bars fa-lg"></i>
+                        </div>
+                      </div>
+                    </div>`;
+          return acc;
+        }, "");
+      const listObj = document.querySelector("#playerPopBody");
+      const listTotal = document.querySelector("#playerTotalCount");
+      listObj.innerHTML = listStr;
+      listTotal.innerHTML = `总共 ${total} 首`;
+      listTotal.setAttribute("data-total", total);
+      setTimeout(() => {
+        const hasInstance = Sortable.get(listObj);
+        if (!hasInstance) {
+          Sortable.create(listObj, {
+            handle: ".lmp-operate-drag",
+            animation: 150,
+            draggable: ".lmp-song-row",
+            onEnd: (evt) => {
+              const newNodeList = listObj.querySelectorAll(".lmp-song-row");
+              const newList = [];
+              for (let i = 0; i < newNodeList.length; i++) {
+                const msg = getSongMsg(newNodeList[i]);
+                newList.push(msg);
+              }
+              axios.post(api.currentSort, newList).then(() => {
+                getCurrent();
+              });
+            },
+          });
+        }
+      }, 1000);
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    showSpin && spin.hide();
+  }
+};
+
+const getMusic = async (params, opt = {}) => {
+  const { needUpdate = true } = opt;
   const { status, data } = await axios.post(api.song, params);
   if (status == 200) {
     const { src, format, singerName, songName } = data;
@@ -80,7 +179,13 @@ const getMusic = async (params) => {
     playerTimeTotal.innerHTML = format;
     playerPlaying.style.width = "0%";
     audioEle.src = src;
-    axios.post(api.currentAdd, params);
+    audioEle.setAttribute("data-songid", params.songId); // 播放时给上一首、下一首功能用
+    // 上一首，下一首功能不需要这个
+    if (needUpdate) {
+      axios.post(api.currentAdd, params).then(() => {
+        getCurrent({ showSpin: false });
+      });
+    }
     const hasInstance = AudioPlayer.get(audioEle);
     if (!hasInstance) {
       const player = new AudioPlayer({ ele: audioEle, src });
@@ -100,7 +205,23 @@ const getMusic = async (params) => {
         clearTimeout(preloadTimer);
         clearTimeout(playingTimer);
         playerPreload.style.width = "0%";
+        const playerCycleOrder = document.querySelector("#playerCycleOrder");
+        // 顺序播放
+        if (playerCycleOrder.style.display === "block") {
+          const songId = audioEle.getAttribute("data-songid");
+          const selector = `.lmp-song-row[data-songid='${songId}']`;
+          const playingRow = playerPopList.querySelector(selector);
+          const nextId = playingRow.getAttribute("data-nextid");
+          const selectorNext = `.lmp-song-row[data-songid='${nextId}']`;
+          const targetRow = playerPopList.querySelector(selectorNext);
+          const msg = getSongMsg(targetRow);
+          getMusic(msg, { needUpdate: false });
+        } else {
+          player.play();
+        }
       });
+    } else {
+      audioEle.play();
     }
   }
 };
@@ -124,6 +245,14 @@ const audioEvent = () => {
     console.info("eleType", eleType);
     switch (eleType) {
       case "pre": {
+        const songId = audioEle.getAttribute("data-songid");
+        const selector = `.lmp-song-row[data-songid='${songId}']`;
+        const playingRow = playerPopList.querySelector(selector);
+        const preId = playingRow.getAttribute("data-preid");
+        const selectorPre = `.lmp-song-row[data-songid='${preId}']`;
+        const targetRow = playerPopList.querySelector(selectorPre);
+        const msg = getSongMsg(targetRow);
+        getMusic(msg, { needUpdate: false });
         break;
       }
       case "play": {
@@ -135,102 +264,62 @@ const audioEvent = () => {
         break;
       }
       case "next": {
+        const songId = audioEle.getAttribute("data-songid");
+        const selector = `.lmp-song-row[data-songid='${songId}']`;
+        const playingRow = playerPopList.querySelector(selector);
+        const nextId = playingRow.getAttribute("data-nextid");
+        const selectorNext = `.lmp-song-row[data-songid='${nextId}']`;
+        const targetRow = playerPopList.querySelector(selectorNext);
+        const msg = getSongMsg(targetRow);
+        getMusic(msg, { needUpdate: false });
         break;
       }
     }
   });
 
-  const getCurrent = async () => {
-    spin.show();
-    try {
-      const { status, data } = await axios.get(api.current);
-      if (status === 200) {
-        const listStr = data.reduce((acc, cur, index) => {
-          const { singerId, singerName, songId, songName } = cur;
-          const rowCls = index % 2 ? "" : "lmp-song-odd";
-          acc += `<div class="lmp-song-row ${rowCls}" data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
-                        <div class="lmp-song-name">${songName}</div>
-                        <div class="lmp-song-singer">
-                          <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId} data-name=${singerName} data-type="jump">${singerName}</span>
-                        </div>
-                        <div class="lmp-song-operate">
-                          <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
-                            <i class="fa-regular fa-circle-play fa-lg" data-id=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="play"></i>
-                          </div>
-                          <div class="lmp-operate-add lmp-cursor-pointer" title="收藏">
-                            <i class="fa-solid fa-folder fa-lg" data-id=${songId} data-type="move"></i>
-                          </div>
-                          <div class="lmp-operate-dele lmp-cursor-pointer" title="移除">
-                            <i class="fa-solid fa-trash-can fa-lg" data-id=${songId} data-type="dele"></i>
-                          </div>
-                          <div class="lmp-operate-drag lmp-cursor-pointer" title="拖拽排序" data-id=${songId}>
-                            <i class="fa-solid fa-bars fa-lg"></i>
-                          </div>
-                        </div>
-                      </div>`;
-          return acc;
-        }, "");
-        const listObj = document.querySelector("#playerPopBody");
-        const listTotal = document.querySelector("#playerTotalCount");
-        listObj.innerHTML = listStr;
-        listTotal.innerHTML = `总共 ${data.length} 首`;
-        setTimeout(() => {
-          const hasInstance = Sortable.get(listObj);
-          if (!hasInstance) {
-            Sortable.create(listObj, {
-              handle: ".lmp-operate-drag",
-              animation: 150,
-              draggable: ".lmp-song-row",
-              onEnd: (evt) => {
-                const newNodeList = listObj.querySelectorAll(".lmp-song-row");
-                const newList = [];
-                for (let i = 0; i < newNodeList.length; i++) {
-                  const dataSongId = Number(
-                    newNodeList[i].getAttribute("data-songid")
-                  );
-                  const dataSongName =
-                    newNodeList[i].getAttribute("data-songname");
-                  const dataSingerId = Number(
-                    newNodeList[i].getAttribute("data-singerid")
-                  );
-                  const dataSingerName =
-                    newNodeList[i].getAttribute("data-singername");
-                  newList.push({
-                    songId: dataSongId,
-                    songName: dataSongName,
-                    singerId: dataSingerId,
-                    singerName: dataSingerName,
-                  });
-                }
-                axios.post(api.currentSort, newList).then(() => {
-                  getCurrent();
-                });
-              },
-            });
-          }
-        }, 1000);
+  const currentDele = async (params) => {
+    const { isAll } = params;
+    const { status } = await axios.post(api.currentDel, params);
+    if (status === 200) {
+      getCurrent();
+      const listTotal = document.querySelector("#playerTotalCount");
+      const total = Number(listTotal.getAttribute("data-total"));
+      const isNeedReset = total == 1 || isAll;
+      if (isNeedReset && audioEle.src) {
+        if (!audioEle.paused) {
+          audioEle.pause();
+        }
+        audioEle.src = "";
+        playerMsg.innerHTML = "/-/";
+        playerTimePlaying.innerHTML = "00:00";
+        playerTimeTotal.innerHTML = "00:00";
+        preloadTimer && clearTimeout(preloadTimer);
+        playingTimer && clearTimeout(playingTimer);
+        playerPreload.style.width = `0%`;
+        playerPlaying.style.width = `0%`;
       }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      spin.hide();
     }
   };
 
   addEventOnce(playerOperateBtn, "click", (e) => {
     const ele = e.target;
     const eleType = ele.getAttribute("data-type");
-    console.info("eleType", eleType);
     switch (eleType) {
       case "collect": {
-        if (!audioEle.src) {
-          info.show("暂无歌曲播放");
-          return;
+        if (audioEle.src) {
+          const songId = audioEle.getAttribute("data-songid");
+          const selector = `.lmp-song-row[data-songid='${songId}']`;
+          const targetRow = playerPopList.querySelector(selector);
+          const msg = getSongMsg(targetRow);
+          collectSong(msg);
+        } else {
+          info.show("暂无歌曲");
         }
         break;
       }
       case "playLoop": {
         showTrigger.show(playerCycleOrder, playerCycleLoop);
+        audioEle.loop = false;
         break;
       }
       case "playRandom": {
@@ -238,6 +327,7 @@ const audioEvent = () => {
       }
       case "playOrder": {
         showTrigger.show(playerCycleLoop, playerCycleOrder);
+        audioEle.loop = true;
         break;
       }
       case "list": {
@@ -247,6 +337,25 @@ const audioEvent = () => {
           showTrigger.show([playerPopList, playerPopTriangle]);
           getCurrent();
         }
+        break;
+      }
+      case "play": {
+        const msg = getSongMsg(ele);
+        getMusic(msg, { needUpdate: false });
+        break;
+      }
+      case "tuck": {
+        const msg = getSongMsg(ele);
+        collectSong(msg);
+        break;
+      }
+      case "dele": {
+        const songId = Number(ele.getAttribute("data-songid"));
+        currentDele({ songId });
+        break;
+      }
+      case "clearAll": {
+        currentDele({ isAll: true });
         break;
       }
     }

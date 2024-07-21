@@ -10,7 +10,7 @@ const api = {
   sheetDetailMove: "/api/sheet/detail/move",
   singer: "/api/singer",
   singerMusic: "/api/singer/music",
-  singerMusicCollect: "/api/singer/music/collect",
+  collect: "/api/collect",
   music: "/api/music",
   musicCollect: "/api/music/collect",
   song: "/api/song",

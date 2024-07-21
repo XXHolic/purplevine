@@ -79,10 +79,24 @@ const currentAdd = (req, res) => {
 
 const currentSort = (req, res) => {
   dealPost(req, (params) => {
-    writeFile(targetPath, JSON.stringify(params)).then(() => {
+    writeFile(currentPath, JSON.stringify(params)).then(() => {
+      backOkMsg(res);
+    });
+  });
+};
+const currentDel = (req, res) => {
+  dealPost(req, async (params) => {
+    const { songId, isAll } = params;
+    let newList = [];
+    if (!isAll) {
+      const contents = await readFile(currentPath, { encoding: "utf-8" });
+      const contentsObj = JSON.parse(contents);
+      newList = contentsObj.filter((ele) => ele.songId != songId);
+    }
+    writeFile(currentPath, JSON.stringify(newList)).then(() => {
       backOkMsg(res);
     });
   });
 };
 
-export { getMusic, getSong, getCurrent, currentAdd, currentSort };
+export { getMusic, getSong, getCurrent, currentAdd, currentSort, currentDel };

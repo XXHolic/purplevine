@@ -33,6 +33,7 @@ import {
   getCurrent,
   currentAdd,
   currentSort,
+  currentDel,
 } from "./song.mjs";
 
 const api = {
@@ -47,9 +48,8 @@ const api = {
   sheetDetailMove: "/api/sheet/detail/move",
   singer: "/api/singer",
   singerMusic: "/api/singer/music",
-  singerMusicCollect: "/api/singer/music/collect",
+  collect: "/api/collect",
   music: "/api/music",
-  musicCollect: "/api/music/collect",
   song: "/api/song",
   current: "/api/current",
   currentAdd: "/api/current/add",
@@ -106,7 +106,7 @@ const route = (req, res) => {
       getSingerMusic(req, res);
       break;
     }
-    case api.singerMusicCollect: {
+    case api.collect: {
       singerMusicCollect(req, res);
       break;
     }
@@ -128,6 +128,10 @@ const route = (req, res) => {
     }
     case api.currentSort: {
       currentSort(req, res);
+      break;
+    }
+    case api.currentDel: {
+      currentDel(req, res);
       break;
     }
     default: {

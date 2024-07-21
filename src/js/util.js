@@ -104,4 +104,12 @@ const formatSeconds = (value) => {
   return result;
 }
 
-export { spin, info, showTrigger, addEventOnce, formatSeconds };
+const getSongMsg = (ele) => {
+  const songId = Number(ele.getAttribute("data-songid"));
+  const songName = ele.getAttribute("data-songname");
+  const singerId = Number(ele.getAttribute("data-singerid"));
+  const singerName = ele.getAttribute("data-singername");
+  return { songId, songName, singerId, singerName };
+};
+
+export { spin, info, showTrigger, addEventOnce, formatSeconds, getSongMsg };

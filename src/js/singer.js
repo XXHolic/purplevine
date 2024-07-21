@@ -58,7 +58,7 @@ const collectSong = (params) => {
     diaSpin.style.display = "inline-block";
     diaConfirm.disabled = true;
     axios
-      .post(api.singerMusicCollect, postData)
+      .post(api.collect, postData)
       .then((response) => {
         const { status } = response;
         if (status === 200) {
