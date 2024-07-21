@@ -2,7 +2,7 @@ import axios from "../asset/js/axios.min.js";
 import Sortable from '../asset/js/sortable.esm.js';
 import { api } from "./api.js";
 import { getSingerSelf, singerSelfEvent } from "./singer.js";
-import { getMusic } from "./player.js";
+import { getMusic, addCurrentPlayList } from "./player.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
 
 let allListOrigin = []; // 主要用来判断 新建和修改时 是否重名
@@ -100,6 +100,9 @@ const getSheetDetail = async (params) => {
                         <div class="lmp-song-operate">
                           <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
                             <i class="fa-regular fa-circle-play fa-lg" data-id=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="play"></i>
+                          </div>
+                          <div class="lmp-operate-add lmp-cursor-pointer" title="加入播放列表">
+                            <i class="fa-solid fa-plus fa-lg" data-id=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="add"></i>
                           </div>
                           <div class="lmp-operate-add lmp-cursor-pointer" title="移动">
                             <i class="fa-solid fa-folder fa-lg" data-id=${songId} data-type="move"></i>
@@ -264,6 +267,13 @@ const sheetDetailEvent = (params) => {
         const singerId = Number(ele.getAttribute("data-singerid"));
         const singerName = ele.getAttribute("data-singername");
         getMusic({ songId: eleId, songName, singerId, singerName });
+        break;
+      }
+      case "add": {
+        const songName = ele.getAttribute("data-songname");
+        const singerId = Number(ele.getAttribute("data-singerid"));
+        const singerName = ele.getAttribute("data-singername");
+        addCurrentPlayList({ songId: eleId, songName, singerId, singerName });
         break;
       }
       case "move": {

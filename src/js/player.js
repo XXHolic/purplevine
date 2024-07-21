@@ -189,6 +189,13 @@ const playBtnTrigger = (status) => {
   }
 };
 
+const addCurrentPlayList = (params) => {
+  axios.post(api.currentAdd, params).then(() => {
+    info.show("添加成功");
+    getCurrent({ showSpin: false });
+  });
+};
+
 const getMusic = async (params, opt = {}) => {
   const { needUpdate = true } = opt;
   const { status, data } = await axios.post(api.song, params);
@@ -394,4 +401,4 @@ const audioEvent = () => {
   });
 };
 
-export { getMusic, audioEvent };
+export { getMusic, audioEvent, addCurrentPlayList };

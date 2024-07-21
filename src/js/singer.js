@@ -1,7 +1,7 @@
 import axios from "../asset/js/axios.min.js";
 import { api } from "./api.js";
 import { allListOrigin } from "./sheet.js";
-import { getMusic } from "./player.js";
+import { getMusic, addCurrentPlayList } from "./player.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
 
 const getSingerSelf = async (params) => {
@@ -17,6 +17,9 @@ const getSingerSelf = async (params) => {
                   <div class="lmp-song-operate">
                     <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
                       <i class="fa-regular fa-circle-play fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName}  data-type="play"></i>
+                    </div>
+                    <div class="lmp-operate-play lmp-cursor-pointer" title="加入播放列表">
+                      <i class="fa-solid fa-plus fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName}  data-type="add"></i>
                     </div>
                     <div class="lmp-operate-add lmp-cursor-pointer" title="收藏到歌单">
                       <i class="fa-solid fa-folder fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName} data-type="collect"></i>
@@ -97,6 +100,10 @@ const singerSelfEvent = (params) => {
     switch (eleType) {
       case "play": {
         getMusic({ songId, songName, singerId, singerName });
+        break;
+      }
+      case "add": {
+        addCurrentPlayList({ songId, songName, singerId, singerName });
         break;
       }
       case "collect": {
