@@ -2,7 +2,7 @@ import { sheetInit } from "./sheet.js";
 import { singerInit } from "./singer.js";
 import { songInit } from "./song.js";
 import { audioEvent } from "./player.js";
-import { spin, info, showTrigger } from "./util.js";
+import { showTrigger } from "./util.js";
 
 const init = () => {
   sheetInit();

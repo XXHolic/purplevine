@@ -73,36 +73,32 @@ const addEventOnce = (ele, eventName, handler) => {
     ele.addEventListener(eventName, ele.clickHandler);
 }
 
-const formatSeconds = (value) => {
-  var theTime = parseInt(value); // 秒
-  var theTime1 = 0; // 分
-  var theTime2 = 0; // 小时
-  if (theTime > 60) {
-    theTime1 = parseInt(theTime / 60);
-    theTime = parseInt(theTime % 60);
-    if (theTime1 > 60) {
-      theTime2 = parseInt(theTime1 / 60);
-      theTime1 = parseInt(theTime1 % 60);
+const formatSeconds = (times) => {
+  let t = "";
+  if (times > -1) {
+    let hour = Math.floor(times / 3600);
+    let min = Math.floor(times / 60) % 60;
+    let sec = times % 60;
+    if (hour > 0) {
+      if (hour < 10) {
+        t = "0" + hour + ":";
+      } else {
+        t = hour + ":";
+      }
     }
-  }
 
-  var result = "" + parseInt(theTime); //秒
-  if (10 > theTime > 0) {
-    result = "0" + parseInt(theTime); //秒
-  } else {
-    result = "" + parseInt(theTime); //秒
+    if (min < 10) {
+      t += "0";
+    }
+    t += min + ":";
+    if (sec < 10) {
+      t += "0";
+    }
+    t += sec.toFixed(2);
   }
-
-  if (10 > theTime1 > 0) {
-    result = "0" + parseInt(theTime1) + ":" + result; //分，不足两位数，首位补充0，
-  } else {
-    result = "" + parseInt(theTime1) + ":" + result; //分
-  }
-  if (theTime2 > 0) {
-    result = "" + parseInt(theTime2) + ":" + result; //时
-  }
-  return result;
-}
+  t = t.substring(0, t.length - 3);
+  return t;
+};
 
 const getSongMsg = (ele) => {
   const songId = Number(ele.getAttribute("data-songid"));

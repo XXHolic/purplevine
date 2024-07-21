@@ -269,6 +269,7 @@ const audioEvent = () => {
   const playerCycleOrder = document.querySelector("#playerCycleOrder");
   const playerPopList = document.querySelector("#playerPopList");
   const playerPopTriangle = document.querySelector("#playerPopTriangle");
+  const playerProgress = document.querySelector("#playerProgress");
 
   addEventOnce(playerControlBtn, "click", (e) => {
     if (!audioEle.src) {
@@ -403,6 +404,16 @@ const audioEvent = () => {
         currentDele({ isAll: true });
         break;
       }
+    }
+  });
+
+  addEventOnce(playerProgress, "click", (e) => {
+    if (audioEle.src) {
+      const width = parseFloat(
+        window.getComputedStyle(playerProgress, null).getPropertyValue("width")
+      );
+      const currentTime = ((e.offsetX / width) * audioEle.duration).toFixed();
+      audioEle.currentTime = currentTime;
     }
   });
 };

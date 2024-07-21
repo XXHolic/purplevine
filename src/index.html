@@ -12,11 +12,7 @@
   </head>
   <body>
     <div class="lmp-main">
-      <div class="lmp-header">
-              <audio controls id="audioPlayer">
-        您的浏览器不支持 audio 元素。
-      </audio>
-      </div>
+      <div class="lmp-header"></div>
       <div class="lmp-body">
         <div class="lmp-body-left">
           <div class="lmp-menu-item lmp-menu-active" data-type="sheet">歌单</div>
@@ -113,7 +109,7 @@
         <div class="lmp-player-msg">
           <div class="lmp-player-song" title="歌曲名-歌手名" id="playerMsg">/-/</div>
           <div class="lmp-flex-center">
-            <div class="lmp-player-progress">
+            <div class="lmp-player-progress lmp-cursor-pointer" id="playerProgress">
               <div class="lmp-player-preload" id="playerPreload"></div>
               <div class="lmp-player-playing" id="playerPlaying"></div>
             </div>
@@ -185,7 +181,9 @@
     </div>
     <div class="lmp-info lmp-dn" id="lmpInfo"></div>
     <div class="lmp-dn">
-
+      <audio controls id="audioPlayer">
+        您的浏览器不支持 audio 元素。
+      </audio>
     </div>
     <script type="module">
       import { init } from './js/index.js'

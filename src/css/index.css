@@ -277,8 +277,7 @@
   overflow-y: auto;
   position: absolute;
   top: -640px;
-  /* left: -420px; */
-  left: -820px;
+  left: -420px;
   z-index: 100;
   width: 800px;
   height: 600px;
