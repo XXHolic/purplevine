@@ -1,20 +1,26 @@
 import { readFile, writeFile, unlink } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { mp3Duration } from "../asset/js/mp3Duration.mjs";
 import { dealPost, backOkMsg, backErrMsg } from "./util.mjs";
+
+// 这个是针对 pm2 启动时无法找到路径的问题
+const fileName = fileURLToPath(import.meta.url)
+const preFold = resolve(dirname(fileName), '..');
 
 const getMusic = (req, res) => {
   dealPost(req, async (params) => {
     const { page, key } = params;
     if (key) {
       // 先找到总共有多少分割的文件
-      const firstFile = `../json/music1.json`;
+      const firstFile = `${preFold}/json/music1.json`;
       const data = await readFile(firstFile, { encoding: "utf-8" });
       const { total, pageSize } = JSON.parse(data);
       const num = Math.round(total / pageSize);
       const len = num ? num : 1;
       let result = [];
       for (let index = 0; index < len; index++) {
-        const targetPath = `../json/music${index + 1}.json`;
+        const targetPath = `${preFold}/json/music${index + 1}.json`;
         const contents = await readFile(targetPath, { encoding: "utf-8" });
         const { list } = JSON.parse(contents);
         let arr = list.filter((ele) => {
@@ -34,7 +40,7 @@ const getMusic = (req, res) => {
       return;
     }
 
-    const singerPath = `../json/music${page}.json`;
+    const singerPath = `${preFold}/json/music${page}.json`;
     const contents = await readFile(singerPath, { encoding: "utf-8" });
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(contents);
@@ -44,11 +50,11 @@ const getMusic = (req, res) => {
 const getSong = (req, res) => {
   dealPost(req, async (params) => {
     const { songId } = params;
-    const targetPath = `../localdatajson/song${songId}.json`;
+    const targetPath = `${preFold}/localdatajson/song${songId}.json`;
     const contents = await readFile(targetPath, { encoding: "utf-8" });
     const { songName, singerName, type } = JSON.parse(contents);
     const src = `./localdata/${songName}.${type}`;
-    const buffer = await readFile(`../localdata/${songName}.${type}`);
+    const buffer = await readFile(`${preFold}/localdata/${songName}.${type}`);
     const info = mp3Duration(buffer, buffer.length);
     const backData = { src, singerName, songName, ...info };
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -56,7 +62,7 @@ const getSong = (req, res) => {
   });
 };
 
-const currentPath = `../json/current.json`;
+const currentPath = `${preFold}/json/current.json`;
 const getCurrent = async (res) => {
   const contents = await readFile(currentPath, { encoding: "utf-8" });
   res.writeHead(200, { "Content-Type": "application/json" });
@@ -69,7 +75,7 @@ const currentAdd = (req, res) => {
     let newArr = [];
     if (isPlayAll) {
       const fileType = listId ? `list${listId}` : `singer${singerId}`;
-      const jsonPath = `../json/${fileType}.json`;
+      const jsonPath = `${preFold}/json/${fileType}.json`;
       const contents = await readFile(jsonPath, { encoding: "utf-8" });
       const contentsObj = JSON.parse(contents);
       newArr = listId ? contentsObj.songList : contentsObj;

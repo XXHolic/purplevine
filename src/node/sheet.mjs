@@ -1,10 +1,16 @@
 import { readFile, writeFile, unlink } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 // import MP3Tag from "../asset/js/mp3tag/mp3tag.mjs";
 // import { mp3Duration } from "../asset/js/mp3Duration.mjs";
 import { dealPost, backOkMsg, backErrMsg } from "./util.mjs";
 
-const sheetPathPrefix = "../json/list";
-const allListPath = "../json/allList.json";
+
+// 这个是针对 pm2 启动时无法找到路径的问题
+const fileName = fileURLToPath(import.meta.url)
+const preFold = resolve(dirname(fileName), '..');
+const sheetPathPrefix = `${preFold}/json/list`;
+const allListPath = `${preFold}/json/allList.json`;
 
 const sheetList = async (res) => {
   const contents = await readFile(allListPath, { encoding: "utf-8" });
