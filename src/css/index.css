@@ -344,3 +344,29 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.lmp-lrc {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  padding-top: 70px;
+}
+
+.lmp-lrc-section {
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  transition: 0.6s;
+}
+
+.lmp-lrc-row {
+  height: 23px;
+  line-height: 23px;
+  font-size: 18px;
+  opacity: 0.5;
+}
+
+.lmp-lrc-row.active {
+  opacity: 1;
+}

@@ -12,17 +12,17 @@ const getSingerSelf = async (params) => {
       const listStr = data.reduce((acc, cur, index) => {
         const { singerId, singerName, songId, songName } = cur;
         const rowCls = index % 2 ? "" : "lmp-song-odd";
-        acc += `<div class="lmp-song-row ${rowCls}" data-songid=${songId} data-songname=${songName}>
+        acc += `<div class="lmp-song-row ${rowCls}" data-songid="${songId}" data-songname="${songName}">
                   <div class="lmp-song-name">${songName}</div>
                   <div class="lmp-song-operate">
                     <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
-                      <i class="fa-regular fa-circle-play fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName}  data-type="play"></i>
+                      <i class="fa-regular fa-circle-play fa-lg" data-singerid="${singerId}" data-singername="${singerName}" data-songid="${songId}" data-songname="${songName}"  data-type="play"></i>
                     </div>
                     <div class="lmp-operate-play lmp-cursor-pointer" title="加入播放列表">
-                      <i class="fa-solid fa-plus fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName}  data-type="add"></i>
+                      <i class="fa-solid fa-plus fa-lg" data-singerid="${singerId}" data-singername="${singerName}" data-songid="${songId}" data-songname="${songName}"  data-type="add"></i>
                     </div>
                     <div class="lmp-operate-add lmp-cursor-pointer" title="收藏到歌单">
-                      <i class="fa-solid fa-folder fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName} data-type="collect"></i>
+                      <i class="fa-solid fa-folder fa-lg" data-singerid="${singerId}" data-singername="${singerName}" data-songid="${songId}" data-songname="${songName}" data-type="collect"></i>
                     </div>
                   </div>
                 </div>`;
@@ -166,7 +166,7 @@ const singerInit = () => {
 
         const listStr = target.reduce((accS, curS) => {
           const { singerId, singerName } = curS;
-          accS += `<div class="lmp-singer-name lmp-cursor-pointer" data-id=${singerId} data-name=${singerName}>${singerName}</div>`;
+          accS += `<div class="lmp-singer-name lmp-cursor-pointer" data-id="${singerId}" data-name="${singerName}">${singerName}</div>`;
           return accS;
         }, "");
 

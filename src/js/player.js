@@ -10,6 +10,7 @@ import {
   getSongMsg,
 } from "./util.js";
 import { collectSong } from "./singer.js";
+import { initLrc, moveLrc } from "./lrc.js";
 
 const expando = "player" + new Date().getTime();
 class AudioPlayer {
@@ -117,23 +118,23 @@ const getCurrent = async (params) => {
           }
           const rowCls = index % 2 ? "" : "lmp-song-odd";
           const playingStyle = isPlaying ? "inline-block" : "none";
-          acc += `<div class="lmp-song-row ${rowCls}" data-preid=${dataPreId} data-nextid=${dataNextId} data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
+          acc += `<div class="lmp-song-row ${rowCls}" data-preid="${dataPreId}" data-nextid="${dataNextId}" data-songid="${songId}" data-songname="${songName}" data-singername="${singerName}" data-singerid="${singerId}">
                       <div class="lmp-song-status"><i class="fa-solid fa-music fa-beat" style="display: ${playingStyle}"></i></div>
                       <div class="lmp-song-name">${songName}</div>
                       <div class="lmp-song-singer">
-                        <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId} data-name=${singerName} data-type="jump">${singerName}</span>
+                        <span class="lmp-song-span lmp-cursor-pointer" data-id="${singerId}" data-name="${singerName}" data-type="jump">${singerName}</span>
                       </div>
                       <div class="lmp-song-operate">
                         <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
-                          <i class="fa-regular fa-circle-play fa-lg" data-songid=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="play"></i>
+                          <i class="fa-regular fa-circle-play fa-lg" data-songid="${songId}"  data-songname="${songName}" data-singername="${singerName}" data-singerid="${singerId}" data-type="play"></i>
                         </div>
                         <div class="lmp-operate-add lmp-cursor-pointer" title="收藏">
-                          <i class="fa-solid fa-folder fa-lg" data-songid=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="tuck"></i>
+                          <i class="fa-solid fa-folder fa-lg" data-songid="${songId}"  data-songname="${songName}" data-singername="${singerName}" data-singerid="${singerId}" data-type="tuck"></i>
                         </div>
                         <div class="lmp-operate-dele lmp-cursor-pointer" title="移除">
-                          <i class="fa-solid fa-trash-can fa-lg" data-songid=${songId} data-type="dele"></i>
+                          <i class="fa-solid fa-trash-can fa-lg" data-songid="${songId}" data-type="dele"></i>
                         </div>
-                        <div class="lmp-operate-drag lmp-cursor-pointer" title="拖拽排序" data-songid=${songId}>
+                        <div class="lmp-operate-drag lmp-cursor-pointer" title="拖拽排序" data-songid="${songId}">
                           <i class="fa-solid fa-bars fa-lg"></i>
                         </div>
                       </div>
@@ -206,11 +207,12 @@ const getMusic = async (params, opt = {}) => {
   const { needUpdate = true } = opt;
   const { status, data } = await axios.post(api.song, params);
   if (status == 200) {
-    const { src, format, singerName, songName } = data;
+    const { src, lrc, format, singerName, songName } = data;
     playerMsg.innerHTML = `${songName}-${singerName}`;
     playerTimeTotal.innerHTML = format;
     playerPlaying.style.width = "0%";
     audioEle.src = src;
+    initLrc(lrc)
     audioEle.setAttribute("data-songid", params.songId); // 播放时给上一首、下一首功能用
     // 上一首，下一首功能不需要这个
     if (needUpdate) {
@@ -234,6 +236,10 @@ const getMusic = async (params, opt = {}) => {
         clearTimeout(playingTimer);
       });
 
+      player.on("timeupdate", () => {
+        moveLrc(audioEle.currentTime)
+      });
+
       player.on("ended", () => {
         clearTimeout(preloadTimer);
         clearTimeout(playingTimer);
@@ -249,6 +255,14 @@ const getMusic = async (params, opt = {}) => {
           const targetRow = playerPopList.querySelector(selectorNext);
           const msg = getSongMsg(targetRow);
           getMusic(msg, { needUpdate: false });
+          const playingMark = playingRow.querySelector('.fa-music');
+          if (playingMark) {
+            playingMark.style.display = 'none';
+          }
+          const targetMark = targetRow.querySelector('.fa-music');
+          if (targetMark) {
+            targetMark.style.display = 'block';
+          }
         } else {
           player.play();
           playBtnTrigger("play");

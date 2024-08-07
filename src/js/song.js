@@ -16,17 +16,17 @@ const getList = async (params) => {
         acc += `<div class="lmp-song-row ${rowCls}">
                   <div class="lmp-song-name">${songName}</div>
                   <div class="lmp-song-singer">
-                    <span class="lmp-song-span lmp-cursor-pointer" data-singerid=${singerId} data-singername=${singerName} data-type="jump">${singerName}</span>
+                    <span class="lmp-song-span lmp-cursor-pointer" data-singerid="${singerId}" data-singername="${singerName}" data-type="jump">${singerName}</span>
                   </div>
                   <div class="lmp-song-operate">
                     <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
-                      <i class="fa-regular fa-circle-play fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName}  data-type="play"></i>
+                      <i class="fa-regular fa-circle-play fa-lg" data-singerid="${singerId}" data-singername="${singerName}" data-songid="${songId}" data-songname="${songName}" data-type="play"></i>
                     </div>
                     <div class="lmp-operate-play lmp-cursor-pointer" title="加入播放列表">
-                      <i class="fa-solid fa-plus fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName}  data-type="add"></i>
+                      <i class="fa-solid fa-plus fa-lg" data-singerid=${singerId} data-singername="${singerName}" data-songid=${songId} data-songname="${songName}"  data-type="add"></i>
                     </div>
                     <div class="lmp-operate-add lmp-cursor-pointer" title="收藏到歌单">
-                      <i class="fa-solid fa-folder fa-lg" data-singerid=${singerId} data-singername=${singerName} data-songid=${songId} data-songname=${songName} data-type="collect"></i>
+                      <i class="fa-solid fa-folder fa-lg" data-singerid=${singerId} data-singername="${singerName}" data-songid=${songId} data-songname="${songName}" data-type="collect"></i>
                     </div>
                   </div>
                 </div>`;

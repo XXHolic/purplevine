@@ -52,11 +52,13 @@ const getSong = (req, res) => {
     const { songId } = params;
     const targetPath = `${preFold}/localdatajson/song${songId}.json`;
     const contents = await readFile(targetPath, { encoding: "utf-8" });
-    const { songName, singerName, type } = JSON.parse(contents);
-    const src = `./localdata/${songName}.${type}`;
-    const buffer = await readFile(`${preFold}/localdata/${songName}.${type}`);
+    const { songName, singerName, type, src, lrc } = JSON.parse(contents);
+    const songSrc = `./localdata/${src}`;
+    const lrcPath = `${preFold}/localdata/${lrc}`;
+    const lrcContents = await readFile(lrcPath, { encoding: "utf-8" });
+    const buffer = await readFile(`${preFold}/localdata/${src}`);
     const info = mp3Duration(buffer, buffer.length);
-    const backData = { src, singerName, songName, ...info };
+    const backData = { src: songSrc, lrc: lrcContents, singerName, songName, ...info };
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(backData));
   });

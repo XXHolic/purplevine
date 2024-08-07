@@ -22,12 +22,12 @@ const getSheetList = () => {
           ? "lmp-sheet-default"
           : "lmp-sheet-dele lmp-cursor-pointer";
         const rowCls = index % 2 ? "" : "lmp-sheet-odd";
-        acc += `<div class="lmp-sheet-row ${rowCls}" data-id=${listId} data-name=${listName}>
-                  <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer" data-id=${listId} data-name=${listName} data-type="jump">${listName}</span></div>
+        acc += `<div class="lmp-sheet-row ${rowCls}" data-id="${listId}" data-name="${listName}">
+                  <div class="lmp-sheet-name"><span class="lmp-sheet-desc lmp-cursor-pointer" data-id="${listId}" data-name="${listName}" data-type="jump">${listName}</span></div>
                   <div class="lmp-sheet-operate">
-                  <div class="${editClassName}" title="编辑"><i class="fa-solid fa-pencil fa-lg" data-name=${listName} data-id=${listId} data-type="edit"></i></div>
-                    <div class="${deleClassName}" title="删除"><i class="fa-solid fa-trash-can fa-lg" data-id=${listId} data-type="dele"></i></div>
-                    <div class="lmp-sheet-drag lmp-cursor-pointer" title="拖动排序"><i class="fa-solid fa-bars fa-lg" data-id=${listId} data-type="sort"></i></div>
+                  <div class="${editClassName}" title="编辑"><i class="fa-solid fa-pencil fa-lg" data-name="${listName}" data-id="${listId}" data-type="edit"></i></div>
+                    <div class="${deleClassName}" title="删除"><i class="fa-solid fa-trash-can fa-lg" data-id="${listId}" data-type="dele"></i></div>
+                    <div class="lmp-sheet-drag lmp-cursor-pointer" title="拖动排序"><i class="fa-solid fa-bars fa-lg" data-id="${listId}" data-type="sort"></i></div>
                   </div>
                 </div>`;
         return acc;
@@ -92,25 +92,25 @@ const getSheetDetail = async (params) => {
       const listStr = songList.reduce((acc, cur, index) => {
         const { singerId, singerName, songId, songName } = cur;
         const rowCls = index % 2 ? "" : "lmp-song-odd";
-        acc += `<div class="lmp-song-row ${rowCls}" data-songid=${songId} data-songname=${songName} data-singername=${singerName} data-singerid=${singerId}>
+        acc += `<div class="lmp-song-row ${rowCls}" data-songid="${songId}" data-songname="${songName}" data-singername="${singerName}" data-singerid="${singerId}">
                         <div class="lmp-song-name">${songName}</div>
                         <div class="lmp-song-singer">
-                          <span class="lmp-song-span lmp-cursor-pointer" data-id=${singerId} data-name=${singerName} data-type="jump">${singerName}</span>
+                          <span class="lmp-song-span lmp-cursor-pointer" data-id="${singerId}" data-name="${singerName}" data-type="jump">${singerName}</span>
                         </div>
                         <div class="lmp-song-operate">
                           <div class="lmp-operate-play lmp-cursor-pointer" title="播放">
-                            <i class="fa-regular fa-circle-play fa-lg" data-id=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="play"></i>
+                            <i class="fa-regular fa-circle-play fa-lg" data-id="${songId}"  data-songname="${songName}" data-singername="${singerName}" data-singerid="${singerId}" data-type="play"></i>
                           </div>
                           <div class="lmp-operate-add lmp-cursor-pointer" title="加入播放列表">
-                            <i class="fa-solid fa-plus fa-lg" data-id=${songId}  data-songname=${songName} data-singername=${singerName} data-singerid=${singerId} data-type="add"></i>
+                            <i class="fa-solid fa-plus fa-lg" data-id="${songId}"  data-songname="${songName}" data-singername="${singerName}" data-singerid="${singerId}" data-type="add"></i>
                           </div>
                           <div class="lmp-operate-add lmp-cursor-pointer" title="移动">
-                            <i class="fa-solid fa-folder fa-lg" data-id=${songId} data-type="move"></i>
+                            <i class="fa-solid fa-folder fa-lg" data-id="${songId}" data-type="move"></i>
                           </div>
                           <div class="lmp-operate-dele lmp-cursor-pointer" title="移除">
-                            <i class="fa-solid fa-trash-can fa-lg" data-id=${songId} data-type="dele"></i>
+                            <i class="fa-solid fa-trash-can fa-lg" data-id="${songId}" data-type="dele"></i>
                           </div>
-                          <div class="lmp-operate-drag lmp-cursor-pointer" title="拖拽排序" data-id=${songId}>
+                          <div class="lmp-operate-drag lmp-cursor-pointer" title="拖拽排序" data-id="${songId}">
                             <i class="fa-solid fa-bars fa-lg"></i>
                           </div>
                         </div>
