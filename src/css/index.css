@@ -370,3 +370,15 @@
 .lmp-lrc-row.active {
   opacity: 1;
 }
+
+.lmp-lrc-full {
+  height: 600px;
+  overflow: auto;
+  text-align: center;
+}
+
+.lmp-full-row {
+  line-height: 30px;
+  font-size: 20px;
+  color: #999;
+}

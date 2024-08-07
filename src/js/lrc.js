@@ -1,11 +1,14 @@
 
+import { addEventOnce } from "./util.js";
+
+
 const lmpLrc = document.querySelector('#lmpLrc');
 
 const formatTime = (str) => {
   const timeArr = str.split(":");
   const secTime = parseFloat(timeArr[1]);
   const sec = parseFloat(timeArr[0]) * 60 + secTime;
-  return Number(sec.toFixed());
+  return sec;
 }
 
 const formatLrc = (str) => {
@@ -28,7 +31,6 @@ const initLrc = (str) => {
     acc += `<div class="lmp-lrc-row" data-index=${index}>${text}</div>`;
     return acc;
   }, '')
-
   lmpLrc.innerHTML = eleStr;
 }
 
@@ -67,4 +69,21 @@ const moveLrc = (time) => {
   lmpLrc.style.transform = `translateY(-${movePy}px)`;
 }
 
-export { formatLrc, initLrc, moveLrc };
+const showFullLrc = () => {
+  const lrcDia = document.querySelector('#lrcDia');
+  const lrcDiaClose = document.querySelector('#lrcDiaClose');
+  const lrcFullSection = document.querySelector('#lrcFullSection');
+  const eleStr = lrcData.reduce((acc, cur, index) => {
+    const { time, text } = cur;
+    acc += `<div class="lmp-full-row">${text}</div>`;
+    return acc;
+  }, '')
+  lrcFullSection.innerHTML = eleStr;
+  lrcDia.showModal();
+  addEventOnce(lrcDiaClose, "click", (e) => {
+    lrcFullSection.scrollTop = 0;
+    lrcDia.close();
+  });
+}
+
+export { formatLrc, initLrc, moveLrc, showFullLrc };

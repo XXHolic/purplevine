@@ -131,6 +131,9 @@
           <!-- <i class="fa-solid fa-shuffle fa-lg lmp-dn" id="playerCycleRandom" data-type="playRandom"></i> -->
           <i class="fa-solid fa-repeat fa-lg " style="display: block;" id="playerCycleOrder" data-type="playOrder"></i>
         </div>
+        <div class="lmp-player-list lmp-cursor-pointer" data-type="lrc">
+          词
+        </div>
         <div class="lmp-player-list lmp-cursor-pointer">
           <i class="fa-solid fa-file-lines fa-lg" data-type="list"></i>
         </div>
@@ -167,6 +170,12 @@
       <button id="sheetMoveConfirm">
         确定<i style="display: none;" class="fa-solid fa-spinner fa-spin" id="sheetMoveSpin"></i>
       </button>
+    </div>
+  </dialog>
+  <dialog id="lrcDia">
+    <div class="lmp-lrc-full" id="lrcFullSection"></div>
+    <div class="lmp-dia-btn">
+      <button id="lrcDiaClose">关闭</button>
     </div>
   </dialog>
   <div class="lmp-spin lmp-dn" id="lmpSpin">

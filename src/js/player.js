@@ -10,7 +10,7 @@ import {
   getSongMsg,
 } from "./util.js";
 import { collectSong } from "./singer.js";
-import { initLrc, moveLrc } from "./lrc.js";
+import { initLrc, moveLrc, showFullLrc } from "./lrc.js";
 
 const expando = "player" + new Date().getTime();
 class AudioPlayer {
@@ -379,7 +379,8 @@ const audioEvent = () => {
         audioEle.loop = false;
         break;
       }
-      case "playRandom": {
+      case "lrc": {
+        showFullLrc();
         break;
       }
       case "playOrder": {
