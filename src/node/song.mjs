@@ -56,13 +56,13 @@ const getSong = (req, res) => {
     const contents = await readFile(targetPath, { encoding: "utf-8" });
     const contentsObj = JSON.parse(contents)
     const { songName, singerName, type, src, lrc, playCount, singerId } = contentsObj;
-    const songSrc = `./localdata/${src}`;
-    const lrcPath = `${preFold}/localdata/${lrc}`;
+    const songSrc = `./localdata/${singerId}/${src}`;
+    const lrcPath = `${preFold}/localdata/${singerId}/${lrc}`;
     let lrcContents = ''
     if (existsSync(lrcPath)) {
       lrcContents = await readFile(lrcPath, { encoding: "utf-8" });
     }
-    const result = await parseFile(`${preFold}/localdata/${src}`, { duration: true, skipCovers: true });
+    const result = await parseFile(`${preFold}/localdata/${singerId}/${src}`, { duration: true, skipCovers: true });
     const info = { format: formatDuration(result.format.duration) };
     const backData = { src: songSrc, lrc: lrcContents, singerName, songName, ...info };
     res.writeHead(200, { "Content-Type": "application/json" });
