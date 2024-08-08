@@ -1,8 +1,10 @@
+import { existsSync } from "node:fs";
 import { readFile, writeFile, unlink } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseFile } from "../asset/js/metadata/lib/index.js";
 import { dealPost, backOkMsg, backErrMsg, formatDuration } from "./util.mjs";
+import { sortSingerSong } from "../script/getSingerSong.mjs";
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url)
@@ -52,15 +54,23 @@ const getSong = (req, res) => {
     const { songId } = params;
     const targetPath = `${preFold}/localdatajson/song${songId}.json`;
     const contents = await readFile(targetPath, { encoding: "utf-8" });
-    const { songName, singerName, type, src, lrc } = JSON.parse(contents);
+    const contentsObj = JSON.parse(contents)
+    const { songName, singerName, type, src, lrc, playCount, singerId } = contentsObj;
     const songSrc = `./localdata/${src}`;
     const lrcPath = `${preFold}/localdata/${lrc}`;
-    const lrcContents = await readFile(lrcPath, { encoding: "utf-8" });
+    let lrcContents = ''
+    if (existsSync(lrcPath)) {
+      lrcContents = await readFile(lrcPath, { encoding: "utf-8" });
+    }
     const result = await parseFile(`${preFold}/localdata/${src}`, { duration: true, skipCovers: true });
     const info = { format: formatDuration(result.format.duration) };
     const backData = { src: songSrc, lrc: lrcContents, singerName, songName, ...info };
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(backData));
+    // 单独文件和合集文件的统计
+    contentsObj.playCount = playCount + 1;
+    writeFile(targetPath, JSON.stringify(contentsObj))
+    sortSingerSong({ songId, singerId })
   });
 };
 

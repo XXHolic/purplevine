@@ -1,9 +1,10 @@
 import { readFileSync, writeFileSync } from "node:fs";
-
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 // 考虑到后面歌手可能多了，每次都全部解析合并一次没有必要，
 // 做成可根据 id 来进行指定拉取合并
 
-const targetSingerId = 5;
+const targetSingerId = 3;
 const songs = [];
 
 // 按照播放次数从多到少排序
@@ -27,8 +28,13 @@ const dataSort = (arr) => {
   }
 };
 
+// 这个是针对 pm2 启动时无法找到路径的问题
+const fileName = fileURLToPath(import.meta.url);
+const currentFold = dirname(fileName);
+const preFold = resolve(currentFold, '..');
+
 const getData = (params) => {
-  const filePath = "./songsPath.json";
+  const filePath = `${currentFold}/songsPath.json`;
   const fileContent = readFileSync(filePath, { encoding: "utf-8" });
   const fileArr = JSON.parse(fileContent);
   let len = fileArr.length;
@@ -43,9 +49,22 @@ const getData = (params) => {
   dataSort(songs);
   // 取播放量最多的前 30 首
   const writeContent = songs.slice(0, 30);
-  const writePath = `../json/singer${params}.json`;
+  const writePath = `${preFold}/json/singer${params}.json`;
   writeFileSync(writePath, JSON.stringify(writeContent));
   console.log("歌手对应所有歌曲文件生成成功");
 };
 
+const sortSingerSong = ({ songId, singerId }) => {
+  const filePath = `${preFold}/json/singer${singerId}.json`;
+  const fileContent = readFileSync(filePath, { encoding: "utf-8" });
+  const fileArr = JSON.parse(fileContent);
+  const playTarget = fileArr.find(ele => ele.songId == songId);
+  playTarget.playCount = playTarget.playCount + 1;
+  dataSort(fileArr);
+  writeFileSync(filePath, JSON.stringify(fileArr));
+  console.log("歌手对应歌曲排序结束");
+};
+
 getData(targetSingerId);
+
+export { sortSingerSong };

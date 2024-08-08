@@ -25,6 +25,12 @@ const formatLrc = (str) => {
 let lrcData = [];
 
 const initLrc = (str) => {
+  if (!str) {
+    lrcData = [];
+    lmpLrc.innerHTML = '';
+    lmpLrc.style.transform = `translateY(0)`;
+    return;
+  }
   lrcData = formatLrc(str);
   const eleStr = lrcData.reduce((acc, cur, index) => {
     const { time, text } = cur;
@@ -47,6 +53,9 @@ const getPlayIndex = (playTime) => {
 }
 
 const moveLrc = (time) => {
+  if (!lrcData.length) {
+    return;
+  }
   const playIndex = getPlayIndex(time);
   const containerHeight = 70;
   const lrcRow = document.querySelector('.lmp-lrc-row');
@@ -78,7 +87,7 @@ const showFullLrc = () => {
     acc += `<div class="lmp-full-row">${text}</div>`;
     return acc;
   }, '')
-  lrcFullSection.innerHTML = eleStr;
+  lrcFullSection.innerHTML = eleStr ? eleStr : '<div class="lmp-full-row">暂无歌词</div>';
   lrcDia.showModal();
   addEventOnce(lrcDiaClose, "click", (e) => {
     lrcFullSection.scrollTop = 0;
