@@ -1,8 +1,8 @@
 import { readFile, writeFile, unlink } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { mp3Duration } from "../asset/js/mp3Duration.mjs";
-import { dealPost, backOkMsg, backErrMsg } from "./util.mjs";
+import { parseFile } from "../asset/js/metadata/lib/index.js";
+import { dealPost, backOkMsg, backErrMsg, formatDuration } from "./util.mjs";
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url)
@@ -56,8 +56,8 @@ const getSong = (req, res) => {
     const songSrc = `./localdata/${src}`;
     const lrcPath = `${preFold}/localdata/${lrc}`;
     const lrcContents = await readFile(lrcPath, { encoding: "utf-8" });
-    const buffer = await readFile(`${preFold}/localdata/${src}`);
-    const info = mp3Duration(buffer, buffer.length);
+    const result = await parseFile(`${preFold}/localdata/${src}`, { duration: true, skipCovers: true });
+    const info = { format: formatDuration(result.format.duration) };
     const backData = { src: songSrc, lrc: lrcContents, singerName, songName, ...info };
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(JSON.stringify(backData));

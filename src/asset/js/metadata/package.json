@@ -1,0 +1,143 @@
+{
+  "name": "music-metadata",
+  "description": "Music metadata parser for Node.js, supporting virtual any audio and tag format.",
+  "version": "10.0.1",
+  "author": {
+    "name": "Borewit",
+    "url": "https://github.com/Borewit"
+  },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/Borewit"
+    },
+    {
+      "type": "buymeacoffee",
+      "url": "https://buymeacoffee.com/borewit"
+    }
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "node": "./lib/index.js",
+      "default": "./lib/core.js"
+    }
+  },
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*.js",
+    "lib/**/*.d.ts"
+  ],
+  "keywords": [
+    "music",
+    "metadata",
+    "meta",
+    "audio",
+    "tag",
+    "tags",
+    "duration",
+    "MusicBrainz",
+    "Discogs",
+    "Picard",
+    "ID3",
+    "ID3v1",
+    "ID3v2",
+    "m4a",
+    "m4b",
+    "mp3",
+    "mp4",
+    "Vorbis",
+    "ogg",
+    "flac",
+    "Matroska",
+    "WebM",
+    "EBML",
+    "asf",
+    "wma",
+    "wmv",
+    "ape",
+    "MonkeyAudio",
+    "aiff",
+    "wav",
+    "WavPack",
+    "Opus",
+    "speex",
+    "musepack",
+    "mpc",
+    "dsd",
+    "dsf",
+    "mpc",
+    "dff",
+    "dsdiff",
+    "aac",
+    "adts",
+    "length",
+    "chapter",
+    "info",
+    "parse",
+    "parser",
+    "bwf"
+  ],
+  "scripts": {
+    "clean": "del-cli 'lib/**/*.js' 'lib/**/*.js.map' 'lib/**/*.d.ts' 'src/**/*.d.ts' 'test/**/*.js' 'test/**/*.js.map' 'test/**/*.js' 'test/**/*.js.map' 'doc-gen/**/*.js' 'doc-gen/**/*.js.map'",
+    "compile-src": "tsc -p lib",
+    "compile-test": "tsc -p test",
+    "compile-doc": "tsc -p doc-gen",
+    "compile": "yarn run  compile-src && yarn compile-test && yarn compile-doc",
+    "eslint": "eslint lib test doc-gen",
+    "lint-md": "yarn run remark -u preset-lint-markdown-style-guide .",
+    "lint": "yarn run lint-md && yarn run eslint",
+    "test": "mocha",
+    "build": "yarn run clean && yarn compile && yarn run doc-gen",
+    "start": "yarn run compile && yarn run lint && yarn run cover-test",
+    "test-coverage": "c8 yarn run test",
+    "send-codacy": "c8 report --reporter=text-lcov | codacy-coverage",
+    "doc-gen": "yarn node doc-gen/gen.js"
+  },
+  "dependencies": {
+    "@tokenizer/token": "^0.3.0",
+    "content-type": "^1.0.5",
+    "debug": "^4.3.4",
+    "file-type": "^19.2.0",
+    "media-typer": "^1.1.0",
+    "strtok3": "^8.0.2",
+    "token-types": "^6.0.0",
+    "uint8array-extras": "^1.4.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.7.0",
+    "@types/chai": "^4.3.16",
+    "@types/chai-as-promised": "^7.1.8",
+    "@types/debug": "^4.1.12",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^22.0.3",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
+    "c8": "^10.1.2",
+    "chai": "^5.1.1",
+    "chai-as-promised": "^8.0.0",
+    "del-cli": "^5.1.0",
+    "globals": "^15.8.0",
+    "mime": "^4.0.4",
+    "mocha": "^10.6.0",
+    "prettier": "^3.3.3",
+    "remark-cli": "^12.0.1",
+    "remark-preset-lint-markdown-style-guide": "^6.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borewit/music-metadata.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Borewit/music-metadata/issues"
+  },
+  "packageManager": "yarn@4.3.1"
+}

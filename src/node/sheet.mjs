@@ -1,8 +1,6 @@
 import { readFile, writeFile, unlink } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-// import MP3Tag from "../asset/js/mp3tag/mp3tag.mjs";
-// import { mp3Duration } from "../asset/js/mp3Duration.mjs";
 import { dealPost, backOkMsg, backErrMsg } from "./util.mjs";
 
 
@@ -14,13 +12,6 @@ const allListPath = `${preFold}/json/allList.json`;
 
 const sheetList = async (res) => {
   const contents = await readFile(allListPath, { encoding: "utf-8" });
-  // 下面是测试
-  // const buffer = await readFile("../localdata/信仰.mp3");
-  // const mp3tag = new MP3Tag(buffer, true);
-  // mp3tag.read();
-  // console.log(mp3tag.tags);
-  // const info = mp3Duration(buffer, buffer.length);
-  // console.log(info);
   res.writeHead(200, { "Content-Type": "application/json" });
   res.end(contents);
 };

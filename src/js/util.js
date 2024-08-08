@@ -23,7 +23,7 @@ const info = {
     ele.style.display = "block";
     ele.innerHTML = `<div style="color:red">${str}</div>`;
     setTimeout(() => {
-      ele.innerHTML='';
+      ele.innerHTML = '';
       ele.style.display = "none";
     }, time);
   },
@@ -66,11 +66,11 @@ const showTrigger = {
 
 // 避免重复绑定事件
 const addEventOnce = (ele, eventName, handler) => {
-    if (ele.clickHandler) {
-      ele.removeEventListener(eventName, ele.clickHandler);
-    }
-    ele.clickHandler = handler;
-    ele.addEventListener(eventName, ele.clickHandler);
+  if (ele.clickHandler) {
+    ele.removeEventListener(eventName, ele.clickHandler);
+  }
+  ele.clickHandler = handler;
+  ele.addEventListener(eventName, ele.clickHandler);
 }
 
 const formatSeconds = (times) => {
