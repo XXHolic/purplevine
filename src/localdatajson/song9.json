@@ -1,1 +1,10 @@
-{"songId":9,"songName":"呓语","singerId":3,"singerName":"毛不易","playCount":3,"type":"flac","src":"呓语.flac","lrc":"呓语.lrc"}
+{
+  "songId": 9,
+  "songName": "呓语",
+  "singerId": 3,
+  "singerName": "毛不易",
+  "playCount": 3,
+  "type": "flac",
+  "src": "9.flac",
+  "lrc": "9.lrc"
+}

@@ -1,10 +1,1 @@
-{
-  "songId": 1,
-  "songName": "青花瓷",
-  "singerId": 1,
-  "singerName": "周杰伦",
-  "playCount": 0,
-  "type": "mp3",
-  "src": "青花瓷.mp3",
-  "lrc": "青花瓷.lrc"
-}
+{"songId":1,"songName":"青花瓷","singerId":1,"singerName":"周杰伦","playCount":1,"type":"mp3","src":"1.mp3","lrc":"1.lrc"}

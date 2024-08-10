@@ -1,10 +1,1 @@
-{
-  "songId": 2,
-  "songName": "信仰",
-  "singerId": 2,
-  "singerName": "张信哲",
-  "playCount": 0,
-  "type": "mp3",
-  "src": "信仰.mp3",
-  "lrc": "信仰.lrc"
-}
+{"songId":2,"songName":"信仰","singerId":2,"singerName":"张信哲","playCount":1,"type":"mp3","src":"2.mp3","lrc":"2.lrc"}

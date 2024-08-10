@@ -1,1 +1,10 @@
-{"songId":11,"songName":"东北民谣","singerId":3,"singerName":"毛不易","playCount":1,"type":"flac","src":"东北民谣.flac","lrc":"东北民谣.lrc"}
+{
+  "songId": 11,
+  "songName": "东北民谣",
+  "singerId": 3,
+  "singerName": "毛不易",
+  "playCount": 1,
+  "type": "flac",
+  "src": "11.flac",
+  "lrc": "11.lrc"
+}
