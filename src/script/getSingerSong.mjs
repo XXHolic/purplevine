@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 // 考虑到后面歌手可能多了，每次都全部解析合并一次没有必要，
 // 做成可根据 id 来进行指定拉取合并
 
-const targetSingerId = 2;
+const targetSingerId = 1;
 const songs = [];
 
 // 按照播放次数从多到少排序
@@ -47,8 +47,8 @@ const getData = (params) => {
     }
   }
   dataSort(songs);
-  // 取播放量最多的前 30 首
-  const writeContent = songs.slice(0, 30);
+  // 取播放量最多的前 50 首
+  const writeContent = songs.slice(0, 50);
   const writePath = `${preFold}/json/singer${params}.json`;
   writeFileSync(writePath, JSON.stringify(writeContent));
   console.log("歌手对应所有歌曲文件生成成功");

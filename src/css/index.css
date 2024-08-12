@@ -383,3 +383,12 @@
   font-size: 20px;
   color: #999;
 }
+
+.lmp-singer-self {
+  height: 100%;
+}
+
+.lmp-song-tbody {
+  overflow-y: auto;
+  height: calc(100% - 160px);
+}

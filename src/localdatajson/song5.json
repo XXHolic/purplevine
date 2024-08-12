@@ -1,10 +1,1 @@
-{
-  "songId": 5,
-  "songName": "稻香",
-  "singerId": 1,
-  "singerName": "周杰伦",
-  "playCount": 0,
-  "type": "mp3",
-  "src": "5.mp3",
-  "lrc": "5.lrc"
-}
+{"songId":5,"songName":"稻香","singerId":1,"singerName":"周杰伦","playCount":2,"type":"flac","src":"5.flac","lrc":"5.lrc"}
