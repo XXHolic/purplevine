@@ -88,7 +88,8 @@ const getSheetDetail = async (params) => {
   try {
     const { status, data } = await axios.post(api.sheetDetail, params);
     if (status === 200) {
-      const { listId, listName, songList } = data;
+      const { listId, listName, songList = [] } = data;
+      const total = songList.length;
       const listStr = songList.reduce((acc, cur, index) => {
         const { singerId, singerName, songId, songName } = cur;
         const rowCls = index % 2 ? "" : "lmp-song-odd";
@@ -119,6 +120,8 @@ const getSheetDetail = async (params) => {
       }, "");
       const listObj = document.querySelector("#sheetDetailList");
       listObj.innerHTML = listStr;
+      const sheetDetailTotal = document.querySelector("#sheetDetailTotal");
+      sheetDetailTotal.innerHTML = `共 ${total} 首`;
       setTimeout(() => {
         const hasInstance = Sortable.get(listObj);
         if (!hasInstance) {

@@ -9,6 +9,7 @@ const getSingerSelf = async (params) => {
   try {
     const { status, data } = await axios.post(api.singerMusic, params);
     if (status === 200) {
+      const total = data.length;
       const listStr = data.reduce((acc, cur, index) => {
         const { singerId, singerName, songId, songName } = cur;
         const rowCls = index % 2 ? "" : "lmp-song-odd";
@@ -30,6 +31,8 @@ const getSingerSelf = async (params) => {
       }, "");
       const listObj = document.querySelector("#singerSelfList");
       listObj.innerHTML = listStr;
+      const singerSelfTotal = document.querySelector("#singerSelfTotal");
+      singerSelfTotal.innerHTML = `共 ${total} 首`;
     }
   } catch (error) {
     console.error(error);
