@@ -41,7 +41,7 @@ const getList = async (params) => {
       if (params.key) {
         return;
       }
-      const pageCount = Math.round(total / pageSize);
+      const pageCount = Math.ceil(total / pageSize);
       let pageStr = "";
       for (let index = 0; index < pageCount; index++) {
         const pageNum = index + 1;

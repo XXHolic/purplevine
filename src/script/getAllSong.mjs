@@ -7,7 +7,7 @@ const getData = () => {
   let len = fileArr.length;
   let music = [];
   const pageSize = 100;
-  const count = Math.round(len / pageSize);
+  const count = Math.ceil(len / pageSize);
   const countUse = count ? count : 1;
   for (let num = 0; num < countUse; num++) {
     const sliceArr = fileArr.slice(num * pageSize, num * pageSize + pageSize);
