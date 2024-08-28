@@ -1,0 +1,46 @@
+[
+  {
+    "singerId": 1,
+    "singerName": "周杰伦"
+  },
+  {
+    "singerId": 2,
+    "singerName": "张信哲"
+  },
+  {
+    "singerId": 3,
+    "singerName": "毛不易"
+  },
+  {
+    "singerId": 4,
+    "singerName": "唐汉霄"
+  },
+  {
+    "singerId": 5,
+    "singerName": "The Beatles"
+  },
+  {
+    "singerId": 6,
+    "singerName": "王力宏"
+  },
+  {
+    "singerId": 7,
+    "singerName": "陈奕迅"
+  },
+  {
+    "singerId": 8,
+    "singerName": "林俊杰"
+  },
+  {
+    "singerId": 9,
+    "singerName": "李荣浩"
+  },
+  {
+    "singerId": 10,
+    "singerName": "薛之谦"
+  },
+  {
+    "singerId": 11,
+    "singerName": "周传雄"
+  }
+]
