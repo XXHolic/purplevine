@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 // 考虑到后面歌手可能多了，每次都全部解析合并一次没有必要，
 // 做成可根据 id 来进行指定拉取合并
 
-const targetSingerId = 11;
+const targetSingerId = 14;
 const songs = [];
 
 // 按照播放次数从多到少排序
@@ -33,6 +33,7 @@ const fileName = fileURLToPath(import.meta.url);
 const currentFold = dirname(fileName);
 const preFold = resolve(currentFold, '..');
 
+// 这个是从所有数据中筛选后再集合生成
 const getData = (params) => {
   const filePath = `${currentFold}/songsPath.json`;
   const fileContent = readFileSync(filePath, { encoding: "utf-8" });
@@ -54,17 +55,35 @@ const getData = (params) => {
   console.log(`${targetSingerId}号歌手歌曲整理完成`);
 };
 
-const sortSingerSong = ({ songId, singerId }) => {
-  const filePath = `${preFold}/json/singer${singerId}.json`;
-  const fileContent = readFileSync(filePath, { encoding: "utf-8" });
-  const fileArr = JSON.parse(fileContent);
-  const playTarget = fileArr.find(ele => ele.songId == songId);
-  playTarget.playCount = playTarget.playCount + 1;
-  dataSort(fileArr);
-  writeFileSync(filePath, JSON.stringify(fileArr));
-  console.log("歌手对应歌曲排序结束");
+// 这个是指定对应文件，直接集合生成。大多数整理的时候是连续的文件序号，所以可以利用循环指定序号范围
+/**
+ *
+ * @param start 文件序号的开始
+ * @param end 文件序号的结束
+ * @param extra 如果不是顺序的文件，就手动添加进来
+ */
+const createData = (start, end, extra = []) => {
+  let fileArr = [];
+  for (let index = start; index <= end; index++) {
+    // 路径的生成默认是Windows 平台的，如果在其它平台报错的话，注意进行调整
+    const pathStr = `..\\localdatajson\\song${index}.json`;
+    fileArr.push(pathStr);
+  }
+  fileArr = fileArr.concat(extra);
+  let len = fileArr.length;
+  for (let index = 0; index < len; index++) {
+    const content = readFileSync(fileArr[index], { encoding: "utf-8" });
+    const contentsObj = JSON.parse(content);
+    songs.push(contentsObj);
+  }
+  dataSort(songs);
+  // 取播放量最多的前 50 首
+  const writeContent = songs.slice(0, 50);
+  const writePath = `${preFold}/json/singer${targetSingerId}.json`;
+  writeFileSync(writePath, JSON.stringify(writeContent));
+  console.log(`${targetSingerId}号歌手歌曲整理完成`);
 };
 
-getData(targetSingerId);
+// getData(targetSingerId);
+createData(189, 192);
 
-export { sortSingerSong };

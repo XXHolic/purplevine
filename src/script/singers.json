@@ -42,5 +42,17 @@
   {
     "singerId": 11,
     "singerName": "周传雄"
+  },
+  {
+    "singerId": 12,
+    "singerName": "赵雷"
+  },
+  {
+    "singerId": 13,
+    "singerName": "谢安琪"
+  },
+  {
+    "singerId": 14,
+    "singerName": "周深"
   }
 ]

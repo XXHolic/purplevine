@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
-const getData = () => {
+const separateData = () => {
   const filePath = "./songsPath.json";
   const fileContent = readFileSync(filePath, { encoding: "utf-8" });
   const fileArr = JSON.parse(fileContent);
@@ -32,4 +32,4 @@ const getData = () => {
   }
 };
 
-getData();
+separateData();

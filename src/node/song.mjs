@@ -1,10 +1,9 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { readFile, writeFile, unlink } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseFile } from "../asset/js/metadata/lib/index.js";
-import { dealPost, backOkMsg, backErrMsg, formatDuration } from "./util.mjs";
-import { sortSingerSong } from "../script/getSingerSong.mjs";
+import { dealPost, backOkMsg, backErrMsg, formatDuration, dataSort } from "./util.mjs";
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url)
@@ -47,6 +46,17 @@ const getMusic = (req, res) => {
     res.writeHead(200, { "Content-Type": "application/json" });
     res.end(contents);
   });
+};
+
+const sortSingerSong = ({ songId, singerId }) => {
+  const filePath = `${preFold}/json/singer${singerId}.json`;
+  const fileContent = readFileSync(filePath, { encoding: "utf-8" });
+  const fileArr = JSON.parse(fileContent);
+  const playTarget = fileArr.find(ele => ele.songId == songId);
+  playTarget.playCount = playTarget.playCount + 1;
+  dataSort(fileArr);
+  writeFileSync(filePath, JSON.stringify(fileArr));
+  console.log("歌手对应歌曲排序结束");
 };
 
 const getSong = (req, res) => {
