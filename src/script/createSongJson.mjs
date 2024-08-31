@@ -2,8 +2,8 @@ import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, rename 
 import { basename, dirname, resolve, join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const targetSingerId = 16;
-const targetSingerName = '华晨宇';
+const targetSingerId = 17;
+const targetSingerName = '李宗盛';
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url);
@@ -85,5 +85,5 @@ const createData = (start) => {
 };
 
 getFilePath()
-createData(201);
+createData(211);
 
