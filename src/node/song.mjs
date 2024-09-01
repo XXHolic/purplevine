@@ -62,7 +62,7 @@ const sortSingerSong = ({ songId, singerId }) => {
 const getSong = (req, res) => {
   dealPost(req, async (params) => {
     const { songId } = params;
-    const targetPath = `${preFold}/localdatajson/song${songId}.json`;
+    const targetPath = `${preFold}/localdatajson/${params.singerId}/song${songId}.json`;
     const contents = await readFile(targetPath, { encoding: "utf-8" });
     const contentsObj = JSON.parse(contents)
     const { songName, singerName, type, src, lrc, playCount, singerId } = contentsObj;

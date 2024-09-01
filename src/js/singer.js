@@ -33,6 +33,9 @@ const getSingerSelf = async (params) => {
       listObj.innerHTML = listStr;
       const singerSelfTotal = document.querySelector("#singerSelfTotal");
       singerSelfTotal.innerHTML = `共 ${total} 首`;
+      setTimeout(() => {
+        listObj.scrollTop = 0;
+      }, 500);
     }
   } catch (error) {
     console.error(error);

@@ -66,7 +66,7 @@ const createData = (start, end, extra = []) => {
   let fileArr = [];
   for (let index = start; index <= end; index++) {
     // 路径的生成默认是Windows 平台的，如果在其它平台报错的话，注意进行调整
-    const pathStr = `..\\localdatajson\\song${index}.json`;
+    const pathStr = `..\\localdatajson\\${targetSingerId}\\song${index}.json`;
     fileArr.push(pathStr);
   }
   fileArr = fileArr.concat(extra);

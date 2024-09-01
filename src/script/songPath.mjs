@@ -2,8 +2,7 @@ import { readdirSync, statSync, existsSync, writeFileSync } from "node:fs";
 import { join, extname } from "node:path";
 
 const fileArr = [];
-const getFilePath = () => {
-  const dir = "../localdatajson";
+const getFilePath = (dir) => {
   const exist = existsSync(dir);
   // 排除不需要遍历的文件夹或文件
   const excludeDir = /^(\.|node_module)/;
@@ -33,5 +32,5 @@ const createFile = () => {
   console.log("记录所有歌曲文件路径文件生成成功");
 };
 
-getFilePath();
+getFilePath("../localdatajson");
 createFile();

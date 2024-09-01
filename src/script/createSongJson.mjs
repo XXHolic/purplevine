@@ -1,9 +1,9 @@
-import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, rename } from "node:fs";
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, rename, mkdirSync } from "node:fs";
 import { basename, dirname, resolve, join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const targetSingerId = 19;
-const targetSingerName = '许巍';
+const targetSingerName = '';
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url);
@@ -77,13 +77,40 @@ const createData = (start) => {
         console.log('歌词文件重命名失败')
       }
     });
-    const writePath = `${preFold}/localdatajson/song${songId}.json`;
+    const writePath = `${preFold}/localdatajson/${targetSingerId}/song${songId}.json`;
     writeFileSync(writePath, JSON.stringify(objDemo));
     console.log(`${name} 歌曲 json 生成`);
   }
 
 };
 
-getFilePath()
+// 处理旧文件的方法，后面用不到了，留着做代码参考
+const moveFile = () => {
+  const foldPath = `../localdatajson/${targetSingerId}`;
+  if (!existsSync(foldPath)) {
+    mkdirSync(foldPath);
+  }
+  const filePath = "./songsPath.json";
+  const fileContent = readFileSync(filePath, { encoding: "utf-8" });
+  const fileArr = JSON.parse(fileContent);
+  let len = fileArr.length;
+  let count = 0;
+  for (let num = 0; num < len; num++) {
+    const pathStr = fileArr[num];
+    const fileName = basename(pathStr);
+    const content = readFileSync(pathStr, { encoding: "utf-8" });
+    const contentsObj = JSON.parse(content);
+    const { songId, songName, singerId } = contentsObj;
+    if (singerId == targetSingerId) {
+      const writePath = `${foldPath}/${fileName}`;
+      writeFileSync(writePath, content);
+      count = count + 1;
+    }
+  }
+  console.log(`${targetSingerId} 号歌手共 ${count} 首歌曲集合完成`);
+}
+
+getFilePath();
 createData(227);
+
 
