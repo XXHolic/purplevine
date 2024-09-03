@@ -74,5 +74,37 @@
   {
     "singerId": 19,
     "singerName": "许巍"
+  },
+  {
+    "singerId": 20,
+    "singerName": "Beyond"
+  },
+  {
+    "singerId": 21,
+    "singerName": "F.I.R."
+  },
+  {
+    "singerId": 22,
+    "singerName": "大鹏"
+  },
+  {
+    "singerId": 23,
+    "singerName": "李健"
+  },
+  {
+    "singerId": 24,
+    "singerName": "彭佳慧"
+  },
+  {
+    "singerId": 25,
+    "singerName": "曲婉婷"
+  },
+  {
+    "singerId": 26,
+    "singerName": "陶喆"
+  },
+  {
+    "singerId": 27,
+    "singerName": "张宇"
   }
 ]

@@ -2,8 +2,8 @@ import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, rename,
 import { basename, dirname, resolve, join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const targetSingerId = 19;
-const targetSingerName = '';
+const targetSingerId = 27;
+const targetSingerName = '张宇';
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url);
@@ -77,6 +77,10 @@ const createData = (start) => {
         console.log('歌词文件重命名失败')
       }
     });
+    const foldPath = `../localdatajson/${targetSingerId}`;
+    if (!existsSync(foldPath)) {
+      mkdirSync(foldPath);
+    }
     const writePath = `${preFold}/localdatajson/${targetSingerId}/song${songId}.json`;
     writeFileSync(writePath, JSON.stringify(objDemo));
     console.log(`${name} 歌曲 json 生成`);
@@ -111,6 +115,6 @@ const moveFile = () => {
 }
 
 getFilePath();
-createData(227);
+createData(275);
 
 
