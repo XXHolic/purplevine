@@ -106,5 +106,41 @@
   {
     "singerId": 27,
     "singerName": "张宇"
+  },
+  {
+    "singerId": 28,
+    "singerName": "曹方"
+  },
+  {
+    "singerId": 29,
+    "singerName": "陈鸿宇"
+  },
+  {
+    "singerId": 30,
+    "singerName": "光良"
+  },
+  {
+    "singerId": 31,
+    "singerName": "林志炫"
+  },
+  {
+    "singerId": 32,
+    "singerName": "任贤齐"
+  },
+  {
+    "singerId": 33,
+    "singerName": "王菲"
+  },
+  {
+    "singerId": 34,
+    "singerName": "张杰"
+  },
+  {
+    "singerId": 35,
+    "singerName": "赵英俊"
+  },
+  {
+    "singerId": 36,
+    "singerName": "周华健"
   }
 ]

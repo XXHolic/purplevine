@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 // 考虑到后面歌手可能多了，每次都全部解析合并一次没有必要，
 // 做成可根据 id 来进行指定拉取合并
 
-const targetSingerId = 27;
+const targetSingerId = 31;
 const songs = [];
 
 // 按照播放次数从多到少排序
@@ -62,11 +62,11 @@ const getData = (params) => {
  * @param end 文件序号的结束
  * @param extra 如果不是顺序的文件，就手动添加进来
  */
-const createData = (start, end, extra = []) => {
+const createSingerAllSong = (singerId, start, end, extra = []) => {
   let fileArr = [];
   for (let index = start; index <= end; index++) {
     // 路径的生成默认是Windows 平台的，如果在其它平台报错的话，注意进行调整
-    const pathStr = `..\\localdatajson\\${targetSingerId}\\song${index}.json`;
+    const pathStr = `..\\localdatajson\\${singerId}\\song${index}.json`;
     fileArr.push(pathStr);
   }
   fileArr = fileArr.concat(extra);
@@ -79,11 +79,13 @@ const createData = (start, end, extra = []) => {
   dataSort(songs);
   // 取播放量最多的前 50 首
   const writeContent = songs.slice(0, 50);
-  const writePath = `${preFold}/json/singer${targetSingerId}.json`;
+  const writePath = `${preFold}/json/singer${singerId}.json`;
   writeFileSync(writePath, JSON.stringify(writeContent));
-  console.log(`${targetSingerId}号歌手歌曲整理完成`);
+  console.log(`${singerId}号歌手歌曲整理完成`);
 };
 
 // getData(targetSingerId);
-createData(275, 278);
+// createData(targetSingerId, 275, 278);
+
+export { createSingerAllSong }
 

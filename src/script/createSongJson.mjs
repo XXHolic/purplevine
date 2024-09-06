@@ -1,9 +1,12 @@
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync, rename, mkdirSync } from "node:fs";
 import { basename, dirname, resolve, join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createSingerAllSong } from './generateSingerSong.mjs';
+import { formatSingersData } from './formatSinger.mjs';
 
-const targetSingerId = 27;
-const targetSingerName = '张宇';
+const targetSingerId = 36;
+const targetSingerName = '周华健';
+const startNum = 334;
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url);
@@ -115,6 +118,9 @@ const moveFile = () => {
 }
 
 getFilePath();
-createData(275);
+createData(startNum);
+const endNum = startNum + fileArr.length - 1;
+createSingerAllSong(targetSingerId, startNum, endNum);
+formatSingersData();
 
 

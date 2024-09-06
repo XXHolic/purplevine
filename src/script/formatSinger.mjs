@@ -47,4 +47,6 @@ const formatSingersData = () => {
 };
 
 // getSingersData();
-formatSingersData();
+// formatSingersData();
+
+export { formatSingersData }
