@@ -142,5 +142,45 @@
   {
     "singerId": 36,
     "singerName": "周华健"
+  },
+  {
+    "singerId": 37,
+    "singerName": "陈势安"
+  },
+  {
+    "singerId": 38,
+    "singerName": "金志文"
+  },
+  {
+    "singerId": 39,
+    "singerName": "罗大佑"
+  },
+  {
+    "singerId": 40,
+    "singerName": "梅艳芳"
+  },
+  {
+    "singerId": 41,
+    "singerName": "尚雯婕"
+  },
+  {
+    "singerId": 42,
+    "singerName": "汪峰"
+  },
+  {
+    "singerId": 43,
+    "singerName": "西楼"
+  },
+  {
+    "singerId": 44,
+    "singerName": "杨宗纬"
+  },
+  {
+    "singerId": 45,
+    "singerName": "张碧晨"
+  },
+  {
+    "singerId": 46,
+    "singerName": "张敬轩"
   }
 ]
