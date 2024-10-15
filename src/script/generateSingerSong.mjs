@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 // 考虑到后面歌手可能多了，每次都全部解析合并一次没有必要，
 // 做成可根据 id 来进行指定拉取合并
 
-const targetSingerId = 31;
+const targetSingerId = 47;
 const songs = [];
 
 // 按照播放次数从多到少排序
@@ -85,7 +85,7 @@ const createSingerAllSong = (singerId, start, end, extra = []) => {
 };
 
 // getData(targetSingerId);
-// createData(targetSingerId, 275, 278);
+createSingerAllSong(targetSingerId, 389, 389);
 
 export { createSingerAllSong }
 

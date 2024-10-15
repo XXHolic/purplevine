@@ -43,7 +43,7 @@ const formatSingersData = () => {
   }
   const writePath = "../json/singers.json";
   writeFileSync(writePath, JSON.stringify(sortObj));
-  console.log("歌手整理完成");
+  console.log("所有歌手重新整理完成");
 };
 
 // getSingersData();
