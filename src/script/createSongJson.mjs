@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 import { createSingerAllSong } from './generateSingerSong.mjs';
 import { formatSingersData } from './formatSinger.mjs';
 
-const targetSingerId = 47;
-const targetSingerName = '陈楚生';
-const startNum = 389;
+const targetSingerId = 53;
+const targetSingerName = '潘玮柏';
+const startNum = 410;
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url);
@@ -87,6 +87,11 @@ const createData = (start) => {
     const writePath = `${preFold}/localdatajson/${targetSingerId}/song${songId}.json`;
     writeFileSync(writePath, JSON.stringify(objDemo));
     console.log(`${name} 歌曲 ${songId}.json 生成`);
+    // 记录最后一个生成文件的数字，方便下一次查找使用
+    if (index == len - 1) {
+      const maxNumPath = `./createMaxNum.json`;
+      writeFileSync(maxNumPath, JSON.stringify({ maxNum: songId }));
+    }
   }
 
 };
