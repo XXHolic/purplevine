@@ -177,7 +177,7 @@ const singerInit = () => {
         }, "");
 
         acc += `<div class="lmp-singer-row">
-                  <div>${cur.toLocaleUpperCase()}</div>
+                  <div class="lmp-singer-letter">${cur.toLocaleUpperCase()}</div>
                   <div class="lmp-singer-list">${listStr}</div>
                 </div>`;
         return acc;

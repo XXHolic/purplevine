@@ -234,5 +234,29 @@
   {
     "singerId": 59,
     "singerName": "张震岳"
+  },
+  {
+    "singerId": 60,
+    "singerName": "阿杜"
+  },
+  {
+    "singerId": 61,
+    "singerName": "陈冠蒲"
+  },
+  {
+    "singerId": 62,
+    "singerName": "刀郎"
+  },
+  {
+    "singerId": 63,
+    "singerName": "迪克牛仔"
+  },
+  {
+    "singerId": 64,
+    "singerName": "动力火车"
+  },
+  {
+    "singerId": 65,
+    "singerName": "韩磊"
   }
 ]

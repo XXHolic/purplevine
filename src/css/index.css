@@ -3,12 +3,15 @@
   align-items: center;
   justify-content: center;
 }
+
 .lmp-cursor-pointer {
   cursor: pointer;
 }
+
 .lmp-dn {
   display: none;
 }
+
 .lmp-mb10 {
   margin-bottom: 10px;
 }
@@ -45,10 +48,10 @@
 
 .lmp-search-input {
   width: 120px;
-    height: 28px;
+  height: 28px;
   padding: 2px;
   border-radius: 2px;
-    border: 1px solid #242424;
+  border: 1px solid #242424;
 }
 
 .lmp-search-icon,
@@ -89,6 +92,7 @@
 .lmp-sheet-header {
   margin-top: 10px;
 }
+
 .lmp-sheet-body {
   position: absolute;
   left: 30px;
@@ -97,10 +101,12 @@
   bottom: 30px;
   overflow: auto;
 }
+
 .lmp-sheet-default {
   opacity: 0;
   pointer-events: none;
 }
+
 .lmp-sheet-detail,
 .lmp-detail-name {
   margin-bottom: 10px;
@@ -110,6 +116,7 @@
   height: 100%;
   overflow-y: auto;
 }
+
 .lmp-singer-list {
   display: flex;
   flex-wrap: wrap;
@@ -117,9 +124,14 @@
   margin-bottom: 10px;
 }
 
+.lmp-singer-row {
+  border-top: 1px solid #e4e4e4;
+}
+
 .lmp-song {
   height: 100%;
 }
+
 .lmp-song-header,
 .lmp-sheet-header {
   display: flex;
@@ -132,24 +144,29 @@
   align-items: center;
   height: 70px;
 }
+
 .lmp-song-status {
   width: 40px;
   text-align: center;
 }
+
 .lmp-song-name,
 .lmp-sheet-name {
   width: 300px;
   padding-right: 10px;
 }
+
 .lmp-song-singer {
   width: 250px;
   padding-right: 10px;
 }
+
 .lmp-song-operate,
 .lmp-sheet-operate {
   display: flex;
   gap: 20px;
 }
+
 .lmp-sheet-drag:hover,
 .lmp-sheet-dele:hover,
 .lmp-sheet-edit:hover,
@@ -194,19 +211,23 @@
 .lmp-song-list {
   height: calc(100% - 45px);
 }
+
 .lmp-song-num.active {
   background-color: #000;
   color: #fff;
   cursor: not-allowed;
 }
+
 .lmp-song-tbody {
   margin: 10px 0 20px 0;
 }
+
 .lmp-song-tbody.lmp-music-body {
   overflow-y: auto;
   margin-bottom: 10px;
   height: calc(100% - 70px);
 }
+
 .lmp-footer {
   color: #fff;
   gap: 30px;
@@ -227,6 +248,7 @@
 .lmp-player-add {
   opacity: 0.7;
 }
+
 .lmp-player-pre:hover,
 .lmp-player-play:hover,
 .lmp-player-next:hover,
@@ -239,6 +261,7 @@
 .lmp-player-msg {
   width: 600px;
 }
+
 .lmp-player-song {
   font-size: 20px;
   overflow: hidden;
@@ -261,6 +284,7 @@
   background-color: #e4e4e4;
   border-radius: 6px;
 }
+
 .lmp-player-playing {
   position: absolute;
   left: 0;
@@ -269,15 +293,18 @@
   border-radius: 6px;
   background-color: #e0420d;
 }
+
 .lmp-player-operate {
   gap: 20px;
 }
+
 .lmp-player-pop {
   position: relative;
   width: 1px;
   height: 28px;
   color: #24292e;
 }
+
 .lmp-pop-list {
   overflow-y: auto;
   position: absolute;
@@ -308,6 +335,7 @@
   gap: 20px;
   padding-top: 20px;
 }
+
 .lmp-err-msg {
   color: red;
   padding-left: 70px;
@@ -343,6 +371,7 @@
 .lmp-pop-header {
   height: 70px;
 }
+
 .lmp-pop-count {
   display: flex;
   font-size: 20px;

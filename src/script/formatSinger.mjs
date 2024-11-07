@@ -32,7 +32,7 @@ const formatSingersData = () => {
   for (let index = 0; index < len; index++) {
     const { singerId, singerName } = fileArr[index];
     let tempObj = { singerId, singerName };
-    const py = pinyin(singerName, { pattern: "first", type: "array" });
+    const py = pinyin(singerName, { toneType: 'none', pattern: "first", type: "array" });
     const firstLetter = py[0].toLowerCase();
     let target = sortObj[firstLetter];
     if (target) {
@@ -46,7 +46,9 @@ const formatSingersData = () => {
   console.log("所有歌手重新整理完成");
 };
 
-// getSingersData();
+// const py = pinyin('阿杜', { toneType: 'none', pattern: "first", type: "array" });
+// console.log(py)
+
 // formatSingersData();
 
 export { formatSingersData }
