@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 import { createSingerAllSong } from './generateSingerSong.mjs';
 import { formatSingersData } from './formatSinger.mjs';
 
-const targetSingerId = 71;
-const targetSingerName = '李玉刚';
-const startNum = 482;
+const targetSingerId = 77;
+const targetSingerName = '马良';
+const startNum = 499;
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url);
