@@ -306,5 +306,29 @@
   {
     "singerId": 77,
     "singerName": "马良"
+  },
+  {
+    "singerId": 78,
+    "singerName": "齐秦"
+  },
+  {
+    "singerId": 79,
+    "singerName": "沙宝亮"
+  },
+  {
+    "singerId": 80,
+    "singerName": "宋冬野"
+  },
+  {
+    "singerId": 81,
+    "singerName": "谭咏麟"
+  },
+  {
+    "singerId": 82,
+    "singerName": "魏晨"
+  },
+  {
+    "singerId": 83,
+    "singerName": "伍佰"
   }
 ]
