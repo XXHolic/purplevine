@@ -13,4 +13,4 @@
 
 每次的工作量完成后，对所有的歌曲文件要进行分页 json 切分，步骤为：
 1. 先执行 `node songPath.mjs` 。
-2. 再执行 `node separateSong.js` 。
+2. 再执行 `node separateSong.mjs` 。
