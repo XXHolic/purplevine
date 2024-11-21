@@ -406,5 +406,41 @@
   {
     "singerId": 102,
     "singerName": "hush！"
+  },
+  {
+    "singerId": 103,
+    "singerName": "莫文蔚"
+  },
+  {
+    "singerId": 104,
+    "singerName": "任然"
+  },
+  {
+    "singerId": 105,
+    "singerName": "容祖儿"
+  },
+  {
+    "singerId": 106,
+    "singerName": "孙燕姿"
+  },
+  {
+    "singerId": 107,
+    "singerName": "王贰浪"
+  },
+  {
+    "singerId": 108,
+    "singerName": "许慧欣"
+  },
+  {
+    "singerId": 109,
+    "singerName": "杨丞琳"
+  },
+  {
+    "singerId": 110,
+    "singerName": "张碧晨"
+  },
+  {
+    "singerId": 111,
+    "singerName": "张叶蕾"
   }
 ]
