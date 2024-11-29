@@ -442,5 +442,73 @@
   {
     "singerId": 111,
     "singerName": "张叶蕾"
+  },
+  {
+    "singerId": 112,
+    "singerName": "CHVRCHES"
+  },
+  {
+    "singerId": 113,
+    "singerName": "Freya Ridings"
+  },
+  {
+    "singerId": 114,
+    "singerName": "Imagine Dragons"
+  },
+  {
+    "singerId": 115,
+    "singerName": "Low Roar"
+  },
+  {
+    "singerId": 116,
+    "singerName": "Ludvig Forssell"
+  },
+  {
+    "singerId": 117,
+    "singerName": "Mako"
+  },
+  {
+    "singerId": 118,
+    "singerName": "Stromae"
+  },
+  {
+    "singerId": 119,
+    "singerName": "程响"
+  },
+  {
+    "singerId": 120,
+    "singerName": "单依纯"
+  },
+  {
+    "singerId": 121,
+    "singerName": "郭采洁"
+  },
+  {
+    "singerId": 122,
+    "singerName": "韩红"
+  },
+  {
+    "singerId": 123,
+    "singerName": "刘若英"
+  },
+  {
+    "singerId": 124,
+    "singerName": "谭维维"
+  },
+  {
+    "singerId": 125,
+    "singerName": "萧亚轩"
+  },
+  {
+    "singerId": 126,
+    "singerName": "郁可唯"
+  },
+  {
+    "singerId": 127,
+    "singerName": "张惠妹"
+  },
+  {
+    "singerId": 128,
+    "singerName": "张芸京"
   }
 ]
