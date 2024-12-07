@@ -12,8 +12,8 @@ const api = {
   singerMusic: "/api/singer/music",
   collect: "/api/collect",
   music: "/api/music",
-  musicCollect: "/api/music/collect",
-  song: "/api/song",
+  pure: "/api/pure",
+  song: "/api/song", // 获取播放的歌曲
   current: "/api/current",
   currentAdd: "/api/current/add",
   currentSort: "/api/current/sort",
@@ -21,4 +21,4 @@ const api = {
   currentMove: "/api/current/move",
 };
 
-export {api}
+export { api }

@@ -24,6 +24,7 @@
         <div class="lmp-menu-item lmp-menu-active" data-type="sheet">歌单</div>
         <div class="lmp-menu-item" data-type="singer">歌手</div>
         <div class="lmp-menu-item" data-type="song">歌曲</div>
+        <div class="lmp-menu-item" data-type="pure">纯乐</div>
       </div>
       <div class="lmp-body-right">
         <!-- 歌单列表 -->
@@ -93,6 +94,22 @@
             </div>
           </div>
         </div>
+        <!-- 纯乐 -->
+        <div class="lmp-pure lmp-dn">
+          <div class="lmp-header-search" id="pureSearch"></div>
+          <div class="lmp-song-list">
+            <div class="lmp-song-header">
+              <div class="lmp-song-name">歌曲</div>
+              <div class="lmp-song-singer">歌手</div>
+              <div class="lmp-song-operate">操作</div>
+            </div>
+            <div class="lmp-song-tbody lmp-music-body" id="pureList"></div>
+            <div class="lmp-song-footer">
+              <div>共 <span id="pureTotal"></span> 首</div>
+              <div class="lmp-song-page" id="purePage"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="lmp-footer lmp-flex-center">
@@ -144,7 +161,8 @@
               <div>当前播放</div>
               <div class="lmp-pop-count">
                 <span id="playerTotalCount">总共 - 首</span>
-                <span class="lmp-list-clear lmp-cursor-pointer" data-type="clearAll">清空列表</span></div>
+                <span class="lmp-list-clear lmp-cursor-pointer" data-type="clearAll">清空列表</span>
+              </div>
             </div>
             <div id="playerPopBody"></div>
           </div>

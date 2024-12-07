@@ -128,7 +128,8 @@
   border-top: 1px solid #e4e4e4;
 }
 
-.lmp-song {
+.lmp-song,
+.lmp-pure {
   height: 100%;
 }
 
@@ -152,8 +153,11 @@
 
 .lmp-song-name,
 .lmp-sheet-name {
+  overflow: hidden;
   width: 300px;
   padding-right: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .lmp-song-singer {
@@ -424,4 +428,20 @@
 .lmp-song-tbody {
   overflow-y: auto;
   height: calc(100% - 160px);
+}
+
+.lmp-pure-type {
+  margin-right: 10px;
+  border: 1px solid #e4e4e4;
+  padding: 4px 16px;
+  border-radius: 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.lmp-pure-type.active,
+.lmp-pure-type:hover {
+  border-color: red;
+  color: red;
+  background-color: #fff0f0;
 }

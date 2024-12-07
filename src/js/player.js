@@ -120,7 +120,7 @@ const getCurrent = async (params) => {
           const playingStyle = isPlaying ? "inline-block" : "none";
           acc += `<div class="lmp-song-row ${rowCls}" data-preid="${dataPreId}" data-nextid="${dataNextId}" data-songid="${songId}" data-songname="${songName}" data-singername="${singerName}" data-singerid="${singerId}">
                       <div class="lmp-song-status"><i class="fa-solid fa-music fa-beat" style="display: ${playingStyle}"></i></div>
-                      <div class="lmp-song-name">${songName}</div>
+                      <div class="lmp-song-name" title="${songName}">${songName}</div>
                       <div class="lmp-song-singer">
                         <span class="lmp-song-span lmp-cursor-pointer" data-id="${singerId}" data-name="${singerName}" data-type="jump">${singerName}</span>
                       </div>

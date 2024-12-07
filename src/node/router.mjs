@@ -35,6 +35,7 @@ import {
   currentSort,
   currentDel,
 } from "./song.mjs";
+import { getPure } from "./pure.mjs";
 
 const api = {
   sheet: "/api/sheet",
@@ -50,6 +51,7 @@ const api = {
   singerMusic: "/api/singer/music",
   collect: "/api/collect",
   music: "/api/music",
+  pure: "/api/pure",
   song: "/api/song",
   current: "/api/current",
   currentAdd: "/api/current/add",
@@ -132,6 +134,10 @@ const route = (req, res) => {
     }
     case api.currentDel: {
       currentDel(req, res);
+      break;
+    }
+    case api.pure: {
+      getPure(req, res);
       break;
     }
     default: {

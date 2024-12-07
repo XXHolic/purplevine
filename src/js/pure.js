@@ -4,10 +4,65 @@ import { collectSong, getSingerSelf, singerSelfEvent } from "./singer.js";
 import { spin, info, showTrigger, addEventOnce } from "./util.js";
 import { getMusic, addCurrentPlayList } from "./player.js";
 
+const typeArr = [
+  {
+    id: 1,
+    text: '全部'
+  },
+  {
+    id: 2,
+    text: '怀旧'
+  },
+  {
+    id: 3,
+    text: '清新'
+  },
+  {
+    id: 4,
+    text: '浪漫'
+  },
+  {
+    id: 5,
+    text: '伤感'
+  },
+  {
+    id: 6,
+    text: '治愈'
+  },
+  {
+    id: 7,
+    text: '放松'
+  },
+  {
+    id: 8,
+    text: '孤独'
+  },
+  {
+    id: 9,
+    text: '感动'
+  },
+  {
+    id: 10,
+    text: '兴奋'
+  },
+  {
+    id: 11,
+    text: '快乐'
+  },
+  {
+    id: 12,
+    text: '安静'
+  },
+  {
+    id: 13,
+    text: '思念'
+  },
+];
+
 const getList = async (params) => {
   spin.show();
   try {
-    const { status, data } = await axios.post(api.music, params);
+    const { status, data } = await axios.post(api.pure, params);
     if (status === 200) {
       const { list, total, pageSize, page } = data;
       const listStr = list.reduce((acc, cur, index) => {
@@ -32,9 +87,9 @@ const getList = async (params) => {
                 </div>`;
         return acc;
       }, "");
-      const musicTotalObj = document.querySelector("#musicTotal");
-      const listObj = document.querySelector("#musicList");
-      const musicPageObj = document.querySelector("#musicPage");
+      const musicTotalObj = document.querySelector("#pureTotal");
+      const listObj = document.querySelector("#pureList");
+      const musicPageObj = document.querySelector("#purePage");
       musicTotalObj.innerHTML = total;
       listObj.innerHTML = listStr ? listStr : "暂无匹配数据";
       // 分页缓存了滚动的位置，这里重置一下
@@ -42,7 +97,7 @@ const getList = async (params) => {
         listObj.scrollTop = 0;
       }, 800)
       // 搜索只取前 100 结果，不进行分页
-      if (params.key) {
+      if (params.tag) {
         musicPageObj.innerHTML = '';
         return;
       }
@@ -62,12 +117,21 @@ const getList = async (params) => {
   }
 };
 
+const searchInit = () => {
+  const typeArrStr = typeArr.reduce((acc, cur, index) => {
+    const { id, text } = cur;
+    const rowCls = id === 1 ? "lmp-pure-type active" : "lmp-pure-type";
+    acc += `<div class="${rowCls}" data-id="${id}">${text}</div>`;
+    return acc;
+  }, "");
+  const pureSearch = document.querySelector("#pureSearch");
+  pureSearch.innerHTML = typeArrStr;
+}
+
 const eventInit = () => {
-  const listObj = document.querySelector("#musicList");
-  const musicPageObj = document.querySelector("#musicPage");
-  const songSearch = document.querySelector("#songSearch");
-  const songReset = document.querySelector("#songReset");
-  const songSearchValue = document.querySelector("#songSearchValue");
+  const listObj = document.querySelector("#pureList");
+  const musicPageObj = document.querySelector("#purePage");
+  const songSearch = document.querySelector("#pureSearch");
 
   addEventOnce(listObj, "click", (e) => {
     const ele = e.target;
@@ -114,22 +178,29 @@ const eventInit = () => {
     getList({ page });
   });
   addEventOnce(songSearch, "click", (e) => {
-    const inputValue = songSearchValue.value;
-    const key = inputValue.trim();
-    if (!key) {
-      info.show("请输入关键字");
+    const ele = e.target;
+    const tag = ele.getAttribute("data-id");
+    if (!tag) {
       return;
     }
-    getList({ key });
-  });
-  addEventOnce(songReset, "click", (e) => {
-    songSearchValue.value = "";
-    getList({ page: 1 });
+    const cls = ele.getAttribute("class");
+    if (cls.indexOf('active') > -1) {
+      return;
+    }
+    const currentTag = songSearch.querySelector('.lmp-pure-type.active');
+    currentTag.setAttribute("class", "lmp-pure-type");
+    ele.setAttribute("class", "lmp-pure-type active");
+    if (tag == 1) {
+      getList({ page: 1 });
+    } else {
+      getList({ tag });
+    }
   });
 };
 
-const songInit = () => {
-  const music = document.querySelector("#musicList");
+const pureInit = () => {
+  searchInit();
+  const music = document.querySelector("#pureList");
   if (music.hasChildNodes()) {
     return;
   }
@@ -137,4 +208,4 @@ const songInit = () => {
   eventInit();
 };
 
-export { songInit };
+export { pureInit };
