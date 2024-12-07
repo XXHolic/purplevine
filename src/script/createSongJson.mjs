@@ -4,9 +4,10 @@ import { fileURLToPath } from "node:url";
 import { createSingerAllSong } from './generateSingerSong.mjs';
 import { formatSingersData } from './formatSinger.mjs';
 
-const targetSingerId = 128;
-const targetSingerName = '张芸京';
-const startNum = 634;
+const targetSingerId = 129;
+const targetSingerName = 'Max Richter';
+const startNum = 637;
+const tags = [1]; // 纯音乐时，加入初始值 1，其它默认空数组
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url);
@@ -56,7 +57,7 @@ const createData = (start) => {
   for (let index = 0; index < len; index++) {
     const pathStr = fileArr[index];
     const songId = start + index;
-    const objDemo = { songId: songId, songName: "", singerId: targetSingerId, singerName: targetSingerName, playCount: 0, type: "flac", src: "", lrc: "" };
+    const objDemo = { songId: songId, songName: "", singerId: targetSingerId, singerName: targetSingerName, playCount: 0, type: "flac", src: "", lrc: "", tags: tags };
     const fileName = basename(pathStr);
     const splitArr = fileName.split('.');
     const name = splitArr[0], type = splitArr[1];
@@ -74,12 +75,14 @@ const createData = (start) => {
         console.log('音乐文件重命名失败');
       }
     });
-    rename(oldLrcPathName, newLrcPathName, (err) => {
-      if (err) {
-        console.log(err);
-        console.log('歌词文件重命名失败')
-      }
-    });
+    if (existsSync(oldLrcPathName)) {
+      rename(oldLrcPathName, newLrcPathName, (err) => {
+        if (err) {
+          console.log(err);
+          console.log('歌词文件重命名失败')
+        }
+      });
+    }
     const foldPath = `../localdatajson/${targetSingerId}`;
     if (!existsSync(foldPath)) {
       mkdirSync(foldPath);
