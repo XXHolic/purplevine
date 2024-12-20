@@ -4,10 +4,10 @@ import { fileURLToPath } from "node:url";
 import { createSingerAllSong } from './generateSingerSong.mjs';
 import { formatSingersData } from './formatSinger.mjs';
 
-const targetSingerId = 129;
-const targetSingerName = 'Max Richter';
-const startNum = 637;
-const tags = [1]; // 纯音乐时，加入初始值 1，其它默认空数组
+const targetSingerId = 149;
+const targetSingerName = '江语晨';
+const startNum = 685;
+const tags = []; // 纯音乐时，加入初始值 1，其它默认空数组
 
 // 这个是针对 pm2 启动时无法找到路径的问题
 const fileName = fileURLToPath(import.meta.url);
