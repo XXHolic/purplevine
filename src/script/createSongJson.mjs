@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 import { createSingerAllSong } from './generateSingerSong.mjs';
 import { formatSingersData } from './formatSinger.mjs';
 
-const targetSingerId = 215;
-const targetSingerName = "Avicii";
-const startNum = 820;
+const targetSingerId = 241;
+const targetSingerName = "Vicetone";
+const startNum = 892;
 const tags = []; // 纯音乐时，加入初始值 1，其它默认空数组
 
 // 这个是针对 pm2 启动时无法找到路径的问题

@@ -858,5 +858,109 @@
   {
     "singerId": 215,
     "singerName": "Avicii"
+  },
+  {
+    "singerId": 216,
+    "singerName": "Adele"
+  },
+  {
+    "singerId": 217,
+    "singerName": "Alan Walker"
+  },
+  {
+    "singerId": 218,
+    "singerName": "ANU"
+  },
+  {
+    "singerId": 219,
+    "singerName": "Bruno Mars"
+  },
+  {
+    "singerId": 220,
+    "singerName": "Eminem"
+  },
+  {
+    "singerId": 221,
+    "singerName": "Carpetman"
+  },
+  {
+    "singerId": 222,
+    "singerName": "Charlie Puth"
+  },
+  {
+    "singerId": 223,
+    "singerName": "Coldplay"
+  },
+  {
+    "singerId": 224,
+    "singerName": "Ed Sheeran"
+  },
+  {
+    "singerId": 225,
+    "singerName": "GALA"
+  },
+  {
+    "singerId": 226,
+    "singerName": "JORDANN"
+  },
+  {
+    "singerId": 227,
+    "singerName": "JVKE"
+  },
+  {
+    "singerId": 228,
+    "singerName": "Kelly Clarkson"
+  },
+  {
+    "singerId": 229,
+    "singerName": "Lady Gaga"
+  },
+  {
+    "singerId": 230,
+    "singerName": "Lana Del Rey"
+  },
+  {
+    "singerId": 231,
+    "singerName": "Maroon 5"
+  },
+  {
+    "singerId": 232,
+    "singerName": "Martin Garrix"
+  },
+  {
+    "singerId": 233,
+    "singerName": "Max Oazo"
+  },
+  {
+    "singerId": 234,
+    "singerName": "Michael Jackson"
+  },
+  {
+    "singerId": 235,
+    "singerName": "OneRepublic"
+  },
+  {
+    "singerId": 236,
+    "singerName": "Shawn Mendes"
+  },
+  {
+    "singerId": 237,
+    "singerName": "Soler"
+  },
+  {
+    "singerId": 238,
+    "singerName": "Taylor Swift"
+  },
+  {
+    "singerId": 239,
+    "singerName": "Troye Sivan"
+  },
+  {
+    "singerId": 240,
+    "singerName": "Twins"
+  },
+  {
+    "singerId": 241,
+    "singerName": "Vicetone"
   }
 ]
